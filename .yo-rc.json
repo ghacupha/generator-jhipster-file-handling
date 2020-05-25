@@ -1,0 +1,10 @@
+{
+  "generator-jhipster-module": {
+    "promptValues": {
+      "githubName": "ghacupha",
+      "authorName": "Edwin Njeru",
+      "authorEmail": "mailnjeru@gmail.com",
+      "authorUrl": "https://github.com/ghacupha"
+    }
+  }
+}

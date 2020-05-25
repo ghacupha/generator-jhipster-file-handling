@@ -1,0 +1,71 @@
+{
+  "name": "generator-jhipster-file-handling",
+  "version": "0.0.1",
+  "description": "File handling java api for uploading and reading data from a file",
+  "keywords": [
+    "yeoman-generator",
+    "jhipster-module",
+    "jhipster-6"
+  ],
+  "homepage": "https://github.com/ghacupha/generator-jhipster-file-handling",
+  "author": {
+    "name": "Edwin Njeru",
+    "email": "mailnjeru@gmail.com",
+    "url": "https://github.com/ghacupha"
+  },
+  "files": [
+    "generators"
+  ],
+  "main": "generators/app/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghacupha/generator-jhipster-file-handling.git"
+  },
+  "dependencies": {
+    "chalk": "3.0.0",
+    "generator-jhipster": ">=6.0.0",
+    "mkdirp": "0.5.1",
+    "semver": "7.1.1",
+    "shelljs": "0.8.3",
+    "yeoman-generator": "4.4.0"
+  },
+  "devDependencies": {
+    "eslint": "6.8.0",
+    "eslint-config-airbnb-base": "14.0.0",
+    "eslint-config-prettier": "6.9.0",
+    "eslint-plugin-import": "2.19.1",
+    "eslint-plugin-prettier": "3.1.2",
+    "fs-extra": "8.1.0",
+    "husky": "3.1.0",
+    "lint-staged": "9.5.0",
+    "mocha": "6.2.2",
+    "prettier": "1.19.1",
+    "yeoman-assert": "3.1.1",
+    "yeoman-test": "2.0.0"
+  },
+  "scripts": {
+    "prettier:format": "prettier --write \"{,**/}*.{js,json,md,yml}\"",
+    "pretest": "eslint .",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
+    "release": "git push && git push --tags && npm publish",
+    "release:patch": "npm version patch -a -m \"Update to %s\" && npm run release",
+    "release:minor": "npm version minor -a -m \"Update to %s\" && npm run release",
+    "release:major": "npm version major -a -m \"Update to %s\" && npm run release",
+    "test": "mocha test"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,yml,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/ghacupha/generator-jhipster-file-handling/issues"
+  }
+}
