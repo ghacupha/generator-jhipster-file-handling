@@ -37,6 +37,12 @@ module.exports = class extends BaseGenerator {
                         `\nYour generated project used an old JHipster version (${currentJhipsterVersion})... you need at least (${minimumJhipsterVersion})\n`
                     );
                 }
+            },
+            checkDbType() {
+                const currentDatabaseType = this.jhipsterAppConfig.databaseType;
+                if (!currentDatabaseType === 'sql') {
+                    this.warning('\nYour generated project does not use sql database, this generator is designed for sql databases\n');
+                }
             }
         };
     }
