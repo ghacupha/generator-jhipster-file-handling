@@ -1,2 +1,0 @@
-hello file-handling!
-It's dummy.txt

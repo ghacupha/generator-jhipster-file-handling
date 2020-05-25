@@ -25,9 +25,7 @@ module.exports = class extends BaseGenerator {
                 this.printJHipsterLogo();
 
                 // Have Yeoman greet the user.
-                this.log(
-                    `\nWelcome to the ${chalk.bold.yellow('JHipster file-handling')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`
-                );
+                this.log(`\nWelcome to the ${chalk.bold.yellow('JHipster file-handling')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
             },
             checkJhipster() {
                 const currentJhipsterVersion = this.jhipsterAppConfig.jhipsterVersion;
@@ -108,18 +106,15 @@ module.exports = class extends BaseGenerator {
         this.log(`message=${this.message}`);
         this.log('------\n');
 
-        if (this.clientFramework === 'react') {
-            this.template('dummy.txt', 'dummy-react.txt');
-        }
-        if (this.clientFramework === 'angularX') {
-            this.template('dummy.txt', 'dummy-angularX.txt');
-        }
-        if (this.buildTool === 'maven') {
-            this.template('dummy.txt', 'dummy-maven.txt');
-        }
-        if (this.buildTool === 'gradle') {
-            this.template('dummy.txt', 'dummy-gradle.txt');
-        }
+        this.template = function(source, destination) {
+            this.fs.copyTpl(this.templatePath(source), this.destinationPath(destination), this);
+        };
+
+        // add Java classes
+        this.template('src/main/java/package/domain/enumeration/_FileMediumTypes.java', `${javaDir}domain/enumeration/FileMediumTypes.java`);
+        this.template('src/main/java/package/domain/enumeration/_FileModelType.java', `${javaDir}domain/enumeration/FileModelType.java`);
+        this.template('src/main/java/package/domain/_FileType.java', `${javaDir}domain/FileType.java`);
+        this.template('src/main/java/package/domain/_FileUpload.java', `${javaDir}domain/FileUpload.java`);
     }
 
     install() {
