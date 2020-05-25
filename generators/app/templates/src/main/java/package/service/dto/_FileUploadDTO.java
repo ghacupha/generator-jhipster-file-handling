@@ -1,8 +1,9 @@
-package io.github.files;
+package <%= packageName %>.service.dto;
 
 import java.time.LocalDate;
 import java.io.Serializable;
 import javax.persistence.Lob;
+import <%= packageName%>.domain.FileUpload;
 import javax.validation.constraints.NotNull;
 
 /**

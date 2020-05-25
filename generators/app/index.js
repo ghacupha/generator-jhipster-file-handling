@@ -73,11 +73,15 @@ module.exports = class extends BaseGenerator {
         this.clientPackageManager = this.jhipsterAppConfig.clientPackageManager;
         this.buildTool = this.jhipsterAppConfig.buildTool;
 
+        // Get the application name for use with main class
+        this.appName = this.baseName.charAt(0).toUpperCase() + this.baseName.slice(1);
+
         // use function in generator-base.js from generator-jhipster
         this.angularAppName = this.getAngularAppName();
 
         // use constants from generator-constants.js
         const javaDir = `${jhipsterConstants.SERVER_MAIN_SRC_DIR + this.packageFolder}/`;
+        const javaTestDir = `${jhipsterConstants.SERVER_TEST_SRC_DIR + this.packageFolder}/`;
         const resourceDir = jhipsterConstants.SERVER_MAIN_RES_DIR;
         const webappDir = jhipsterConstants.CLIENT_MAIN_SRC_DIR;
 
@@ -115,6 +119,36 @@ module.exports = class extends BaseGenerator {
         this.template('src/main/java/package/domain/enumeration/_FileModelType.java', `${javaDir}domain/enumeration/FileModelType.java`);
         this.template('src/main/java/package/domain/_FileType.java', `${javaDir}domain/FileType.java`);
         this.template('src/main/java/package/domain/_FileUpload.java', `${javaDir}domain/FileUpload.java`);
+
+        // add repository items
+        this.template('src/main/java/package/repository/_FileTypeRepository.java', `${javaDir}repository/FileTypeRepository.java`);
+        this.template('src/main/java/package/repository/_FileUploadRepository.java', `${javaDir}repository/FileUploadRepository.java`);
+
+        // add services
+        this.template('src/main/java/package/service/_FileTypeQueryService.java', `${javaDir}service/FileTypeQueryService.java`);
+        this.template('src/main/java/package/service/_FileTypeService.java', `${javaDir}service/FileTypeService.java`);
+        this.template('src/main/java/package/service/_FileUploadQueryService.java', `${javaDir}service/FileUploadQueryService.java`);
+        this.template('src/main/java/package/service/_FileUploadService.java', `${javaDir}service/FileUploadService.java`);
+
+        // add data transfer objects
+        this.template('src/main/java/package/service/dto/_FileUploadDTO.java', `${javaDir}service/dto/FileUploadDTO.java`);
+        this.template('src/main/java/package/service/dto/_FileUploadCriteria.java', `${javaDir}service/dto/FileUploadCriteria.java`);
+        this.template('src/main/java/package/service/dto/_FileTypeCriteria.java', `${javaDir}service/dto/FileTypeCriteria.java`);
+
+        this.template('src/main/java/package/service/impl/_FileUploadServiceImpl.java', `${javaDir}service/impl/FileUploadServiceImpl.java`);
+        this.template('src/main/java/package/service/mapper/_FileUploadMapper.java', `${javaDir}service/mapper/FileUploadMapper.java`);
+
+        // add resource
+        this.template('src/main/java/package/web/rest/_FileUploadResource.java', `${javaDir}web/rest/FileUploadResource.java`);
+        this.template('src/main/java/package/web/rest/_FileTypeResource.java', `${javaDir}web/rest/FileTypeResource.java`);
+
+        // Add test code
+        this.template('src/test/java/package/domain/_FileTypeTest.java', `${javaTestDir}domain/FileTypeTest.java`);
+        this.template('src/test/java/package/domain/_FileUploadTest.java', `${javaTestDir}domain/FileUploadTest.java`);
+        this.template('src/test/java/package/service/dto/_FileUploadDTOTest.java', `${javaTestDir}service/dto/FileUploadDTOTest.java`);
+        this.template('src/test/java/package/service/mapper/_FileUploadMapperTest.java', `${javaTestDir}service/mapper/FileUploadMapperTest.java`);
+        this.template('src/test/java/package/web/rest/_FileUploadResourceIT.java', `${javaTestDir}web/rest/FileUploadResourceIT.java`);
+        this.template('src/test/java/package/web/rest/_FileTypeResourceIT.java', `${javaTestDir}web/rest/FileTypeResourceIT.java`);
     }
 
     install() {

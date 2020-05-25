@@ -1,7 +1,10 @@
-package io.github.files;
+package <%= packageName %>.service;
 
 import java.util.List;
 
+import <%= packageName %>.domain.*;
+import <%= packageName %>.repository.FileTypeRepository;
+import <%= packageName %>.service.dto.FileTypeCriteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

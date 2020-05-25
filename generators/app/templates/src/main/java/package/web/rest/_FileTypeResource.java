@@ -1,4 +1,4 @@
-package io.github.files;
+package <%= packageName %>.web.rest;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -19,6 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
+
+import <%= packageName %>.domain.FileType;
+import <%= packageName %>.service.dto.FileTypeCriteria;
+import <%= packageName %>.service.FileTypeService;
+import <%= packageName %>.service.FileTypeQueryService;
+import <%= packageName %>.web.rest.errors.BadRequestAlertException;
 
 import javax.validation.Valid;
 import java.net.URI;

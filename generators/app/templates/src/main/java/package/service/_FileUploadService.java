@@ -1,5 +1,7 @@
-package io.github.files;
+package <%= packageName %>.service;
 
+import <%= packageName %>.domain.FileUpload;
+import <%= packageName %>.service.dto.FileUploadDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

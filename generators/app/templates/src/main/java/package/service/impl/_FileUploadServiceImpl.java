@@ -1,4 +1,4 @@
-package io.github.files;
+package <%= packageName %>.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,6 +7,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import <%= packageName %>.domain.FileUpload;
+import <%= packageName %>.service.mapper.FileUploadMapper;
+import <%= packageName %>.service.FileUploadService;
+import <%= packageName %>.service.dto.FileUploadDTO;
+import <%= packageName %>.repository.FileUploadRepository;
 
 import java.util.Optional;
 

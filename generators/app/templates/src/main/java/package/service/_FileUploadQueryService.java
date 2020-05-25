@@ -1,7 +1,12 @@
-package io.github.files;
+package <%= packageName %>.service;
 
 import java.util.List;
 
+import <%= packageName %>.domain.*;
+import <%= packageName %>.service.dto.FileUploadCriteria;
+import <%= packageName %>.repository.FileUploadRepository;
+import <%= packageName %>.service.dto.FileUploadDTO;
+import <%= packageName %>.service.mapper.FileUploadMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
