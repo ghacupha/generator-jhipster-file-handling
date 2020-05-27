@@ -10,7 +10,7 @@ module.exports = class extends BaseGenerator {
             init(args) {
                 if (args === 'default') {
                     // do something when argument is 'default'
-                    this.message = 'default message';
+                    this.createClientCode = 'default message';
                 }
             },
             readConfig() {
@@ -48,11 +48,11 @@ module.exports = class extends BaseGenerator {
     prompting() {
         const prompts = [
             {
-                when: () => typeof this.message === 'undefined',
+                when: () => typeof this.createClientCode === 'undefined',
                 type: 'input',
-                name: 'message',
-                message: 'Please put something',
-                default: 'hello world!'
+                name: 'Do you want to create client code? (y/n)',
+                createClientCode: 'Do you want to create client code? (y/n)',
+                default: 'n'
             }
         ];
 
@@ -86,8 +86,8 @@ module.exports = class extends BaseGenerator {
         const webappDir = jhipsterConstants.CLIENT_MAIN_SRC_DIR;
 
         // variable from questions
-        if (typeof this.message === 'undefined') {
-            this.message = this.promptAnswers.message;
+        if (typeof this.createClientCode === 'undefined') {
+            this.createClientCode = this.promptAnswers.createClientCode;
         }
 
         // show all variables
@@ -168,6 +168,25 @@ module.exports = class extends BaseGenerator {
         );
         this.addChangelogToLiquibase(`${this.changelogDate}_added_entity_FileUpload`);
         this.addChangelogToLiquibase(`${this.changelogDate}_added_entity_FileType`);
+
+        if (this.createClientCode === 'y') {
+            if (this.clientFramework === 'angularX') {
+                this._install_client_code(webappDir);
+            }
+        }
+    }
+
+    _install_client_code(webappDir) {
+        this.template('src/main/webapp/scripts/app/fortune/_fortune.controller.js', `${webappDir}app/fortune/fortune.controller.js`);
+        this.template('src/main/webapp/scripts/app/fortune/_fortune.html', `${webappDir}app/fortune/fortune.html`);
+        this.template('src/main/webapp/scripts/app/fortune/_fortune.js', `${webappDir}app/fortune/fortune.js`);
+        this.template('src/main/webapp/scripts/app/fortune/_fortune.service.js', `${webappDir}app/fortune//fortune.service.js`);
+        this.addElementToMenu('fortune', 'sunglasses', true, this.clientFramework);
+        this.addElementTranslationKey('fortune', 'Fortune', 'en');
+        this.addElementTranslationKey('fortune', 'Fortune', 'fr');
+
+        this.template('src/main/webapp/i18n/en/fortune.json', `${webappDir}i18n/en/fortune.json`);
+        this.template('src/main/webapp/i18n/fr/fortune.json', `${webappDir}i18n/fr/fortune.json`);
     }
 
     _install_dependencies() {
