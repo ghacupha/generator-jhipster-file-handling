@@ -39,7 +39,7 @@ module.exports = class extends BaseGenerator {
             checkDbType() {
                 const currentDatabaseType = this.jhipsterAppConfig.databaseType;
                 if (!currentDatabaseType === 'sql') {
-                    this.warning('\nYour generated project does not use sql database, this generator is designed for sql databases\n');
+                    this.env.error('\nYour generated project does not use sql database, this generator is designed for sql databases\n');
                 }
             }
         };
@@ -110,9 +110,12 @@ module.exports = class extends BaseGenerator {
         this.log(`message=${this.message}`);
         this.log('------\n');
 
+        // utility function to write templates
         this.template = function(source, destination) {
             this.fs.copyTpl(this.templatePath(source), this.destinationPath(destination), this);
         };
+
+        this._install_dependencies();
 
         // add Java classes
         this.template('src/main/java/package/domain/enumeration/_FileMediumTypes.java', `${javaDir}domain/enumeration/FileMediumTypes.java`);
@@ -149,9 +152,55 @@ module.exports = class extends BaseGenerator {
         this.template('src/test/java/package/service/mapper/_FileUploadMapperTest.java', `${javaTestDir}service/mapper/FileUploadMapperTest.java`);
         this.template('src/test/java/package/web/rest/_FileUploadResourceIT.java', `${javaTestDir}web/rest/FileUploadResourceIT.java`);
         this.template('src/test/java/package/web/rest/_FileTypeResourceIT.java', `${javaTestDir}web/rest/FileTypeResourceIT.java`);
+
+        // Add liquibase resources
+        this.template('src/main/resources/config/liquibase/fake-data/_file_type.csv', `${resourceDir}config/liquibase/fake-data/file_type.csv`);
+        this.template('src/main/resources/config/liquibase/fake-data/_file_upload.csv', `${resourceDir}config/liquibase/fake-data/file_upload.csv`);
+        this.template('src/main/resources/config/liquibase/fake-data/blob/hipster.png', `${resourceDir}config/liquibase/fake-data/blob/hipster.png`);
+        this.changelogDate = this.dateFormatForLiquibase();
+        this.template(
+            'src/main/resources/config/liquibase/changelog/_added_entity_FileUpload.xml',
+            `${resourceDir}config/liquibase/changelog/${this.changelogDate}_added_entity_FileUpload.xml`
+        );
+        this.template(
+            'src/main/resources/config/liquibase/changelog/_added_entity_FileType.xml',
+            `${resourceDir}config/liquibase/changelog/${this.changelogDate}_added_entity_FileType.xml`
+        );
+        this.addChangelogToLiquibase(`${this.changelogDate}_added_entity_FileUpload`);
+        this.addChangelogToLiquibase(`${this.changelogDate}_added_entity_FileType`);
     }
 
-    install() {
+    _install_dependencies() {
+        const OZLERHAKAN_POIJI_VERSION = '1.20.0';
+        const OZLERHAKAN_POIJI_VERSION_PROPERTY = '${poiji.version}';
+        const LOMBOK_VERSION = '1.18.6';
+        const LOMBOK_VERSION_PROPERTY = '${lombok.version}';
+
+        if (this.buildTool === 'maven') {
+            if (typeof this.addMavenDependencyManagement === 'function') {
+                this.addMavenDependency('com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION_PROPERTY);
+                this.addMavenDependency('org.projectlombok', 'lombok', LOMBOK_VERSION_PROPERTY);
+            } else {
+                this.addMavenDependency('com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION_PROPERTY);
+                this.addMavenDependency('org.projectlombok', 'lombok', LOMBOK_VERSION_PROPERTY);
+            }
+            this.addMavenAnnotationProcessor('org.projectlombok', 'lombok', LOMBOK_VERSION_PROPERTY);
+            this.addMavenProperty('lombok.version', LOMBOK_VERSION);
+            this.addMavenProperty('poiji.version', OZLERHAKAN_POIJI_VERSION);
+        } else if (this.buildTool === 'gradle') {
+            if (typeof this.addGradleDependencyManagement === 'function') {
+                this.addGradleDependency('compile', 'com.github.ozlerhakan', 'poiji');
+                this.addGradleDependency('compile', 'org.projectlombok', 'lombok');
+            } else {
+                this.addGradleDependency('compile', 'com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION_PROPERTY);
+                this.addGradleDependency('compile', 'org.projectlombok', 'lombok', LOMBOK_VERSION_PROPERTY);
+            }
+            this.addAnnotationProcessor('org.projectlombok', 'lombok', LOMBOK_VERSION);
+            this.addGradleProperty('poiji.version', OZLERHAKAN_POIJI_VERSION);
+        }
+    }
+
+    /*install() {
         const logMsg = `To install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install`)}`;
 
         const injectDependenciesAndConstants = err => {
@@ -171,9 +220,9 @@ module.exports = class extends BaseGenerator {
         } else {
             this.installDependencies(installConfig);
         }
-    }
+    }*/
 
     end() {
-        this.log('End of file-handling generator');
+        this.log('Done; File handling entities and code installed');
     }
 };
