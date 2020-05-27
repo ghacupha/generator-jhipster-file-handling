@@ -50,7 +50,7 @@ module.exports = class extends BaseGenerator {
             {
                 when: () => typeof this.createClientCode === 'undefined',
                 type: 'input',
-                name: 'Do you want to create client code? (y/n)',
+                name: 'createClientCode',
                 createClientCode: 'Do you want to create client code? (y/n)',
                 default: 'n'
             }
