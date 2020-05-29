@@ -1,0 +1,34 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileUpload": {
+      "home": {
+        "title": "File Uploads",
+        "createLabel": "కొత్త File Upload  సృష్టించండి",
+        "createOrEditLabel": "File Upload సృష్టించండి లేదా సవరించండి",
+        "notFound": "No File Uploads found"
+      },
+      "delete": {
+        "question": "మీరు File Upload {{ id }} ఖచ్చితంగా తొలగించాలనుకుంటున్నారా?"
+      },
+      "detail": {
+        "title": "File Upload"
+      },
+      "description": "Description",
+      "fileName": "File Name",
+      "periodFrom": "Period From",
+      "periodTo": "Period To",
+      "fileTypeId": "File Type Id",
+      "dataFile": "Data File",
+      "uploadSuccessful": "Upload Successful",
+      "uploadProcessed": "Upload Processed",
+      "uploadToken": "Upload Token"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileUpload": {
+      "created": "{{ param }} ఐడీ తో ఒక కొత్త File Upload సృష్టించబడినది",
+      "updated": "{{ param }} ఐడీ తో ఒక కొత్త File Upload సవరించబడినది",
+      "deleted": "{{ param }} ఐడీ తో ఒక కొత్త File Upload తొలగించబడినది"
+    }
+  }
+}

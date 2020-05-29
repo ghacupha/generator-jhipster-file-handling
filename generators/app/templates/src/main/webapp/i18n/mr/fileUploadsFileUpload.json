@@ -1,0 +1,34 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileUpload": {
+      "home": {
+        "title": "File Uploads",
+        "createLabel": "नवीन File Upload तयार करा",
+        "createOrEditLabel": "File Upload तयार किंवा संपादित करा",
+        "notFound": "No File Uploads found"
+      },
+      "delete": {
+        "question": "File Upload [id: {{ id }}] काढून टाकण्याबाबत पुष्टी?"
+      },
+      "detail": {
+        "title": "File Upload"
+      },
+      "description": "Description",
+      "fileName": "File Name",
+      "periodFrom": "Period From",
+      "periodTo": "Period To",
+      "fileTypeId": "File Type Id",
+      "dataFile": "Data File",
+      "uploadSuccessful": "Upload Successful",
+      "uploadProcessed": "Upload Processed",
+      "uploadToken": "Upload Token"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileUpload": {
+      "created": "File Upload [identifier: {{ param }}] तयार आहे",
+      "updated": "File Upload [identifier: {{ param }}] सुधारित केले आहे",
+      "deleted": "File Upload [identifier: {{ param }}] हटविले आहे"
+    }
+  }
+}

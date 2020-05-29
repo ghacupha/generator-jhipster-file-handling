@@ -1,0 +1,30 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileType": {
+      "home": {
+        "title": "File Types",
+        "createLabel": "Kreiraj novi File Type",
+        "createOrEditLabel": "Kreirajte ili izmenite File Type",
+        "notFound": "No File Types found"
+      },
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete File Type pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "File Type"
+      },
+      "fileTypeName": "File Type Name",
+      "fileMediumType": "File Medium Type",
+      "description": "Description",
+      "fileTemplate": "File Template",
+      "fileType": "File Type"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileType": {
+      "created": "Kreiran je novi File Type pod nazivom  {{ param }}",
+      "updated": "File Type pod nazivom {{ param }} je ažuriran",
+      "deleted": "File Type pod nazivom {{ param }} je obrisan"
+    }
+  }
+}

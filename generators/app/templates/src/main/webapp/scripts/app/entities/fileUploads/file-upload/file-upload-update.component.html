@@ -1,0 +1,131 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="gha-file-upload-heading" jhiTranslate="prepsGateApp.fileUploadsFileUpload.home.createOrEditLabel">Create or edit a File Upload</h2>
+
+            <div>
+                <gha-alert-error></gha-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="prepsGateApp.fileUploadsFileUpload.description" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                           formControlName="description"/>
+                    <div *ngIf="editForm.get('description')!.invalid && (editForm.get('description')!.dirty || editForm.get('description')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('description')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="prepsGateApp.fileUploadsFileUpload.fileName" for="field_fileName">File Name</label>
+                    <input type="text" class="form-control" name="fileName" id="field_fileName"
+                           formControlName="fileName"/>
+                    <div *ngIf="editForm.get('fileName')!.invalid && (editForm.get('fileName')!.dirty || editForm.get('fileName')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('fileName')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="prepsGateApp.fileUploadsFileUpload.periodFrom" for="field_periodFrom">Period From</label>
+                    <div class="input-group">
+                        <input id="field_periodFrom" type="text" class="form-control" name="periodFrom" ngbDatepicker #periodFromDp="ngbDatepicker" formControlName="periodFrom"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="periodFromDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="prepsGateApp.fileUploadsFileUpload.periodTo" for="field_periodTo">Period To</label>
+                    <div class="input-group">
+                        <input id="field_periodTo" type="text" class="form-control" name="periodTo" ngbDatepicker #periodToDp="ngbDatepicker" formControlName="periodTo"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="periodToDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="prepsGateApp.fileUploadsFileUpload.fileTypeId" for="field_fileTypeId">File Type Id</label>
+                    <input type="number" class="form-control" name="fileTypeId" id="field_fileTypeId"
+                           formControlName="fileTypeId"/>
+                    <div *ngIf="editForm.get('fileTypeId')!.invalid && (editForm.get('fileTypeId')!.dirty || editForm.get('fileTypeId')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('fileTypeId')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('fileTypeId')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="prepsGateApp.fileUploadsFileUpload.dataFile" for="field_dataFile">Data File</label>
+                    <div>
+                        <div *ngIf="editForm.get('dataFile')!.value" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(editForm.get('dataFileContentType')!.value, editForm.get('dataFile')!.value)" jhiTranslate="entity.action.open">open</a><br>
+                            <span class="pull-left">{{ editForm.get('dataFileContentType')!.value }}, {{ byteSize(editForm.get('dataFile')!.value) }}</span>
+                            <button type="button" (click)="editForm.patchValue({dataFile: null});editForm.patchValue({dataFileContentType: null});"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon icon="times"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_dataFile" (change)="setFileData($event, 'dataFile', false)" jhiTranslate="entity.action.addblob"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="dataFile" id="field_dataFile"
+                           formControlName="dataFile"/>
+                    <input type="hidden" class="form-control" name="dataFileContentType" id="field_dataFileContentType"
+                           formControlName="dataFileContentType" />
+                    <div *ngIf="editForm.get('dataFile')!.invalid && (editForm.get('dataFile')!.dirty || editForm.get('dataFile')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('dataFile')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="prepsGateApp.fileUploadsFileUpload.uploadSuccessful" for="field_uploadSuccessful">Upload Successful</label>
+                    <input type="checkbox" class="form-control" name="uploadSuccessful" id="field_uploadSuccessful"
+                           formControlName="uploadSuccessful"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="prepsGateApp.fileUploadsFileUpload.uploadProcessed" for="field_uploadProcessed">Upload Processed</label>
+                    <input type="checkbox" class="form-control" name="uploadProcessed" id="field_uploadProcessed"
+                           formControlName="uploadProcessed"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="prepsGateApp.fileUploadsFileUpload.uploadToken" for="field_uploadToken">Upload Token</label>
+                    <input type="text" class="form-control" name="uploadToken" id="field_uploadToken"
+                           formControlName="uploadToken"/>
+                    <div *ngIf="editForm.get('uploadToken')!.invalid && (editForm.get('uploadToken')!.dirty || editForm.get('uploadToken')!.touched)">
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+{
+  "health": {
+    "title": "Stan usług",
+    "refresh.button": "Odśwież",
+    "stacktrace": "Stos wywołań",
+    "details": {
+      "details": "Szczegóły",
+      "properties": "Właściwości",
+      "name": "Nazwa",
+      "value": "Wartość",
+      "error": "Błąd"
+    },
+    "indicator": {
+      "discoveryComposite": "Discovery Composite",
+      "refreshScope": "Obszar aktualizacji mikroserwisów",
+      "clientConfigServer": "Serwer konfiguracyjny mikroserwisów",
+      "hystrix": "Hystrix",
+      "diskSpace": "Przestrzeń dyskowa",
+      "mail": "Email",
+      "ping": "Application",
+      "elasticsearch": "Elasticsearch",
+      "db": "Baza danych"
+    },
+    "table": {
+      "service": "Nazwa usługi",
+      "status": "Status"
+    },
+    "status": {
+      "UNKNOWN": "NIEZNANY",
+      "UP": "DOSTĘPNA",
+      "DOWN": "NIEDOSTĘPNA"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileType": {
+      "home": {
+        "title": "FileTypes",
+        "createLabel": "Egy új File Type létrehozása",
+        "createOrEditLabel": "Hozzon létre, vagy módosítson File Typet",
+        "notFound": "No File Types found"
+      },
+      "delete": {
+        "question": "Biztos benne, hogy törölni szeretné az File Typet {{ id }} azonosítóval?"
+      },
+      "detail": {
+        "title": "File Type"
+      },
+      "fileTypeName": "File Type Name",
+      "fileMediumType": "File Medium Type",
+      "description": "Description",
+      "fileTemplate": "File Template",
+      "fileType": "File Type"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileType": {
+      "created": "Egy új File Type lett létrehozva {{ param }} azonosítóval",
+      "updated": "A File Type módosítva lett {{ param }} azonosítóval",
+      "deleted": "A File Type törölve lett {{ param }} azonosítóval"
+    }
+  }
+}

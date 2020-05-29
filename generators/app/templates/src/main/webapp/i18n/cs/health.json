@@ -1,0 +1,34 @@
+{
+  "health": {
+    "title": "Kontrola stavu",
+    "refresh.button": "Obnovit",
+    "stacktrace": "Stacktrace",
+    "details": {
+      "details": "Detaily",
+      "properties": "Vlastnosti",
+      "name": "Název",
+      "value": "Hodnota",
+      "error": "Chyba"
+    },
+    "indicator": {
+      "discoveryComposite": "Discovery Composite",
+      "refreshScope": "Microservice obnovovací rozsah",
+      "clientConfigServer": "Microservice konfiguračný server",
+      "hystrix": "Hystrix",
+      "diskSpace": "Diskový prostor",
+      "mail": "Email",
+      "ping": "Application",
+      "elasticsearch": "Elasticsearch",
+      "db": "Databáze"
+    },
+    "table": {
+      "service": "Název služby",
+      "status": "Stav"
+    },
+    "status": {
+      "UNKNOWN": "UNKNOWN",
+      "UP": "Spuštěno",
+      "DOWN": "Zastaveno"
+    }
+  }
+}

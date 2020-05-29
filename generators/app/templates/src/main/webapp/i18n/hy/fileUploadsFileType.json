@@ -1,0 +1,30 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileType": {
+      "home": {
+        "title": "File Types",
+        "createLabel": "Ստեղծել նոր File Type",
+        "createOrEditLabel": "Ստեղծել կամ փոփոխել File Type",
+        "notFound": "No File Types found"
+      },
+      "delete": {
+        "question": "Դուք վստահ ե՞ք, որ ցանկանում եք հեռացնել File Type {{ id }}?"
+      },
+      "detail": {
+        "title": "File Type"
+      },
+      "fileTypeName": "File Type Name",
+      "fileMediumType": "File Medium Type",
+      "description": "Description",
+      "fileTemplate": "File Template",
+      "fileType": "File Type"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileType": {
+      "created": "Նոր File Type ստեղծված է {{ param }} նունացուցիչով",
+      "updated": "File Type թարմացվաց է {{ param }} նունացուցիչով",
+      "deleted": "File Type հեռացված է {{ param }} նունացուցիչով"
+    }
+  }
+}

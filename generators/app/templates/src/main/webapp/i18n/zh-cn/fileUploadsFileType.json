@@ -1,0 +1,30 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileType": {
+      "home": {
+        "title": "File Types",
+        "createLabel": "创建新 File Type",
+        "createOrEditLabel": "创建或编辑 File Type",
+        "notFound": "No File Types found"
+      },
+      "delete": {
+        "question": "你确定要删除 File Type {{ id }} 吗？"
+      },
+      "detail": {
+        "title": "File Type"
+      },
+      "fileTypeName": "File Type Name",
+      "fileMediumType": "File Medium Type",
+      "description": "Description",
+      "fileTemplate": "File Template",
+      "fileType": "File Type"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileType": {
+      "created": "File Type {{ param }} 创建成功",
+      "updated": "File Type {{ param }} 更新成功",
+      "deleted": "File Type {{ param }} 删除成功"
+    }
+  }
+}

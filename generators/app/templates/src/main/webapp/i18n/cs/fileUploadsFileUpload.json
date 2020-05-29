@@ -1,0 +1,34 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileUpload": {
+      "home": {
+        "title": "File Uploads",
+        "createLabel": "Vytvořit File Upload",
+        "createOrEditLabel": "Vytvořit nebo upravit File Upload",
+        "notFound": "No File Uploads found"
+      },
+      "delete": {
+        "question": "Jste si jisti, že chcete smazat File Upload {{ id }}?"
+      },
+      "detail": {
+        "title": "File Upload"
+      },
+      "description": "Description",
+      "fileName": "File Name",
+      "periodFrom": "Period From",
+      "periodTo": "Period To",
+      "fileTypeId": "File Type Id",
+      "dataFile": "Data File",
+      "uploadSuccessful": "Upload Successful",
+      "uploadProcessed": "Upload Processed",
+      "uploadToken": "Upload Token"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileUpload": {
+      "created": "Byl vytvořen potomek entity File Upload s identifikátorem {{ param }}",
+      "updated": "Potomek entity File Upload s identifikátorem {{ param }} byl upravený.",
+      "deleted": "Potomek entity File Upload s identifikátorem {{ param }} bol smazaný."
+    }
+  }
+}

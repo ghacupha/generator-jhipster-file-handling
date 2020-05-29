@@ -1,0 +1,30 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileType": {
+      "home": {
+        "title": "File Types",
+        "createLabel": "Skapa en ny File Type",
+        "createOrEditLabel": "Skapa eller ändra en File Type",
+        "notFound": "No File Types found"
+      },
+      "delete": {
+        "question": "Är du säker på att du vill ta bort File Type {{ id }}?"
+      },
+      "detail": {
+        "title": "File Type"
+      },
+      "fileTypeName": "File Type Name",
+      "fileMediumType": "File Medium Type",
+      "description": "Description",
+      "fileTemplate": "File Template",
+      "fileType": "File Type"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileType": {
+      "created": "En ny File Type är skapad med id {{ param }}",
+      "updated": "En File Type är uppdaterad med id  {{ param }}",
+      "deleted": "En File Type är borttagen med id  {{ param }}"
+    }
+  }
+}

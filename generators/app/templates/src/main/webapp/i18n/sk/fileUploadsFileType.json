@@ -1,0 +1,30 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileType": {
+      "home": {
+        "title": "File Types",
+        "createLabel": "Pridať File Type",
+        "createOrEditLabel": "Pridať alebo upraviť File Type",
+        "notFound": "No File Types found"
+      },
+      "delete": {
+        "question": "Ste si istý, že chcete vymazať File Type {{ id }}?"
+      },
+      "detail": {
+        "title": "File Type"
+      },
+      "fileTypeName": "File Type Name",
+      "fileMediumType": "File Medium Type",
+      "description": "Description",
+      "fileTemplate": "File Template",
+      "fileType": "File Type"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileType": {
+      "created": "Bol vytvorený potomok entity File Type s identifikátorom {{ param }}",
+      "updated": "Potomok entity File Type s identifikátorom {{ param }} bol upravený.",
+      "deleted": "Potomok entity File Type s identifikátorom {{ param }} bol vymazaný."
+    }
+  }
+}

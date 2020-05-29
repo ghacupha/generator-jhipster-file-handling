@@ -1,0 +1,34 @@
+{
+  "health": {
+    "title": "Стан",
+    "refresh.button": "Оновити",
+    "stacktrace": "Stacktrace",
+    "details": {
+      "details": "Деталі",
+      "properties": "Параметри",
+      "name": "Ім'я",
+      "value": "Значення",
+      "error": "Помилка"
+    },
+    "indicator": {
+      "discoveryComposite": "Discovery Composite",
+      "refreshScope": "Межі оновлення мікросервіса",
+      "clientConfigServer": "Конфігураційний сервер мікросервіса",
+      "hystrix": "Hystrix",
+      "diskSpace": "Місце на диску",
+      "mail": "Електронна пошта",
+      "ping": "Application",
+      "elasticsearch": "Elasticsearch",
+      "db": "База даних"
+    },
+    "table": {
+      "service": "Назва сервісу",
+      "status": "Статус"
+    },
+    "status": {
+      "UNKNOWN": "UNKNOWN",
+      "UP": "ПРАЦЮЄ",
+      "DOWN": "НЕ ПРАЦЮЄ"
+    }
+  }
+}

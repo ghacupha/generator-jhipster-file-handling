@@ -1,0 +1,34 @@
+{
+  "health": {
+    "title": "සෞඛ්‍ය පරීක්ෂාවන්",
+    "refresh.button": "නැවුම් කරන්න",
+    "stacktrace": "ස්ටැක්ට්‍රේස්",
+    "details": {
+      "details": "විස්තර",
+      "properties": "දේපළ",
+      "name": "නම",
+      "value": "වටිනාකම",
+      "error": "දෝෂයකි"
+    },
+    "indicator": {
+      "discoveryComposite": "Discovery Composite",
+      "refreshScope": "Microservice Refresh Scope",
+      "clientConfigServer": "Microservice Config Server",
+      "hystrix": "Hystrix",
+      "diskSpace": "තැටියේ ඉඩ",
+      "mail": "විද්යුත් තැපෑල",
+      "ping": "අයදුම්පත",
+      "elasticsearch": "Elasticsearch",
+      "db": "දත්ත සමුදාය"
+    },
+    "table": {
+      "service": "සේවා නම",
+      "status": "තත්ත්වය"
+    },
+    "status": {
+      "UNKNOWN": "UNKNOWN",
+      "UP": "UP",
+      "DOWN": "DOWN"
+    }
+  }
+}

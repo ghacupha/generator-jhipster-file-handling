@@ -1,0 +1,34 @@
+{
+  "health": {
+    "title": "Verifiche",
+    "refresh.button": "Aggiorna",
+    "stacktrace": "Stacktrace",
+    "details": {
+      "details": "Dettagli",
+      "properties": "Proprietà",
+      "name": "Nome",
+      "value": "Valore",
+      "error": "Errore"
+    },
+    "indicator": {
+      "discoveryComposite": "Discovery Composite",
+      "refreshScope": "Scopo di Aggiornamento Microservice",
+      "clientConfigServer": "Server di Configurazioni Microservice",
+      "hystrix": "Hystrix",
+      "diskSpace": "Spazio su disco",
+      "mail": "Email",
+      "ping": "Application",
+      "elasticsearch": "Elasticsearch",
+      "db": "Database"
+    },
+    "table": {
+      "service": "Nome del servizio",
+      "status": "Stato"
+    },
+    "status": {
+      "UNKNOWN": "UNKNOWN",
+      "UP": "DISPONIBILE",
+      "DOWN": "NON DISPONIBILE"
+    }
+  }
+}

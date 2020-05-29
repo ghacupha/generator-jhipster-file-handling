@@ -1,0 +1,97 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="gha-file-type-heading" jhiTranslate="prepsGateApp.fileUploadsFileType.home.createOrEditLabel">Create or edit a File Type</h2>
+
+            <div>
+                <gha-alert-error></gha-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="prepsGateApp.fileUploadsFileType.fileTypeName" for="field_fileTypeName">File Type Name</label>
+                    <input type="text" class="form-control" name="fileTypeName" id="field_fileTypeName"
+                           formControlName="fileTypeName"/>
+                    <div *ngIf="editForm.get('fileTypeName')!.invalid && (editForm.get('fileTypeName')!.dirty || editForm.get('fileTypeName')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('fileTypeName')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="prepsGateApp.fileUploadsFileType.fileMediumType" for="field_fileMediumType">File Medium Type</label>
+                    <select class="form-control" name="fileMediumType" formControlName="fileMediumType" id="field_fileMediumType">
+                        <option value="EXCEL">{{ 'prepsGateApp.FileMediumTypes.EXCEL' | translate }}</option>
+                        <option value="EXCEL_XLS">{{ 'prepsGateApp.FileMediumTypes.EXCEL_XLS' | translate }}</option>
+                        <option value="EXCEL_XLSX">{{ 'prepsGateApp.FileMediumTypes.EXCEL_XLSX' | translate }}</option>
+                        <option value="EXCEL_XLSB">{{ 'prepsGateApp.FileMediumTypes.EXCEL_XLSB' | translate }}</option>
+                        <option value="EXCEL_CSV">{{ 'prepsGateApp.FileMediumTypes.EXCEL_CSV' | translate }}</option>
+                        <option value="EXCEL_XML">{{ 'prepsGateApp.FileMediumTypes.EXCEL_XML' | translate }}</option>
+                        <option value="PDF">{{ 'prepsGateApp.FileMediumTypes.PDF' | translate }}</option>
+                        <option value="POWERPOINT">{{ 'prepsGateApp.FileMediumTypes.POWERPOINT' | translate }}</option>
+                        <option value="DOC">{{ 'prepsGateApp.FileMediumTypes.DOC' | translate }}</option>
+                        <option value="TEXT">{{ 'prepsGateApp.FileMediumTypes.TEXT' | translate }}</option>
+                        <option value="JSON">{{ 'prepsGateApp.FileMediumTypes.JSON' | translate }}</option>
+                        <option value="HTML5">{{ 'prepsGateApp.FileMediumTypes.HTML5' | translate }}</option>
+                    </select>
+                    <div *ngIf="editForm.get('fileMediumType')!.invalid && (editForm.get('fileMediumType')!.dirty || editForm.get('fileMediumType')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('fileMediumType')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="prepsGateApp.fileUploadsFileType.description" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                           formControlName="description"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="prepsGateApp.fileUploadsFileType.fileTemplate" for="field_fileTemplate">File Template</label>
+                    <div>
+                        <div *ngIf="editForm.get('fileTemplate')!.value" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(editForm.get('fileTemplateContentType')!.value, editForm.get('fileTemplate')!.value)" jhiTranslate="entity.action.open">open</a><br>
+                            <span class="pull-left">{{ editForm.get('fileTemplateContentType')!.value }}, {{ byteSize(editForm.get('fileTemplate')!.value) }}</span>
+                            <button type="button" (click)="editForm.patchValue({fileTemplate: null});editForm.patchValue({fileTemplateContentType: null});"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon icon="times"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_fileTemplate" (change)="setFileData($event, 'fileTemplate', false)" jhiTranslate="entity.action.addblob"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="fileTemplate" id="field_fileTemplate"
+                           formControlName="fileTemplate"/>
+                    <input type="hidden" class="form-control" name="fileTemplateContentType" id="field_fileTemplateContentType"
+                           formControlName="fileTemplateContentType" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="prepsGateApp.fileUploadsFileType.fileType" for="field_fileType">File Type</label>
+                    <select class="form-control" name="fileType" formControlName="fileType" id="field_fileType">
+                        <option value="SERVICE_OUTLETS">{{ 'prepsGateApp.FileModelType.SERVICE_OUTLETS' | translate }}</option>
+                        <option value="TRANSACTION_ACCOUNTS">{{ 'prepsGateApp.FileModelType.TRANSACTION_ACCOUNTS' | translate }}</option>
+                        <option value="PREPAYMENT_ENTRIES">{{ 'prepsGateApp.FileModelType.PREPAYMENT_ENTRIES' | translate }}</option>
+                        <option value="AMORTIZATION_ENTRIES">{{ 'prepsGateApp.FileModelType.AMORTIZATION_ENTRIES' | translate }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

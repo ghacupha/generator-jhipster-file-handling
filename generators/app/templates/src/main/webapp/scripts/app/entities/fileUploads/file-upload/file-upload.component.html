@@ -1,0 +1,90 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="prepsGateApp.fileUploadsFileUpload.home.title">File Uploads</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-file-upload" [routerLink]="['/file-upload/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="prepsGateApp.fileUploadsFileUpload.home.createLabel">
+            Create a new File Upload
+            </span>
+        </button>
+    </h2>
+
+    <gha-alert-error></gha-alert-error>
+
+    <gha-alert></gha-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="fileUploads?.length === 0">
+        <span jhiTranslate="prepsGateApp.fileUploadsFileUpload.home.notFound">No fileUploads found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="fileUploads && fileUploads.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="description"><span jhiTranslate="prepsGateApp.fileUploadsFileUpload.description">Description</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="fileName"><span jhiTranslate="prepsGateApp.fileUploadsFileUpload.fileName">File Name</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="periodFrom"><span jhiTranslate="prepsGateApp.fileUploadsFileUpload.periodFrom">Period From</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="periodTo"><span jhiTranslate="prepsGateApp.fileUploadsFileUpload.periodTo">Period To</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="fileTypeId"><span jhiTranslate="prepsGateApp.fileUploadsFileUpload.fileTypeId">File Type Id</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="dataFile"><span jhiTranslate="prepsGateApp.fileUploadsFileUpload.dataFile">Data File</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="uploadSuccessful"><span jhiTranslate="prepsGateApp.fileUploadsFileUpload.uploadSuccessful">Upload Successful</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="uploadProcessed"><span jhiTranslate="prepsGateApp.fileUploadsFileUpload.uploadProcessed">Upload Processed</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="uploadToken"><span jhiTranslate="prepsGateApp.fileUploadsFileUpload.uploadToken">Upload Token</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let fileUpload of fileUploads ;trackBy: trackId">
+                    <td><a [routerLink]="['/file-upload', fileUpload.id, 'view']">{{ fileUpload.id }}</a></td>
+                    <td>{{ fileUpload.description }}</td>
+                    <td>{{ fileUpload.fileName }}</td>
+                    <td>{{ fileUpload.periodFrom | date:'mediumDate' }}</td>
+                    <td>{{ fileUpload.periodTo | date:'mediumDate' }}</td>
+                    <td>{{ fileUpload.fileTypeId }}</td>
+                    <td>
+                        <a *ngIf="fileUpload.dataFile" (click)="openFile(fileUpload.dataFileContentType, fileUpload.dataFile)" jhiTranslate="entity.action.open">open</a>
+                        <span *ngIf="fileUpload.dataFile">{{ fileUpload.dataFileContentType }}, {{ byteSize(fileUpload.dataFile) }}</span>
+                    </td>
+                    <td>{{ fileUpload.uploadSuccessful }}</td>
+                    <td>{{ fileUpload.uploadProcessed }}</td>
+                    <td>{{ fileUpload.uploadToken }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/file-upload', fileUpload.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/file-upload', fileUpload.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(fileUpload)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="fileUploads && fileUploads.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

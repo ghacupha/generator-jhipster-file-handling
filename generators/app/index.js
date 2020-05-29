@@ -1,3 +1,4 @@
+/* eslint-disable no-template-curly-in-string */
 const chalk = require('chalk');
 const semver = require('semver');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
@@ -115,43 +116,35 @@ module.exports = class extends BaseGenerator {
             this.fs.copyTpl(this.templatePath(source), this.destinationPath(destination), this);
         };
 
-        this._install_dependencies();
+        this._installDependencies();
 
         // add Java classes
-        this.template('src/main/java/package/domain/enumeration/_FileMediumTypes.java', `${javaDir}domain/enumeration/FileMediumTypes.java`);
-        this.template('src/main/java/package/domain/enumeration/_FileModelType.java', `${javaDir}domain/enumeration/FileModelType.java`);
-        this.template('src/main/java/package/domain/_FileType.java', `${javaDir}domain/FileType.java`);
-        this.template('src/main/java/package/domain/_FileUpload.java', `${javaDir}domain/FileUpload.java`);
+        this.template('src/main/java/package/domain/', `${javaDir}domain/`);
+        // this.template('src/main/java/package/domain/enumeration/_FileModelType.java', `${javaDir}domain/enumeration/FileModelType.java`);
+        // this.template('src/main/java/package/domain/_FileType.java', `${javaDir}domain/FileType.java`);
+        // this.template('src/main/java/package/domain/_FileUpload.java', `${javaDir}domain/FileUpload.java`);
 
         // add repository items
-        this.template('src/main/java/package/repository/_FileTypeRepository.java', `${javaDir}repository/FileTypeRepository.java`);
-        this.template('src/main/java/package/repository/_FileUploadRepository.java', `${javaDir}repository/FileUploadRepository.java`);
+        this.template('src/main/java/package/repository/', `${javaDir}repository/`);
 
         // add services
-        this.template('src/main/java/package/service/_FileTypeQueryService.java', `${javaDir}service/FileTypeQueryService.java`);
-        this.template('src/main/java/package/service/_FileTypeService.java', `${javaDir}service/FileTypeService.java`);
-        this.template('src/main/java/package/service/_FileUploadQueryService.java', `${javaDir}service/FileUploadQueryService.java`);
-        this.template('src/main/java/package/service/_FileUploadService.java', `${javaDir}service/FileUploadService.java`);
+        this.template('src/main/java/package/service/', `${javaDir}service/`);
 
         // add data transfer objects
-        this.template('src/main/java/package/service/dto/_FileUploadDTO.java', `${javaDir}service/dto/FileUploadDTO.java`);
-        this.template('src/main/java/package/service/dto/_FileUploadCriteria.java', `${javaDir}service/dto/FileUploadCriteria.java`);
-        this.template('src/main/java/package/service/dto/_FileTypeCriteria.java', `${javaDir}service/dto/FileTypeCriteria.java`);
+        this.template('src/main/java/package/service/dto/', `${javaDir}service/dto/`);
 
-        this.template('src/main/java/package/service/impl/_FileUploadServiceImpl.java', `${javaDir}service/impl/FileUploadServiceImpl.java`);
-        this.template('src/main/java/package/service/mapper/_FileUploadMapper.java', `${javaDir}service/mapper/FileUploadMapper.java`);
+        this.template('src/main/java/package/service/impl/FileUploadServiceImpl.java', `${javaDir}service/impl/FileUploadServiceImpl.java`);
+        this.template('src/main/java/package/service/mapper/FileUploadMapper.java', `${javaDir}service/mapper/FileUploadMapper.java`);
 
         // add resource
-        this.template('src/main/java/package/web/rest/_FileUploadResource.java', `${javaDir}web/rest/FileUploadResource.java`);
-        this.template('src/main/java/package/web/rest/_FileTypeResource.java', `${javaDir}web/rest/FileTypeResource.java`);
+        this.template('src/main/java/package/web/rest/', `${javaDir}web/rest/`);
+        this.template('src/main/java/package/web/rest/', `${javaDir}web/rest/`);
 
         // Add test code
-        this.template('src/test/java/package/domain/_FileTypeTest.java', `${javaTestDir}domain/FileTypeTest.java`);
-        this.template('src/test/java/package/domain/_FileUploadTest.java', `${javaTestDir}domain/FileUploadTest.java`);
+        this.template('src/test/java/package/domain/', `${javaTestDir}domain/`);
+        this.template('src/test/java/package/web/rest/', `${javaTestDir}web/rest/`);
         this.template('src/test/java/package/service/dto/_FileUploadDTOTest.java', `${javaTestDir}service/dto/FileUploadDTOTest.java`);
         this.template('src/test/java/package/service/mapper/_FileUploadMapperTest.java', `${javaTestDir}service/mapper/FileUploadMapperTest.java`);
-        this.template('src/test/java/package/web/rest/_FileUploadResourceIT.java', `${javaTestDir}web/rest/FileUploadResourceIT.java`);
-        this.template('src/test/java/package/web/rest/_FileTypeResourceIT.java', `${javaTestDir}web/rest/FileTypeResourceIT.java`);
 
         // Add liquibase resources
         this.template('src/main/resources/config/liquibase/fake-data/_file_type.csv', `${resourceDir}config/liquibase/fake-data/file_type.csv`);
@@ -171,16 +164,63 @@ module.exports = class extends BaseGenerator {
 
         if (this.createClientCode === 'y') {
             if (this.clientFramework === 'angularX') {
-                this._install_client_code(webappDir);
+                this._installClientCode(webappDir);
             }
         }
     }
 
-    _install_client_code(webappDir) {
+    _installClientCode(webappDir) {
         this.template('src/main/webapp/scripts/app/fortune/_fortune.controller.js', `${webappDir}app/fortune/fortune.controller.js`);
         this.template('src/main/webapp/scripts/app/fortune/_fortune.html', `${webappDir}app/fortune/fortune.html`);
         this.template('src/main/webapp/scripts/app/fortune/_fortune.js', `${webappDir}app/fortune/fortune.js`);
         this.template('src/main/webapp/scripts/app/fortune/_fortune.service.js', `${webappDir}app/fortune//fortune.service.js`);
+
+        // this.template(
+        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type-delete-dialog.component.html',
+        //     `${webappDir}app/entities/fileUploads/file-type/file-type-delete-dialog.component.html`
+        // );
+        // this.template(
+        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type-delete-dialog.component.ts',
+        //     `${webappDir}app/entities/fileUploads/file-type/file-type-delete-dialog.component.ts`
+        // );
+        // this.template(
+        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type-detail.component.html',
+        //     `${webappDir}app/entities/fileUploads/file-type/file-type-detail.component.html`
+        // );
+        // this.template(
+        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type-detail.component.ts',
+        //     `${webappDir}app/entities/fileUploads/file-type/file-type-detail.component.ts`
+        // );
+        // this.template(
+        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type-update.component.html',
+        //     `${webappDir}app/entities/fileUploads/file-type/file-type-update.component.html`
+        // );
+        // this.template(
+        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type-update.component.ts',
+        //     `${webappDir}app/entities/fileUploads/file-type/file-type-update.component.ts`
+        // );
+        // this.template(
+        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type.component.html',
+        //     `${webappDir}app/entities/fileUploads/file-type/file-type.component.html`
+        // );
+        // this.template(
+        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type.component.ts',
+        //     `${webappDir}app/entities/fileUploads/file-type/file-type.component.ts`
+        // );
+        // this.template(
+        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type.module.ts',
+        //     `${webappDir}app/entities/fileUploads/file-type/file-type.module.ts`
+        // );
+        // this.template(
+        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type.route.ts',
+        //     `${webappDir}app/entities/fileUploads/file-type/file-type.route.ts`
+        // );
+        // this.template(
+        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type.service.ts',
+        //     `${webappDir}app/entities/fileUploads/file-type/file-type.service.ts`
+        // );
+        this.template('src/main/webapp/scripts/app/entities/fileUploads/file-type/', `${webappDir}app/entities/fileUploads/file-type/`);
+        this.template('src/main/webapp/scripts/app/entities/fileUploads/file-upload/', `${webappDir}app/entities/fileUploads/file-upload/`);
         this.addElementToMenu('fortune', 'sunglasses', true, this.clientFramework);
         this.addElementTranslationKey('fortune', 'Fortune', 'en');
         this.addElementTranslationKey('fortune', 'Fortune', 'fr');
@@ -189,7 +229,7 @@ module.exports = class extends BaseGenerator {
         this.template('src/main/webapp/i18n/fr/fortune.json', `${webappDir}i18n/fr/fortune.json`);
     }
 
-    _install_dependencies() {
+    _installDependencies() {
         const OZLERHAKAN_POIJI_VERSION = '1.20.0';
         const OZLERHAKAN_POIJI_VERSION_PROPERTY = '${poiji.version}';
         const LOMBOK_VERSION = '1.18.6';
@@ -218,28 +258,6 @@ module.exports = class extends BaseGenerator {
             this.addGradleProperty('poiji.version', OZLERHAKAN_POIJI_VERSION);
         }
     }
-
-    /*install() {
-        const logMsg = `To install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install`)}`;
-
-        const injectDependenciesAndConstants = err => {
-            if (err) {
-                this.warning('Install of dependencies failed!');
-                this.log(logMsg);
-            }
-        };
-        const installConfig = {
-            bower: false,
-            npm: this.clientPackageManager !== 'yarn',
-            yarn: this.clientPackageManager === 'yarn',
-            callback: injectDependenciesAndConstants
-        };
-        if (this.options['skip-install']) {
-            this.log(logMsg);
-        } else {
-            this.installDependencies(installConfig);
-        }
-    }*/
 
     end() {
         this.log('Done; File handling entities and code installed');

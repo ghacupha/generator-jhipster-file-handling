@@ -1,0 +1,30 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileType": {
+      "home": {
+        "title": "File Types",
+        "createLabel": "Crear nuevo File Type",
+        "createOrEditLabel": "Crear o editar File Type",
+        "notFound": "Ningún File Types encontrado"
+      },
+      "delete": {
+        "question": "¿Seguro que quiere eliminar File Type {{ id }}?"
+      },
+      "detail": {
+        "title": "File Type"
+      },
+      "fileTypeName": "File Type Name",
+      "fileMediumType": "File Medium Type",
+      "description": "Description",
+      "fileTemplate": "File Template",
+      "fileType": "File Type"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileType": {
+      "created": "Un nuevo File Type ha sido creado con el identificador {{ param }}",
+      "updated": "Un File Type ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un File Type ha sido eliminado con el identificador {{ param }}"
+    }
+  }
+}

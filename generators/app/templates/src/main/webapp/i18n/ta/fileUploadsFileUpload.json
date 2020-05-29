@@ -1,0 +1,34 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileUpload": {
+      "home": {
+        "title": "File Uploads",
+        "createLabel": "File Upload-ஐ உருவாக்கு",
+        "createOrEditLabel": "File Upload -ஐ மாற்று (அ) உருவாக்கு",
+        "notFound": "No File Uploads found"
+      },
+      "delete": {
+        "question": "நீக்குவதற்கு உறுதி செய் File Upload {{ id }}?"
+      },
+      "detail": {
+        "title": "File Upload"
+      },
+      "description": "Description",
+      "fileName": "File Name",
+      "periodFrom": "Period From",
+      "periodTo": "Period To",
+      "fileTypeId": "File Type Id",
+      "dataFile": "Data File",
+      "uploadSuccessful": "Upload Successful",
+      "uploadProcessed": "Upload Processed",
+      "uploadToken": "Upload Token"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileUpload": {
+      "created": "File Upload புதிதாக உருவாக்கப்பட்டது, அடையாளம் {{ param }}",
+      "updated": "File Upload மாற்றப்பட்டது, அடையாளம்  {{ param }}",
+      "deleted": "A File Upload நீக்கப்பட்டது, அடையாளம {{ param }}"
+    }
+  }
+}

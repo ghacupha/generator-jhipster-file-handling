@@ -1,0 +1,34 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileUpload": {
+      "home": {
+        "title": "File Uploads",
+        "createLabel": "Krijo një të ri File Upload",
+        "createOrEditLabel": "Krijo ose përpuno një File Upload",
+        "notFound": "No File Uploads found"
+      },
+      "delete": {
+        "question": "Jeni i sigurtë që doni të fshini File Upload {{ id }}?"
+      },
+      "detail": {
+        "title": "File Upload"
+      },
+      "description": "Description",
+      "fileName": "File Name",
+      "periodFrom": "Period From",
+      "periodTo": "Period To",
+      "fileTypeId": "File Type Id",
+      "dataFile": "Data File",
+      "uploadSuccessful": "Upload Successful",
+      "uploadProcessed": "Upload Processed",
+      "uploadToken": "Upload Token"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileUpload": {
+      "created": "Një File Upload i ri u krijua me identifikues {{ param }}",
+      "updated": "Një File Upload u përpunua me identifikues {{ param }}",
+      "deleted": "Një File Upload u fshi me identifikues {{ param }}"
+    }
+  }
+}

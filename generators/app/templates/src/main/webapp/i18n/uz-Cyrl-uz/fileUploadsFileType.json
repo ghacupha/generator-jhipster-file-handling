@@ -1,0 +1,30 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileType": {
+      "home": {
+        "title": "File Types",
+        "createLabel": "Янги File Type қўшиш",
+        "createOrEditLabel": "File Typeни таҳрирлаш",
+        "notFound": "No File Types found"
+      },
+      "delete": {
+        "question": "{{ id }}- File Typeни ўчирмоқчимисиз? "
+      },
+      "detail": {
+        "title": "File Type"
+      },
+      "fileTypeName": "File Type Name",
+      "fileMediumType": "File Medium Type",
+      "description": "Description",
+      "fileTemplate": "File Template",
+      "fileType": "File Type"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileType": {
+      "created": "File Type {{ param }} билан қўшилди.",
+      "updated": "{{ param }}- File Type сақланди.",
+      "deleted": "{{ param }}- File Type ўчирилди."
+    }
+  }
+}

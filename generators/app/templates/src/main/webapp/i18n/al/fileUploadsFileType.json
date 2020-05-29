@@ -1,0 +1,30 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileType": {
+      "home": {
+        "title": "File Types",
+        "createLabel": "Krijo një të ri File Type",
+        "createOrEditLabel": "Krijo ose përpuno një File Type",
+        "notFound": "No File Types found"
+      },
+      "delete": {
+        "question": "Jeni i sigurtë që doni të fshini File Type {{ id }}?"
+      },
+      "detail": {
+        "title": "File Type"
+      },
+      "fileTypeName": "File Type Name",
+      "fileMediumType": "File Medium Type",
+      "description": "Description",
+      "fileTemplate": "File Template",
+      "fileType": "File Type"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileType": {
+      "created": "Një File Type i ri u krijua me identifikues {{ param }}",
+      "updated": "Një File Type u përpunua me identifikues {{ param }}",
+      "deleted": "Një File Type u fshi me identifikues {{ param }}"
+    }
+  }
+}

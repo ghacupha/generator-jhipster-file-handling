@@ -1,0 +1,30 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileType": {
+      "home": {
+        "title": "FileTypes",
+        "createLabel": "File Type を追加",
+        "createOrEditLabel": "File Typeを追加または編集",
+        "notFound": "No File Types found"
+      },
+      "delete": {
+        "question": "File Type {{ id }}を削除してもよろしいですか？"
+      },
+      "detail": {
+        "title": "File Type"
+      },
+      "fileTypeName": "File Type Name",
+      "fileMediumType": "File Medium Type",
+      "description": "Description",
+      "fileTemplate": "File Template",
+      "fileType": "File Type"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileType": {
+      "created": "A new File Type is created with identifier {{ param }}",
+      "updated": "A File Type is updated with identifier {{ param }}",
+      "deleted": "A File Type is deleted with identifier {{ param }}"
+    }
+  }
+}

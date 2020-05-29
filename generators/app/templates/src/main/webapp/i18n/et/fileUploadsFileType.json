@@ -1,0 +1,30 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileType": {
+      "home": {
+        "title": "File Types",
+        "createLabel": "Lisa uus File Type",
+        "createOrEditLabel": "Lisa või muuda File Type",
+        "notFound": "No File Types found"
+      },
+      "delete": {
+        "question": "Kas olete kindel, et soovite kustutada File Type {{ id }}?"
+      },
+      "detail": {
+        "title": "File Type"
+      },
+      "fileTypeName": "File Type Name",
+      "fileMediumType": "File Medium Type",
+      "description": "Description",
+      "fileTemplate": "File Template",
+      "fileType": "File Type"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileType": {
+      "created": "Uus File Type on loodud identifikaatoriga {{ param }}",
+      "updated": "File Type identifikaatoriga {{ param }} on muudetud",
+      "deleted": "File Type identifikaatoriga {{ param }} on kustutatud"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileUpload": {
+      "home": {
+        "title": "File Uploads",
+        "createLabel": "Создать новый File Upload",
+        "createOrEditLabel": "Создать или отредактировать File Upload",
+        "notFound": "No File Uploads found"
+      },
+      "delete": {
+        "question": "Вы уверены что хотите удалить File Upload {{ id }}?"
+      },
+      "detail": {
+        "title": "File Upload"
+      },
+      "description": "Description",
+      "fileName": "File Name",
+      "periodFrom": "Period From",
+      "periodTo": "Period To",
+      "fileTypeId": "File Type Id",
+      "dataFile": "Data File",
+      "uploadSuccessful": "Upload Successful",
+      "uploadProcessed": "Upload Processed",
+      "uploadToken": "Upload Token"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileUpload": {
+      "created": "Новый File Upload создан с идентификатором {{ param }}",
+      "updated": "File Upload обновлен с идентификатором {{ param }}",
+      "deleted": "File Upload удален с идентификатором {{ param }}"
+    }
+  }
+}

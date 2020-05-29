@@ -1,0 +1,34 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileUpload": {
+      "home": {
+        "title": "File Uploads",
+        "createLabel": "สร้าง File Upload",
+        "createOrEditLabel": "สร้างหรือแก้ไข File Upload",
+        "notFound": "No File Uploads found"
+      },
+      "delete": {
+        "question": "คุณต้องการที่จะลบ File Upload {{ id }}?"
+      },
+      "detail": {
+        "title": "File Upload"
+      },
+      "description": "Description",
+      "fileName": "File Name",
+      "periodFrom": "Period From",
+      "periodTo": "Period To",
+      "fileTypeId": "File Type Id",
+      "dataFile": "Data File",
+      "uploadSuccessful": "Upload Successful",
+      "uploadProcessed": "Upload Processed",
+      "uploadToken": "Upload Token"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileUpload": {
+      "created": "File Upload ถูกสร้างด้วย {{ param }}",
+      "updated": "File Upload ถูกแก้ไขด้วย {{ param }}",
+      "deleted": "File Upload ถูกลบด้วย {{ param }}"
+    }
+  }
+}

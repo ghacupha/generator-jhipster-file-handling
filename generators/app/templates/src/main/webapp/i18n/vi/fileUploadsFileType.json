@@ -1,0 +1,30 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileType": {
+      "home": {
+        "title": "File Types",
+        "createLabel": "Thêm mới một File Type",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật File Type",
+        "notFound": "No File Types found"
+      },
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa File Type {{ id }}?"
+      },
+      "detail": {
+        "title": "File Type"
+      },
+      "fileTypeName": "File Type Name",
+      "fileMediumType": "File Medium Type",
+      "description": "Description",
+      "fileTemplate": "File Template",
+      "fileType": "File Type"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileType": {
+      "created": "Một File Type mới được tạo với định danh {{ param }}",
+      "updated": "Một File Type cập nhật với định danh {{ param }}",
+      "deleted": "Một File Type đã xóa với định danh {{ param }}"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileType": {
+      "home": {
+        "title": "File Types",
+        "createLabel": "नवीन File Type तयार करा",
+        "createOrEditLabel": "File Type तयार किंवा संपादित करा",
+        "notFound": "No File Types found"
+      },
+      "delete": {
+        "question": "File Type [id: {{ id }}] काढून टाकण्याबाबत पुष्टी?"
+      },
+      "detail": {
+        "title": "File Type"
+      },
+      "fileTypeName": "File Type Name",
+      "fileMediumType": "File Medium Type",
+      "description": "Description",
+      "fileTemplate": "File Template",
+      "fileType": "File Type"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileType": {
+      "created": "File Type [identifier: {{ param }}] तयार आहे",
+      "updated": "File Type [identifier: {{ param }}] सुधारित केले आहे",
+      "deleted": "File Type [identifier: {{ param }}] हटविले आहे"
+    }
+  }
+}

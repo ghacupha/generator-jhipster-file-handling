@@ -1,0 +1,34 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileUpload": {
+      "home": {
+        "title": "File Uploads",
+        "createLabel": "Thêm mới một File Upload",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật File Upload",
+        "notFound": "No File Uploads found"
+      },
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa File Upload {{ id }}?"
+      },
+      "detail": {
+        "title": "File Upload"
+      },
+      "description": "Description",
+      "fileName": "File Name",
+      "periodFrom": "Period From",
+      "periodTo": "Period To",
+      "fileTypeId": "File Type Id",
+      "dataFile": "Data File",
+      "uploadSuccessful": "Upload Successful",
+      "uploadProcessed": "Upload Processed",
+      "uploadToken": "Upload Token"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileUpload": {
+      "created": "Một File Upload mới được tạo với định danh {{ param }}",
+      "updated": "Một File Upload cập nhật với định danh {{ param }}",
+      "deleted": "Một File Upload đã xóa với định danh {{ param }}"
+    }
+  }
+}

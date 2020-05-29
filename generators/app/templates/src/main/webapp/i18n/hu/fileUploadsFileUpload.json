@@ -1,0 +1,34 @@
+{
+  "prepsGateApp": {
+    "fileUploadsFileUpload": {
+      "home": {
+        "title": "FileUploads",
+        "createLabel": "Egy új File Upload létrehozása",
+        "createOrEditLabel": "Hozzon létre, vagy módosítson File Uploadt",
+        "notFound": "No File Uploads found"
+      },
+      "delete": {
+        "question": "Biztos benne, hogy törölni szeretné az File Uploadt {{ id }} azonosítóval?"
+      },
+      "detail": {
+        "title": "File Upload"
+      },
+      "description": "Description",
+      "fileName": "File Name",
+      "periodFrom": "Period From",
+      "periodTo": "Period To",
+      "fileTypeId": "File Type Id",
+      "dataFile": "Data File",
+      "uploadSuccessful": "Upload Successful",
+      "uploadProcessed": "Upload Processed",
+      "uploadToken": "Upload Token"
+    }
+  },
+  "prepsMainApp": {
+    "fileUploadsFileUpload": {
+      "created": "Egy új File Upload lett létrehozva {{ param }} azonosítóval",
+      "updated": "A File Upload módosítva lett {{ param }} azonosítóval",
+      "deleted": "A File Upload törölve lett {{ param }} azonosítóval"
+    }
+  }
+}

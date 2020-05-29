@@ -1,0 +1,11 @@
+{
+  "prepsGateApp": {
+    "FileModelType": {
+      "null": "",
+      "SERVICE_OUTLETS": "SERVICE_OUTLETS",
+      "TRANSACTION_ACCOUNTS": "TRANSACTION_ACCOUNTS",
+      "PREPAYMENT_ENTRIES": "PREPAYMENT_ENTRIES",
+      "AMORTIZATION_ENTRIES": "AMORTIZATION_ENTRIES"
+    }
+  }
+}
