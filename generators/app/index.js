@@ -139,7 +139,7 @@ module.exports = class extends BaseGenerator {
             this.fs.copyTpl(this.templatePath(source), this.destinationPath(destination), this);
         };
 
-        this._installDependencies();
+        this._installServerDependencies();
 
         // add Java source code
         this.template('src/main/java/package/domain/', `${javaDir}domain/`);
@@ -194,7 +194,7 @@ module.exports = class extends BaseGenerator {
         this.template('src/main/webapp/i18n/', `${webappDir}i18n/`);
     }
 
-    _installDependencies() {
+    _installServerDependencies() {
         const OZLERHAKAN_POIJI_VERSION = '1.20.0';
         const OZLERHAKAN_POIJI_VERSION_PROPERTY = '${poiji.version}';
         const LOMBOK_VERSION = '1.18.6';
