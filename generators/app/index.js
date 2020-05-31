@@ -113,14 +113,14 @@ module.exports = class extends BaseGenerator {
         this.log(`create client code?=${this.createClientCode}`);
         this.log('------\n');
 
-        if (this.applicationType !== 'microserviceGateway') {
-            this._installBackEndCode(javaDir, javaTestDir, resourceDir);
+        if (!this.applicationType === 'gateway') {
+            this._installServerCode(javaDir, javaTestDir, resourceDir);
         }
 
         if (this.createClientCode === 'y') {
             if (this.clientFramework === 'angularX') {
                 // only works if it's angular code
-                this._installClientCode(webappDir, webappTestDir);
+                this._installClientCode(webappDir, webappTestDir, this.angularAppName);
             }
         }
     }
@@ -132,7 +132,7 @@ module.exports = class extends BaseGenerator {
      * @param {String} javaTestDir path of the project's java test directory
      * @param {String} resourceDir  path of the main resource directory
      */
-    _installBackEndCode(javaDir, javaTestDir, resourceDir) {
+    _installServerCode(javaDir, javaTestDir, resourceDir) {
         // TODO work on backend code
         // utility function to write templates
         this.template = function(source, destination) {
@@ -167,7 +167,7 @@ module.exports = class extends BaseGenerator {
         this.addChangelogToLiquibase(`${this.changelogDate}_added_entity_FileType`);
     }
 
-    _installClientCode(webappDir, webappTestDir) {
+    _installClientCode(webappDir, webappTestDir, angularAppName) {
         // Install sample code
         this.template('src/main/webapp/scripts/app/fortune/', `${webappDir}app/fortune/`);
         // install file-upload code
@@ -179,16 +179,8 @@ module.exports = class extends BaseGenerator {
 
         // TODO module for file-uploads this.addAngularModule();
         // TODO Add entities to module
-        this.addEntityToModule(
-            'fileUpload',
-            'FileUpload',
-            'FileUpload',
-            'fileUploads/file-upload',
-            'file-upload',
-            'file-upload',
-            this.angularAppName
-        );
-        this.addEntityToModule('fileType', 'IFileType', 'FileType', 'fileUploads/file-type', 'file-type', 'file-type', this.angularAppName);
+        this.addEntityToModule('fileUpload', 'FileUpload', 'FileUpload', 'fileUploads', 'file-upload', 'file-upload', angularAppName);
+        this.addEntityToModule('fileType', 'FileType', 'FileType', 'fileUploads', 'file-type', 'file-type', angularAppName);
 
         // TODO Add entities menu
         this.addEntityToMenu('file-type', 'times', true, this.clientFramework);
