@@ -181,7 +181,7 @@ module.exports = class extends BaseGenerator {
         // TODO Add entities to module
         this.addEntityToModule(
             'fileUpload',
-            'IFileUpload',
+            'FileUpload',
             'FileUpload',
             'fileUploads/file-upload',
             'file-upload',
