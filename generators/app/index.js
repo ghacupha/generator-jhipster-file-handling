@@ -108,7 +108,7 @@ module.exports = class extends BaseGenerator {
         this.log(`webappDir=${webappDir}`);
 
         this.log('\n--- variables from questions ---');
-        this.log(`message=${this.message}`);
+        this.log(`create client code?=${this.createClientCode}`);
         this.log('------\n');
 
         // utility function to write templates
@@ -118,38 +118,19 @@ module.exports = class extends BaseGenerator {
 
         this._installDependencies();
 
-        // add Java classes
+        // add Java source code
         this.template('src/main/java/package/domain/', `${javaDir}domain/`);
-        // this.template('src/main/java/package/domain/enumeration/_FileModelType.java', `${javaDir}domain/enumeration/FileModelType.java`);
-        // this.template('src/main/java/package/domain/_FileType.java', `${javaDir}domain/FileType.java`);
-        // this.template('src/main/java/package/domain/_FileUpload.java', `${javaDir}domain/FileUpload.java`);
-
-        // add repository items
         this.template('src/main/java/package/repository/', `${javaDir}repository/`);
-
-        // add services
         this.template('src/main/java/package/service/', `${javaDir}service/`);
-
-        // add data transfer objects
-        this.template('src/main/java/package/service/dto/', `${javaDir}service/dto/`);
-
-        this.template('src/main/java/package/service/impl/FileUploadServiceImpl.java', `${javaDir}service/impl/FileUploadServiceImpl.java`);
-        this.template('src/main/java/package/service/mapper/FileUploadMapper.java', `${javaDir}service/mapper/FileUploadMapper.java`);
-
-        // add resource
-        this.template('src/main/java/package/web/rest/', `${javaDir}web/rest/`);
-        this.template('src/main/java/package/web/rest/', `${javaDir}web/rest/`);
+        this.template('src/main/java/package/web/', `${javaDir}web/`);
 
         // Add test code
         this.template('src/test/java/package/domain/', `${javaTestDir}domain/`);
-        this.template('src/test/java/package/web/rest/', `${javaTestDir}web/rest/`);
-        this.template('src/test/java/package/service/dto/_FileUploadDTOTest.java', `${javaTestDir}service/dto/FileUploadDTOTest.java`);
-        this.template('src/test/java/package/service/mapper/_FileUploadMapperTest.java', `${javaTestDir}service/mapper/FileUploadMapperTest.java`);
+        this.template('src/test/java/package/web/', `${javaTestDir}web/`);
+        this.template('src/test/java/package/service/', `${javaTestDir}service/`);
 
         // Add liquibase resources
-        this.template('src/main/resources/config/liquibase/fake-data/_file_type.csv', `${resourceDir}config/liquibase/fake-data/file_type.csv`);
-        this.template('src/main/resources/config/liquibase/fake-data/_file_upload.csv', `${resourceDir}config/liquibase/fake-data/file_upload.csv`);
-        this.template('src/main/resources/config/liquibase/fake-data/blob/hipster.png', `${resourceDir}config/liquibase/fake-data/blob/hipster.png`);
+        this.template('src/main/resources/config/liquibase/fake-data/', `${resourceDir}config/liquibase/fake-data/`);
         this.changelogDate = this.dateFormatForLiquibase();
         this.template(
             'src/main/resources/config/liquibase/changelog/_added_entity_FileUpload.xml',
@@ -170,63 +151,14 @@ module.exports = class extends BaseGenerator {
     }
 
     _installClientCode(webappDir) {
-        this.template('src/main/webapp/scripts/app/fortune/_fortune.controller.js', `${webappDir}app/fortune/fortune.controller.js`);
-        this.template('src/main/webapp/scripts/app/fortune/_fortune.html', `${webappDir}app/fortune/fortune.html`);
-        this.template('src/main/webapp/scripts/app/fortune/_fortune.js', `${webappDir}app/fortune/fortune.js`);
-        this.template('src/main/webapp/scripts/app/fortune/_fortune.service.js', `${webappDir}app/fortune//fortune.service.js`);
-
-        // this.template(
-        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type-delete-dialog.component.html',
-        //     `${webappDir}app/entities/fileUploads/file-type/file-type-delete-dialog.component.html`
-        // );
-        // this.template(
-        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type-delete-dialog.component.ts',
-        //     `${webappDir}app/entities/fileUploads/file-type/file-type-delete-dialog.component.ts`
-        // );
-        // this.template(
-        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type-detail.component.html',
-        //     `${webappDir}app/entities/fileUploads/file-type/file-type-detail.component.html`
-        // );
-        // this.template(
-        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type-detail.component.ts',
-        //     `${webappDir}app/entities/fileUploads/file-type/file-type-detail.component.ts`
-        // );
-        // this.template(
-        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type-update.component.html',
-        //     `${webappDir}app/entities/fileUploads/file-type/file-type-update.component.html`
-        // );
-        // this.template(
-        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type-update.component.ts',
-        //     `${webappDir}app/entities/fileUploads/file-type/file-type-update.component.ts`
-        // );
-        // this.template(
-        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type.component.html',
-        //     `${webappDir}app/entities/fileUploads/file-type/file-type.component.html`
-        // );
-        // this.template(
-        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type.component.ts',
-        //     `${webappDir}app/entities/fileUploads/file-type/file-type.component.ts`
-        // );
-        // this.template(
-        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type.module.ts',
-        //     `${webappDir}app/entities/fileUploads/file-type/file-type.module.ts`
-        // );
-        // this.template(
-        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type.route.ts',
-        //     `${webappDir}app/entities/fileUploads/file-type/file-type.route.ts`
-        // );
-        // this.template(
-        //     'src/main/webapp/scripts/app/entities/fileUploads/file-type/file-type.service.ts',
-        //     `${webappDir}app/entities/fileUploads/file-type/file-type.service.ts`
-        // );
-        this.template('src/main/webapp/scripts/app/entities/fileUploads/file-type/', `${webappDir}app/entities/fileUploads/file-type/`);
-        this.template('src/main/webapp/scripts/app/entities/fileUploads/file-upload/', `${webappDir}app/entities/fileUploads/file-upload/`);
+        // Install sample code
+        this.template('src/main/webapp/scripts/app/fortune/', `${webappDir}app/fortune/`);
+        this.template('src/main/webapp/scripts/app/entities/', `${webappDir}app/entities/`);
         this.addElementToMenu('fortune', 'sunglasses', true, this.clientFramework);
         this.addElementTranslationKey('fortune', 'Fortune', 'en');
         this.addElementTranslationKey('fortune', 'Fortune', 'fr');
 
-        this.template('src/main/webapp/i18n/en/fortune.json', `${webappDir}i18n/en/fortune.json`);
-        this.template('src/main/webapp/i18n/fr/fortune.json', `${webappDir}i18n/fr/fortune.json`);
+        this.template('src/main/webapp/i18n/', `${webappDir}i18n/`);
     }
 
     _installDependencies() {
