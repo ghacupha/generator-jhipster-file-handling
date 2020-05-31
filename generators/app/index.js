@@ -86,6 +86,7 @@ module.exports = class extends BaseGenerator {
         const javaTestDir = `${jhipsterConstants.SERVER_TEST_SRC_DIR + this.packageFolder}/`;
         const resourceDir = jhipsterConstants.SERVER_MAIN_RES_DIR;
         const webappDir = jhipsterConstants.CLIENT_MAIN_SRC_DIR;
+        const webappTestDir = jhipsterConstants.CLIENT_TEST_SRC_DIR;
 
         // variable from questions
         if (typeof this.createClientCode === 'undefined') {
@@ -119,7 +120,7 @@ module.exports = class extends BaseGenerator {
         if (this.createClientCode === 'y') {
             if (this.clientFramework === 'angularX') {
                 // only works if it's angular code
-                this._installClientCode(webappDir);
+                this._installClientCode(webappDir, webappTestDir);
             }
         }
     }
@@ -166,17 +167,31 @@ module.exports = class extends BaseGenerator {
         this.addChangelogToLiquibase(`${this.changelogDate}_added_entity_FileType`);
     }
 
-    _installClientCode(webappDir) {
+    _installClientCode(webappDir, webappTestDir) {
         // Install sample code
         this.template('src/main/webapp/scripts/app/fortune/', `${webappDir}app/fortune/`);
         // install file-upload code
         this.template('src/main/webapp/scripts/app/entities/', `${webappDir}app/entities/`);
+        this.template('src/main/webapp/scripts/app/shared/', `${webappDir}app/shared/`);
+        this.template('src/test/javascript/e2e/', `${webappTestDir}e2e/`);
+        this.template('src/test/javascript/spec/', `${webappTestDir}spec/`);
         this.addElementToMenu('fortune', 'sunglasses', true, this.clientFramework);
 
+        // TODO module for file-uploads this.addAngularModule();
         // TODO Add entities to module
-        this.addEntityToModule('fileUpload', 'FileUpload', 'FileUpload', this.clientFramework, '', '', '');
+        this.addEntityToModule(
+            'fileUpload',
+            'IFileUpload',
+            'FileUpload',
+            'fileUploads/file-upload',
+            'file-upload',
+            'file-upload',
+            this.angularAppName
+        );
+        this.addEntityToModule('fileType', 'IFileType', 'FileType', 'fileUploads/file-type', 'file-type', 'file-type', this.angularAppName);
 
         // TODO Add entities menu
+        this.addEntityToMenu('file-type', 'times', true, this.clientFramework);
         this.addEntityToMenu('file-upload', 'times', true, this.clientFramework);
 
         // todo loop the language elements array
