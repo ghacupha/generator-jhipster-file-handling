@@ -120,7 +120,9 @@ module.exports = class extends BaseGenerator {
         if (this.createClientCode === 'y') {
             if (this.clientFramework === 'angularX') {
                 // only works if it's angular code
-                this._installClientCode(webappDir, webappTestDir, this.angularAppName);
+                if (!this.applicationType === 'microservice') {
+                    this._installClientCode(webappDir, webappTestDir, this.angularAppName, this.clientFramework);
+                }
             }
         }
     }
@@ -167,7 +169,16 @@ module.exports = class extends BaseGenerator {
         this.addChangelogToLiquibase(`${this.changelogDate}_added_entity_FileType`);
     }
 
-    _installClientCode(webappDir, webappTestDir, angularAppName) {
+    /**
+     * Runs templates for front-end js code and html templates. Only called if the
+     * app is not a microservice
+     *
+     * @param {String} webappDir
+     * @param {String} webappTestDir
+     * @param {String} angularAppName
+     * @param {String} clientFramework
+     */
+    _installClientCode(webappDir, webappTestDir, angularAppName, clientFramework) {
         // Install sample code
         this.template('src/main/webapp/scripts/app/fortune/', `${webappDir}app/fortune/`);
         // install file-upload code
@@ -175,7 +186,7 @@ module.exports = class extends BaseGenerator {
         this.template('src/main/webapp/scripts/app/shared/', `${webappDir}app/shared/`);
         this.template('src/test/javascript/e2e/', `${webappTestDir}e2e/`);
         this.template('src/test/javascript/spec/', `${webappTestDir}spec/`);
-        this.addElementToMenu('fortune', 'sunglasses', true, this.clientFramework);
+        this.addElementToMenu('fortune', 'sunglasses', true, clientFramework);
 
         // TODO module for file-uploads this.addAngularModule();
         // TODO Add entities to module
@@ -183,8 +194,8 @@ module.exports = class extends BaseGenerator {
         this.addEntityToModule('fileType', 'FileType', 'FileType', 'fileUploads', 'file-type', 'file-type', angularAppName);
 
         // TODO Add entities menu
-        this.addEntityToMenu('file-type', 'times', true, this.clientFramework);
-        this.addEntityToMenu('file-upload', 'times', true, this.clientFramework);
+        this.addEntityToMenu('file-type', 'times', true, clientFramework);
+        this.addEntityToMenu('file-upload', 'times', true, clientFramework);
 
         // todo loop the language elements array
         this.addElementTranslationKey('fortune', 'Fortune', 'en');
@@ -194,6 +205,9 @@ module.exports = class extends BaseGenerator {
         this.template('src/main/webapp/i18n/', `${webappDir}i18n/`);
     }
 
+    /**
+     * Install server libraries for handling excel and their DTOs
+     */
     _installServerDependencies() {
         const OZLERHAKAN_POIJI_VERSION = '1.20.0';
         const OZLERHAKAN_POIJI_VERSION_PROPERTY = '${poiji.version}';
