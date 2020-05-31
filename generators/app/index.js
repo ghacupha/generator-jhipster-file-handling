@@ -67,6 +67,7 @@ module.exports = class extends BaseGenerator {
 
     writing() {
         // read config from .yo-rc.json
+        this.applicationType = this.jhipsterAppConfig.applicationType;
         this.baseName = this.jhipsterAppConfig.baseName;
         this.packageName = this.jhipsterAppConfig.packageName;
         this.packageFolder = this.jhipsterAppConfig.packageFolder;
@@ -111,6 +112,27 @@ module.exports = class extends BaseGenerator {
         this.log(`create client code?=${this.createClientCode}`);
         this.log('------\n');
 
+        if (this.applicationType !== 'microserviceGateway') {
+            this._installBackEndCode(javaDir, javaTestDir, resourceDir);
+        }
+
+        if (this.createClientCode === 'y') {
+            if (this.clientFramework === 'angularX') {
+                // only works if it's angular code
+                this._installClientCode(webappDir);
+            }
+        }
+    }
+
+    /**
+     * This install back-end java code and liquibase migration configuration
+     *
+     * @param {String} javaDir path of the project's java directory
+     * @param {String} javaTestDir path of the project's java test directory
+     * @param {String} resourceDir  path of the main resource directory
+     */
+    _installBackEndCode(javaDir, javaTestDir, resourceDir) {
+        // TODO work on backend code
         // utility function to write templates
         this.template = function(source, destination) {
             this.fs.copyTpl(this.templatePath(source), this.destinationPath(destination), this);
@@ -142,13 +164,6 @@ module.exports = class extends BaseGenerator {
         );
         this.addChangelogToLiquibase(`${this.changelogDate}_added_entity_FileUpload`);
         this.addChangelogToLiquibase(`${this.changelogDate}_added_entity_FileType`);
-
-        if (this.createClientCode === 'y') {
-            if (this.clientFramework === 'angularX') {
-                // only works if it's angular code
-                this._installClientCode(webappDir);
-            }
-        }
     }
 
     _installClientCode(webappDir) {
@@ -159,7 +174,7 @@ module.exports = class extends BaseGenerator {
         this.addElementToMenu('fortune', 'sunglasses', true, this.clientFramework);
 
         // TODO Add entities to module
-        this.addEntityToModule('file-upload', true, this.clientFramework, '', '', '');
+        this.addEntityToModule('fileUpload', 'FileUpload', 'FileUpload', this.clientFramework, '', '', '');
 
         // TODO Add entities menu
         this.addEntityToMenu('file-upload', 'times', true, this.clientFramework);
