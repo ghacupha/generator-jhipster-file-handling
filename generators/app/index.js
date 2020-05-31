@@ -145,6 +145,7 @@ module.exports = class extends BaseGenerator {
 
         if (this.createClientCode === 'y') {
             if (this.clientFramework === 'angularX') {
+                // only works if it's angular code
                 this._installClientCode(webappDir);
             }
         }
@@ -153,11 +154,21 @@ module.exports = class extends BaseGenerator {
     _installClientCode(webappDir) {
         // Install sample code
         this.template('src/main/webapp/scripts/app/fortune/', `${webappDir}app/fortune/`);
+        // install file-upload code
         this.template('src/main/webapp/scripts/app/entities/', `${webappDir}app/entities/`);
         this.addElementToMenu('fortune', 'sunglasses', true, this.clientFramework);
+
+        // TODO Add entities to module
+        this.addEntityToModule('file-upload', true, this.clientFramework, '', '', '');
+
+        // TODO Add entities menu
+        this.addEntityToMenu('file-upload', 'times', true, this.clientFramework);
+
+        // todo loop the language elements array
         this.addElementTranslationKey('fortune', 'Fortune', 'en');
         this.addElementTranslationKey('fortune', 'Fortune', 'fr');
 
+        // copy all language files
         this.template('src/main/webapp/i18n/', `${webappDir}i18n/`);
     }
 
