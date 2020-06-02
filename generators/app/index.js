@@ -2,6 +2,7 @@
 const chalk = require('chalk');
 const semver = require('semver');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
+const { spawn } = require('child_process');
 const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
 const packagejs = require('../../package.json');
 
@@ -52,7 +53,7 @@ module.exports = class extends BaseGenerator {
                 when: () => typeof this.createClientCode === 'undefined',
                 type: 'input',
                 name: 'createClientCode',
-                createClientCode: 'Do you want to create client code? (y/n)',
+                message: 'Do you want to create client code? (y/n)',
                 default: 'n'
             }
         ];
@@ -113,16 +114,94 @@ module.exports = class extends BaseGenerator {
         this.log(`create client code?=${this.createClientCode}`);
         this.log('------\n');
 
-        if (!this.applicationType === 'gateway') {
-            this._installServerCode(javaDir, javaTestDir, resourceDir);
-        }
+        // if (!this.applicationType === 'gateway') {
+        //     this._installServerCode(javaDir, javaTestDir, resourceDir);
+        // }
+        //
+        // if (this.createClientCode === 'y') {
+        //     if (this.clientFramework === 'angularX') {
+        //         // only works if it's angular code
+        //         this._installClientCode(webappDir, webappTestDir, this.angularAppName, this.clientFramework);
+        //     }
+        // }
 
-        if (this.createClientCode === 'y') {
-            if (this.clientFramework === 'angularX') {
-                // only works if it's angular code
-                this._installClientCode(webappDir, webappTestDir, this.angularAppName, this.clientFramework);
-            }
-        }
+        const /** @param {String}*/ jdlScript =
+                'entity FileType {\n' +
+                '  fileTypeName String required unique,\n' +
+                '  fileMediumType FileMediumTypes required,\n' +
+                '  description String,\n' +
+                '  fileTemplate AnyBlob,\n' +
+                '  fileType FileModelType\n' +
+                '}\n' +
+                'entity FileUpload {\n' +
+                '  description String required,\n' +
+                '  fileName String required unique,\n' +
+                '  periodFrom LocalDate,\n' +
+                '  periodTo LocalDate,\n' +
+                '  fileTypeId Long required,\n' +
+                '  dataFile AnyBlob required,\n' +
+                '  uploadSuccessful Boolean,\n' +
+                '  uploadProcessed Boolean,\n' +
+                '  uploadToken String unique\n' +
+                '}\n' +
+                'entity MessageToken {\n' +
+                '  description String,\n' +
+                '  timeSent Long required,\n' +
+                '  tokenValue String required,\n' +
+                '  received Boolean,\n' +
+                '  actioned Boolean,\n' +
+                '  contentFullyEnqueued Boolean\n' +
+                '}\n' +
+                'enum FileMediumTypes {\n' +
+                '  EXCEL,\n' +
+                '  EXCEL_XLS,\n' +
+                '  EXCEL_XLSX,\n' +
+                '  EXCEL_XLSB,\n' +
+                '  EXCEL_CSV,\n' +
+                '  EXCEL_XML,\n' +
+                '  PDF,\n' +
+                '  POWERPOINT,\n' +
+                '  DOC,\n' +
+                '  TEXT,\n' +
+                '  JSON,\n' +
+                '  HTML5\n' +
+                '}\n' +
+                'enum FileModelType {\n' +
+                '  SERVICE_OUTLETS,\n' +
+                '  SBU_LIST,\n' +
+                '  CURRENCY_LIST,\n' +
+                '  DEPOSIT_LIST,\n' +
+                '  BRANCH_LIST,\n' +
+                '   FX_RATES,\n' +
+                '  SCHEME_LIST,\n' +
+                '  SECTORS,\n' +
+                '  SUB_SECTORS,\n' +
+                '  GENERAL_LEDGERS\n' +
+                '}\n' +
+                'dto FileUpload, MessageToken with mapstruct\n' +
+                'paginate FileType, FileUpload, MessageToken with pagination\n' +
+                'service FileUpload, MessageToken with serviceImpl\n' +
+                'service FileType with serviceClass\n' +
+                'microservice FileType, FileUpload, MessageToken with depositAnalysisMain\n' +
+                'filter FileType, FileUpload, MessageToken\n' +
+                'clientRootFolder FileType, FileUpload, MessageToken with depositAnalysisMain';
+
+        // todo make microservice name in the script dynamic
+        // todo make client root folder dynamic
+        // todo make arry of Model types dynamic
+        let ls = spawn('jhipster', ['import-jdl', '--inline', '${jdlScript}']);
+
+        ls.stdout.on('data', function(data) {
+            console.log('stdout: ' + data);
+        });
+
+        ls.stderr.on('data', function(data) {
+            console.log('stderr: ' + data);
+        });
+
+        ls.on('exit', function(code) {
+            console.log('child process exited with code ' + code);
+        });
     }
 
     /**
@@ -133,38 +212,38 @@ module.exports = class extends BaseGenerator {
      * @param {String} resourceDir  path of the main resource directory
      */
     _installServerCode(javaDir, javaTestDir, resourceDir) {
-        // TODO work on backend code
-        // utility function to write templates
-        this.template = function(source, destination) {
-            this.fs.copyTpl(this.templatePath(source), this.destinationPath(destination), this);
-        };
-
-        this._installServerDependencies();
-
-        // add Java source code
-        this.template('src/main/java/package/domain/', `${javaDir}domain/`);
-        this.template('src/main/java/package/repository/', `${javaDir}repository/`);
-        this.template('src/main/java/package/service/', `${javaDir}service/`);
-        this.template('src/main/java/package/web/', `${javaDir}web/`);
-
-        // Add test code
-        this.template('src/test/java/package/domain/', `${javaTestDir}domain/`);
-        this.template('src/test/java/package/web/', `${javaTestDir}web/`);
-        this.template('src/test/java/package/service/', `${javaTestDir}service/`);
-
-        // Add liquibase resources
-        this.template('src/main/resources/config/liquibase/fake-data/', `${resourceDir}config/liquibase/fake-data/`);
-        this.changelogDate = this.dateFormatForLiquibase();
-        this.template(
-            'src/main/resources/config/liquibase/changelog/_added_entity_FileUpload.xml',
-            `${resourceDir}config/liquibase/changelog/${this.changelogDate}_added_entity_FileUpload.xml`
-        );
-        this.template(
-            'src/main/resources/config/liquibase/changelog/_added_entity_FileType.xml',
-            `${resourceDir}config/liquibase/changelog/${this.changelogDate}_added_entity_FileType.xml`
-        );
-        this.addChangelogToLiquibase(`${this.changelogDate}_added_entity_FileUpload`);
-        this.addChangelogToLiquibase(`${this.changelogDate}_added_entity_FileType`);
+        // // TODO work on backend code
+        // // utility function to write templates
+        // this.template = function(source, destination) {
+        //     this.fs.copyTpl(this.templatePath(source), this.destinationPath(destination), this);
+        // };
+        //
+        // this._installServerDependencies();
+        //
+        // // add Java source code
+        // this.template('src/main/java/package/domain/', `${javaDir}domain/`);
+        // this.template('src/main/java/package/repository/', `${javaDir}repository/`);
+        // this.template('src/main/java/package/service/', `${javaDir}service/`);
+        // this.template('src/main/java/package/web/', `${javaDir}web/`);
+        //
+        // // Add test code
+        // this.template('src/test/java/package/domain/', `${javaTestDir}domain/`);
+        // this.template('src/test/java/package/web/', `${javaTestDir}web/`);
+        // this.template('src/test/java/package/service/', `${javaTestDir}service/`);
+        //
+        // // Add liquibase resources
+        // this.template('src/main/resources/config/liquibase/fake-data/', `${resourceDir}config/liquibase/fake-data/`);
+        // this.changelogDate = this.dateFormatForLiquibase();
+        // this.template(
+        //     'src/main/resources/config/liquibase/changelog/_added_entity_FileUpload.xml',
+        //     `${resourceDir}config/liquibase/changelog/${this.changelogDate}_added_entity_FileUpload.xml`
+        // );
+        // this.template(
+        //     'src/main/resources/config/liquibase/changelog/_added_entity_FileType.xml',
+        //     `${resourceDir}config/liquibase/changelog/${this.changelogDate}_added_entity_FileType.xml`
+        // );
+        // this.addChangelogToLiquibase(`${this.changelogDate}_added_entity_FileUpload`);
+        // this.addChangelogToLiquibase(`${this.changelogDate}_added_entity_FileType`);
     }
 
     /**
@@ -177,33 +256,33 @@ module.exports = class extends BaseGenerator {
      * @param {String} clientFramework
      */
     _installClientCode(webappDir, webappTestDir, angularAppName, clientFramework) {
-        this.template = function(source, destination) {
-            this.fs.copyTpl(this.templatePath(source), this.destinationPath(destination), this);
-        };
-        // Install sample code
-        this.template('src/main/webapp/scripts/app/fortune/', `${webappDir}app/fortune/`);
-        // install file-upload code
-        this.template('src/main/webapp/scripts/app/entities/', `${webappDir}app/entities/`);
-        this.template('src/main/webapp/scripts/app/shared/', `${webappDir}app/shared/`);
-        this.template('src/test/javascript/e2e/', `${webappTestDir}e2e/`);
-        this.template('src/test/javascript/spec/', `${webappTestDir}spec/`);
-        this.addElementToMenu('fortune', 'sunglasses', true, clientFramework);
-
-        // TODO module for file-uploads this.addAngularModule();
-        // TODO Add entities to module
-        this.addEntityToModule('fileUpload', 'FileUpload', 'FileUpload', 'fileUploads', 'file-upload', 'file-upload', '');
-        this.addEntityToModule('fileType', 'FileType', 'FileType', 'fileUploads', 'file-type', 'file-type', '');
-
-        // TODO Add entities menu
-        this.addEntityToMenu('file-type', 'times', true, clientFramework);
-        this.addEntityToMenu('file-upload', 'times', true, clientFramework);
-
-        // todo loop the language elements array
-        this.addElementTranslationKey('fortune', 'Fortune', 'en');
-        this.addElementTranslationKey('fortune', 'Fortune', 'fr');
-
-        // copy all language files
-        this.template('src/main/webapp/i18n/', `${webappDir}i18n/`);
+        // this.template = function(source, destination) {
+        //     this.fs.copyTpl(this.templatePath(source), this.destinationPath(destination), this);
+        // };
+        // // Install sample code
+        // this.template('src/main/webapp/scripts/app/fortune/', `${webappDir}app/fortune/`);
+        // // install file-upload code
+        // this.template('src/main/webapp/scripts/app/entities/', `${webappDir}app/entities/`);
+        // this.template('src/main/webapp/scripts/app/shared/', `${webappDir}app/shared/`);
+        // this.template('src/test/javascript/e2e/', `${webappTestDir}e2e/`);
+        // this.template('src/test/javascript/spec/', `${webappTestDir}spec/`);
+        // this.addElementToMenu('fortune', 'sunglasses', true, clientFramework);
+        //
+        // // TODO module for file-uploads this.addAngularModule();
+        // // TODO Add entities to module
+        // this.addEntityToModule('fileUpload', 'FileUpload', 'FileUpload', 'fileUploads', 'file-upload', 'file-upload', '');
+        // this.addEntityToModule('fileType', 'FileType', 'FileType', 'fileUploads', 'file-type', 'file-type', '');
+        //
+        // // TODO Add entities menu
+        // this.addEntityToMenu('file-type', 'times', true, clientFramework);
+        // this.addEntityToMenu('file-upload', 'times', true, clientFramework);
+        //
+        // // todo loop the language elements array
+        // this.addElementTranslationKey('fortune', 'Fortune', 'en');
+        // this.addElementTranslationKey('fortune', 'Fortune', 'fr');
+        //
+        // // copy all language files
+        // this.template('src/main/webapp/i18n/', `${webappDir}i18n/`);
     }
 
     /**
