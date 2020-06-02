@@ -216,7 +216,7 @@ function _runMicroserviceScript(skipClient, written) {
             this.log(`error: ${error.message} \n See stack-trace : \n ${error.stack}`);
         })
         .on('close', code => {
-            this.log(`\nJDL generate child_process exited with code ${code}\n`);
+            this.log(`\nJDL generate process exited with code ${code}\n`);
             this.log(
                 // eslint-disable-next-line quotes
                 "I have tried removing backend code from gateways, but it's not working. So if this is a gateway try removing it yourself with 'git stash'. My apologies"
