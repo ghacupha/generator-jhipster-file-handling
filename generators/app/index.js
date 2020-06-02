@@ -57,7 +57,9 @@ module.exports = class extends BaseGenerator {
                 default: 'y'
             },
             {
-                when: () => typeof this.gatewayMicroserviceName === 'undefined' && this.jhipsterAppConfig.applicationType === 'gateway',
+                when: () =>
+                    (typeof this.gatewayMicroserviceName === 'undefined' && this.jhipsterAppConfig.applicationType === 'microservice') ||
+                    this.jhipsterAppConfig.applicationType === 'gateway',
                 type: 'input',
                 name: 'gatewayMicroserviceName',
                 message: 'This being a gateway, what name is the microservice with the file handling service?',
@@ -91,13 +93,12 @@ module.exports = class extends BaseGenerator {
         const webappDir = jhipsterConstants.CLIENT_MAIN_SRC_DIR;
 
         // variable from questions
-        let gatewayMicroserviceName;
         if (typeof this.message === 'undefined') {
             this.message = this.promptAnswers.message;
         }
 
-        if (typeof gatewayMicroserviceName === 'undefined') {
-            gatewayMicroserviceName = this.promptAnswers.gatewayMicroserviceName;
+        if (typeof this.gatewayMicroserviceName === 'undefined') {
+            this.gatewayMicroserviceName = this.promptAnswers.gatewayMicroserviceName;
         }
 
         // show all variables
@@ -119,7 +120,7 @@ module.exports = class extends BaseGenerator {
         this.log('\n--- variables from questions ---');
         this.log(`create client code?=${this.message}`);
         if (this.jhipsterAppConfig.applicationType === 'gateway') {
-            this.log(`Gateway microservice name?=${gatewayMicroserviceName}`);
+            this.log(`Gateway microservice name?=${this.gatewayMicroserviceName}`);
         }
         this.log('------\n');
 
@@ -129,13 +130,17 @@ module.exports = class extends BaseGenerator {
 
         const createdJdl = this.async();
         if (this.jhipsterAppConfig.applicationType === 'microservice') {
-            this.template('fileUploads.jdl', '.jhipster/fileUploads.jdl');
+            this.template('_fileUploads.jdl', '.jhipster/fileUploads.jdl');
         } else {
             this.template('fileUploads-general.jdl', '.jhipster/fileUploads-general.jdl');
         }
         createdJdl();
 
-        this._useJdlExecution(gatewayMicroserviceName);
+        const executedJdl = this.async();
+        this._useJdlExecution(this.gatewayMicroserviceName).on('close', () => {
+            // trying to desperately wait for jdl execution
+            executedJdl();
+        });
     }
 
     /**
@@ -155,7 +160,7 @@ module.exports = class extends BaseGenerator {
         // }
 
         // run jdl script
-        this._executeJdlScript(this.jhipsterAppConfig.applicationType === 'microservice', gatewayMicroserviceName);
+        this._executeJdlScript(this.jhipsterAppConfig.applicationType === 'microservice', this.gatewayMicroserviceName);
     }
 
     /**
@@ -166,87 +171,82 @@ module.exports = class extends BaseGenerator {
     _executeJdlScript(skipClient, gatewayMicroserviceName) {
         const written = this.async();
         if (this.jhipsterAppConfig.applicationType === 'microservice') {
-            _runMicroserviceScript(skipClient, written);
+            this._runMicroserviceScript(skipClient, written);
         } else {
-            _runGeneralScript(skipClient, written);
+            this._runGeneralScript(skipClient, written);
         }
     }
 
     // todo review need for running install
-    // install() {
-    //     const logMsg = `To install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install`)}`;
+    install() {
+        const logMsg = `To install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install`)}`;
 
-    //     const injectDependenciesAndConstants = err => {
-    //         if (err) {
-    //             this.warning('Install of dependencies failed!');
-    //             this.log(logMsg);
-    //         }
-    //     };
-    //     const installConfig = {
-    //         bower: false,
-    //         npm: this.clientPackageManager !== 'yarn',
-    //         yarn: this.clientPackageManager === 'yarn',
-    //         callback: injectDependenciesAndConstants
-    //     };
-    //     if (this.options['skip-install']) {
-    //         this.log(logMsg);
-    //     } else {
-    //         this.installDependencies(installConfig);
-    //     }
-    // }
+        const injectDependenciesAndConstants = err => {
+            if (err) {
+                this.warning('Install of dependencies failed!');
+                this.log(logMsg);
+            }
+        };
+        const installConfig = {
+            bower: false,
+            npm: this.clientPackageManager !== 'yarn',
+            yarn: this.clientPackageManager === 'yarn',
+            callback: injectDependenciesAndConstants
+        };
+        if (this.options['skip-install']) {
+            this.log(logMsg);
+        } else {
+            this.installDependencies(installConfig);
+        }
+    }
 
     end() {
         this.log('End of file-handling generator');
     }
-};
-function _runMicroserviceScript(skipClient, written) {
-    spawn(
-        'jhipster',
-        [
-            'import-jdl',
-            '.jhipster/fileUploads.jdl',
-            '--fluent-methods=true ',
-            `--skip-client=${skipClient} `,
-            '--client-root-folder=fileUploads'
-        ],
-        { stdio: 'inherit', shell: true, windowsVerbatimArguments: true, windowsHide: true }
-    )
-        .on('error', error => {
-            // Hopeful that this gives informative error messages
-            this.log(`error: ${error.message} \n See stack-trace : \n ${error.stack}`);
-        })
-        .on('close', code => {
-            this.log(`\nJDL generate process exited with code ${code}\n`);
-            this.log(
-                // eslint-disable-next-line quotes
-                "I have tried removing backend code from gateways, but it's not working. So if this is a gateway try removing it yourself with 'git stash'. My apologies"
-            );
-            written();
-        });
-}
 
-function _runGeneralScript(skipClient, written) {
-    spawn(
-        'jhipster',
-        [
-            'import-jdl',
-            '.jhipster/fileUploads-general.jdl',
-            '--fluent-methods=true ',
-            `--skip-client=${skipClient} `,
-            '--client-root-folder=fileUploads'
-        ],
-        { stdio: 'inherit', shell: true, windowsVerbatimArguments: true, windowsHide: true }
-    )
-        .on('error', error => {
-            // Hopeful that this gives informative error messages
-            this.log(`error: ${error.message} \n See stack-trace : \n ${error.stack}`);
-        })
-        .on('close', code => {
-            this.log(`\nJDL generate child_process exited with code ${code}\n`);
-            this.log(
-                // eslint-disable-next-line quotes
-                "I have tried removing backend code from gateways, but it's not working. So if this is a gateway try removing it yourself with 'git stash'. My apologies"
-            );
-            written();
-        });
-}
+    _runMicroserviceScript(skipClient, written) {
+        spawn(
+            'jhipster',
+            [
+                'import-jdl',
+                '.jhipster/fileUploads.jdl',
+                '--fluent-methods=true ',
+                `--skip-client=${skipClient} `,
+                '--client-root-folder=fileUploads'
+            ],
+            { stdio: 'inherit', shell: true, windowsVerbatimArguments: true, windowsHide: true }
+        )
+            .on('error', error => {
+                // Hopeful that this gives informative error messages
+                this.log(`error: ${error.message} \n See stack-trace : \n ${error.stack}`);
+            })
+            .on('close', code => {
+                this.log(`\n JDL generate process exited with code ${code}\n`);
+
+                written();
+            });
+    }
+
+    _runGeneralScript(skipClient, written) {
+        spawn(
+            'jhipster',
+            [
+                'import-jdl',
+                '.jhipster/fileUploads-general.jdl',
+                '--fluent-methods=true ',
+                `--skip-client=${skipClient} `,
+                '--client-root-folder=fileUploads'
+            ],
+            { stdio: 'inherit', shell: true, windowsVerbatimArguments: true, windowsHide: true }
+        )
+            .on('error', error => {
+                // Hopeful that this gives informative error messages
+                this.log(`error: ${error.message} \n See stack-trace : \n ${error.stack}`);
+            })
+            .on('close', code => {
+                this.log(`\n JDL generate child_process exited with code ${code}\n`);
+
+                written();
+            });
+    }
+};
