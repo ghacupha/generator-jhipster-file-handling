@@ -2,7 +2,7 @@
 
 [![NPM version][npm-image]][npm-url] [![Build Status][github-actions-image]][github-actions-url] [![Dependency Status][daviddm-image]][daviddm-url]
 
-> JHipster module, File handling java api for uploading and reading data from a file
+> JHipster module, Installs entities and dependencies to enable reading from excel file data
 
 # Introduction
 
@@ -47,6 +47,8 @@ yarn global upgrade generator-jhipster-file-handling
 # Usage
 
 # License
+
+Apache-2.0 © [Edwin Njeru](https://github.com/ghacupha)
 
 [npm-image]: https://img.shields.io/npm/v/generator-jhipster-file-handling.svg
 [npm-url]: https://npmjs.org/package/generator-jhipster-file-handling
