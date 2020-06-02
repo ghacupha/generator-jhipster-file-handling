@@ -1,0 +1,58 @@
+entity FileType {
+  fileTypeName String required unique,
+  fileMediumType FileMediumTypes required,
+  description String,
+  fileTemplate AnyBlob,
+  fileType FileModelType
+}
+entity FileUpload {
+  description String required,
+  fileName String required unique,
+  periodFrom LocalDate,
+  periodTo LocalDate,
+  fileTypeId Long required,
+  dataFile AnyBlob required,
+  uploadSuccessful Boolean,
+  uploadProcessed Boolean,
+  uploadToken String unique
+}
+entity MessageToken {
+  description String,
+  timeSent Long required,
+  tokenValue String required,
+  received Boolean,
+  actioned Boolean,
+  contentFullyEnqueued Boolean
+}
+enum FileMediumTypes {
+  EXCEL,
+  EXCEL_XLS,
+  EXCEL_XLSX,
+  EXCEL_XLSB,
+  EXCEL_CSV,
+  EXCEL_XML,
+  PDF,
+  POWERPOINT,
+  DOC,
+  TEXT,
+  JSON,
+  HTML5
+}
+enum FileModelType {
+  SERVICE_OUTLETS,
+  SBU_LIST,
+  CURRENCY_LIST,
+  DEPOSIT_LIST,
+  BRANCH_LIST,
+   FX_RATES,
+  SCHEME_LIST,
+  SECTORS,
+  SUB_SECTORS,
+  GENERAL_LEDGERS
+}
+dto FileUpload, MessageToken with mapstruct
+paginate FileType, FileUpload, MessageToken with pagination
+service FileUpload, MessageToken with serviceImpl
+service FileType with serviceClass
+filter FileType, FileUpload, MessageToken
+clientRootFolder FileType, FileUpload, MessageToken with fileUploads

@@ -42,7 +42,7 @@ module.exports = class extends BaseGenerator {
                 }
             },
             checkGit() {
-                this.log('Experience has shown that this kind of thing really needs, good grasp of git. So beware');
+                this.log('Experience has shown that this kind of thing really needs a working knowledge. So beware');
             }
         };
     }
@@ -123,134 +123,130 @@ module.exports = class extends BaseGenerator {
         }
         this.log('------\n');
 
-        // make skip-server true if gateway application
+        this.template = function(source, destination) {
+            this.fs.copyTpl(this.templatePath(source), this.destinationPath(destination), this);
+        };
+
+        const createdJdl = this.async();
+        if (this.jhipsterAppConfig.applicationType === 'microservice') {
+            this.template('fileUploads.jdl', '.jhipster/fileUploads.jdl');
+        } else {
+            this.template('fileUploads-general.jdl', '.jhipster/fileUploads-general.jdl');
+        }
+        createdJdl();
+
         this._useJdlExecution(gatewayMicroserviceName);
     }
 
+    /**
+     *
+     * @param {String} gatewayMicroserviceName
+     */
     _useJdlExecution(gatewayMicroserviceName) {
-        const /** @param {Boolean} */ skipServer = this.jhipsterAppConfig.applicationType === 'gateway';
         // make skip-client true if microservice application
-        let /** @param {Boolean} */ skipClient;
-        if (this.jhipsterAppConfig.applicationType !== 'microservice' && this.message === 'n') {
-            skipClient = false;
-        } else {
-            skipClient = this.jhipsterAppConfig.applicationType === 'microservice';
-        }
-        let /** @param {String} */ microserviceConfig = '';
-        if (this.jhipsterAppConfig.applicationType === 'microservice') {
-            const /** @param {String} */ microserviceName = this.getMicroserviceAppName(this.baseName);
-            microserviceConfig = `microservice FileType, FileUpload with ${microserviceName}`;
-        } else if (this.jhipsterAppConfig.applicationType === 'gateway') {
-            microserviceConfig = `microservice FileType, FileUpload with ${gatewayMicroserviceName}`;
-        }
-        const /** @param {String} */ jdlScript =
-                '  entity FileType { \n' +
-                '    fileTypeName String required unique, \n' +
-                '    fileMediumType FileMediumTypes required, \n' +
-                '    description String, \n' +
-                '    fileTemplate AnyBlob, \n' +
-                '    fileType FileModelType \n' +
-                '  } \n' +
-                '  entity FileUpload { \n' +
-                '    description String required, \n' +
-                '    fileName String required unique, \n' +
-                '    periodFrom LocalDate, \n' +
-                '    periodTo LocalDate, \n' +
-                '    fileTypeId Long required, \n' +
-                '    dataFile AnyBlob required, \n' +
-                '    uploadSuccessful Boolean, \n' +
-                '    uploadProcessed Boolean, \n' +
-                '    uploadToken String unique \n' +
-                '  } \n' +
-                '  enum FileMediumTypes { \n' +
-                '    EXCEL, \n' +
-                '    EXCEL_XLS, \n' +
-                '    EXCEL_XLSX, \n' +
-                '    EXCEL_XLSB, \n' +
-                '    EXCEL_CSV, \n' +
-                '    EXCEL_XML, \n' +
-                '    PDF, \n' +
-                '    POWERPOINT, \n' +
-                '    DOC, \n' +
-                '    TEXT, \n' +
-                '    JSON, \n' +
-                '    HTML5 \n' +
-                '  } \n' +
-                '  enum FileModelType { \n' +
-                '    SERVICE_OUTLETS, \n' +
-                '    TRANSACTION_ACCOUNTS, \n' +
-                '    PREPAYMENT_ENTRIES, \n' +
-                '    AMORTIZATION_ENTRIES \n' +
-                '} \n' +
-                ' \n' +
-                'paginate FileType, FileUpload with pagination \n' +
-                'service FileType with serviceClass \n' +
-                'service FileUpload with serviceImpl \n' +
-                'filter FileType, FileUpload \n' +
-                'clientRootFolder FileType, FileUpload with fileUploads \n' +
-                'dto FileUpload with mapstruct';
-        // eslint-disable-next-line no-unused-expressions
-        `${microserviceConfig}`;
+        // const /** @param {Boolean} */ skipClient = this.jhipsterAppConfig.applicationType === 'microservice';
+
+        // let /** @param {String} */ microserviceConfig = '';
+        // if (this.jhipsterAppConfig.applicationType === 'microservice') {
+        //     const /** @param {String} */ microserviceName = this.getMicroserviceAppName(this.baseName);
+        //     microserviceConfig = `microservice FileType, FileUpload with ${microserviceName}`;
+        // } else if (this.jhipsterAppConfig.applicationType === 'gateway') {
+        //     microserviceConfig = `microservice FileType, FileUpload with ${gatewayMicroserviceName}`;
+        // }
 
         // run jdl script
-        this._executeJdlScript(jdlScript, skipServer, skipClient);
+        this._executeJdlScript(this.jhipsterAppConfig.applicationType === 'microservice', gatewayMicroserviceName);
     }
 
-    _executeJdlScript(jdlScript, skipServer, skipClient) {
+    /**
+     *
+     * @param {Boolean} skipClient
+     * @param {String} gatewayMicroserviceName value used by the ejs template
+     */
+    _executeJdlScript(skipClient, gatewayMicroserviceName) {
         const written = this.async();
-        spawn(
-            'jhipster',
-            [
-                'import-jdl',
-                '--inline ',
-                `${jdlScript}`,
-                '--from-cli=false ',
-                '--fluent-methods=true ',
-                `--skip-server=${skipServer} `,
-                // `--skip-db-changelog=${skipServer} `,
-                `--skip-client=${skipClient} `,
-                '--client-root-folder=fileUploads'
-            ],
-            { stdio: 'inherit', stdin: 'write', stdout: 'write' }
-        )
-            .on('error', error => {
-                // Hopeful that this gives informative error messages
-                this.log(`error: ${error.message} \n See stack-trace : \n ${error.stack}`);
-            })
-            .on('close', code => {
-                this.log(`\nJDL generate process exited with code ${code}\n`);
-                this.log(
-                    // eslint-disable-next-line quotes
-                    "I have tried removing backend code from gateways, but it's not working. So if this is a gateway try removing it yourself with 'git stash'. My apologies"
-                );
-                written();
-            });
+        if (this.jhipsterAppConfig.applicationType === 'microservice') {
+            _runMicroserviceScript(skipClient, written);
+        } else {
+            _runGeneralScript(skipClient, written);
+        }
     }
 
     // todo review need for running install
-    install() {
-        const logMsg = `To install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install`)}`;
+    // install() {
+    //     const logMsg = `To install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install`)}`;
 
-        const injectDependenciesAndConstants = err => {
-            if (err) {
-                this.warning('Install of dependencies failed!');
-                this.log(logMsg);
-            }
-        };
-        const installConfig = {
-            bower: false,
-            npm: this.clientPackageManager !== 'yarn',
-            yarn: this.clientPackageManager === 'yarn',
-            callback: injectDependenciesAndConstants
-        };
-        if (this.options['skip-install']) {
-            this.log(logMsg);
-        } else {
-            this.installDependencies(installConfig);
-        }
-    }
+    //     const injectDependenciesAndConstants = err => {
+    //         if (err) {
+    //             this.warning('Install of dependencies failed!');
+    //             this.log(logMsg);
+    //         }
+    //     };
+    //     const installConfig = {
+    //         bower: false,
+    //         npm: this.clientPackageManager !== 'yarn',
+    //         yarn: this.clientPackageManager === 'yarn',
+    //         callback: injectDependenciesAndConstants
+    //     };
+    //     if (this.options['skip-install']) {
+    //         this.log(logMsg);
+    //     } else {
+    //         this.installDependencies(installConfig);
+    //     }
+    // }
 
     end() {
         this.log('End of file-handling generator');
     }
 };
+function _runMicroserviceScript(skipClient, written) {
+    spawn(
+        'jhipster',
+        [
+            'import-jdl',
+            '.jhipster/fileUploads.jdl',
+            '--fluent-methods=true ',
+            `--skip-client=${skipClient} `,
+            '--client-root-folder=fileUploads'
+        ],
+        { stdio: 'inherit', shell: true, windowsVerbatimArguments: true, windowsHide: true }
+    )
+        .on('error', error => {
+            // Hopeful that this gives informative error messages
+            this.log(`error: ${error.message} \n See stack-trace : \n ${error.stack}`);
+        })
+        .on('close', code => {
+            this.log(`\nJDL generate child_process exited with code ${code}\n`);
+            this.log(
+                // eslint-disable-next-line quotes
+                "I have tried removing backend code from gateways, but it's not working. So if this is a gateway try removing it yourself with 'git stash'. My apologies"
+            );
+            written();
+        });
+}
+
+function _runGeneralScript(skipClient, written) {
+    spawn(
+        'jhipster',
+        [
+            'import-jdl',
+            '.jhipster/fileUploads-general.jdl',
+            '--fluent-methods=true ',
+            `--skip-client=${skipClient} `,
+            '--client-root-folder=fileUploads'
+        ],
+        { stdio: 'inherit', shell: true, windowsVerbatimArguments: true, windowsHide: true }
+    )
+        .on('error', error => {
+            // Hopeful that this gives informative error messages
+            this.log(`error: ${error.message} \n See stack-trace : \n ${error.stack}`);
+        })
+        .on('close', code => {
+            this.log(`\nJDL generate child_process exited with code ${code}\n`);
+            this.log(
+                // eslint-disable-next-line quotes
+                "I have tried removing backend code from gateways, but it's not working. So if this is a gateway try removing it yourself with 'git stash'. My apologies"
+            );
+            written();
+        });
+}
