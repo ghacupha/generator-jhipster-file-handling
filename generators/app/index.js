@@ -136,49 +136,34 @@ module.exports = class extends BaseGenerator {
         }
         createdJdl();
 
-        const executedJdl = this.async();
-        this._useJdlExecution(this.gatewayMicroserviceName).on('close', () => {
-            // trying to desperately wait for jdl execution
-            executedJdl();
-        });
+        this._useJdlExecution();
     }
 
-    /**
-     *
-     * @param {String} gatewayMicroserviceName
-     */
-    _useJdlExecution(gatewayMicroserviceName) {
-        // make skip-client true if microservice application
-        // const /** @param {Boolean} */ skipClient = this.jhipsterAppConfig.applicationType === 'microservice';
-
-        // let /** @param {String} */ microserviceConfig = '';
-        // if (this.jhipsterAppConfig.applicationType === 'microservice') {
-        //     const /** @param {String} */ microserviceName = this.getMicroserviceAppName(this.baseName);
-        //     microserviceConfig = `microservice FileType, FileUpload with ${microserviceName}`;
-        // } else if (this.jhipsterAppConfig.applicationType === 'gateway') {
-        //     microserviceConfig = `microservice FileType, FileUpload with ${gatewayMicroserviceName}`;
-        // }
-
+    _useJdlExecution(_callback) {
         // run jdl script
-        this._executeJdlScript(this.jhipsterAppConfig.applicationType === 'microservice', this.gatewayMicroserviceName);
+        this._executeJdlScript(this.jhipsterAppConfig.applicationType === 'microservice');
+
+        _callback();
     }
 
     /**
      *
      * @param {Boolean} skipClient
-     * @param {String} gatewayMicroserviceName value used by the ejs template
      */
-    _executeJdlScript(skipClient, gatewayMicroserviceName) {
-        const written = this.async();
+    _executeJdlScript(skipClient) {
         if (this.jhipsterAppConfig.applicationType === 'microservice') {
-            this._runMicroserviceScript(skipClient, written);
+            this._runMicroserviceScript(skipClient);
         } else {
-            this._runGeneralScript(skipClient, written);
+            this._runGeneralScript(skipClient);
         }
     }
 
-    // todo review need for running install
     install() {
+        // todo make wait for the jdlExecution
+        this._useJdlExecution(function() {
+            // So am new to js... Call backs just don't make sense
+        });
+
         const logMsg = `To install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install`)}`;
 
         const injectDependenciesAndConstants = err => {
@@ -200,11 +185,7 @@ module.exports = class extends BaseGenerator {
         }
     }
 
-    end() {
-        this.log('End of file-handling generator');
-    }
-
-    _runMicroserviceScript(skipClient, written) {
+    _runMicroserviceScript(skipClient) {
         spawn(
             'jhipster',
             [
@@ -222,12 +203,10 @@ module.exports = class extends BaseGenerator {
             })
             .on('close', code => {
                 this.log(`\n JDL generate process exited with code ${code}\n`);
-
-                written();
             });
     }
 
-    _runGeneralScript(skipClient, written) {
+    _runGeneralScript(skipClient) {
         spawn(
             'jhipster',
             [
@@ -245,8 +224,10 @@ module.exports = class extends BaseGenerator {
             })
             .on('close', code => {
                 this.log(`\n JDL generate child_process exited with code ${code}\n`);
-
-                written();
             });
+    }
+
+    end() {
+        this.log('End of file-handling generator');
     }
 };
