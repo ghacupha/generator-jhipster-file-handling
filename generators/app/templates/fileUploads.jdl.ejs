@@ -54,6 +54,5 @@ dto FileUpload, MessageToken with mapstruct
 paginate FileType, FileUpload, MessageToken with pagination
 service FileUpload, MessageToken with serviceImpl
 service FileType with serviceClass
-microservice FileType, FileUpload, MessageToken with <%= gatewayMicroserviceName %>
 filter FileType, FileUpload, MessageToken
 clientRootFolder FileType, FileUpload, MessageToken with <%= gatewayMicroserviceName %>

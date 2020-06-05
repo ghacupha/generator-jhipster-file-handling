@@ -130,7 +130,7 @@ module.exports = class extends BaseGenerator {
 
         const createdJdl = this.async();
         if (this.jhipsterAppConfig.applicationType === 'microservice') {
-            this.template('_fileUploads.jdl', '.jhipster/fileUploads.jdl');
+            this.template('fileUploads.jdl.ejs', '.jhipster/fileUploads.jdl');
         } else {
             this.template('fileUploads-general.jdl', '.jhipster/fileUploads-general.jdl');
         }
@@ -162,13 +162,7 @@ module.exports = class extends BaseGenerator {
         const jdlHasRan = this.async();
         const jdlRan = spawn(
             'jhipster',
-            [
-                'import-jdl',
-                '.jhipster/fileUploads.jdl',
-                '--fluent-methods=true ',
-                `--skip-client=${skipClient} `,
-                '--client-root-folder=fileUploads'
-            ],
+            ['import-jdl', '.jhipster/fileUploads.jdl', '--fluent-methods=true ', `--skip-client=${skipClient} `],
             { stdio: 'inherit', shell: true, windowsVerbatimArguments: true, windowsHide: true }
         );
         jdlRan.on('error', error => {
