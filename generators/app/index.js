@@ -158,6 +158,50 @@ module.exports = class extends BaseGenerator {
         }
     }
 
+    _runMicroserviceScript(skipClient) {
+        const jdlRan = spawn(
+            'jhipster',
+            [
+                'import-jdl',
+                '.jhipster/fileUploads.jdl',
+                '--fluent-methods=true ',
+                `--skip-client=${skipClient} `,
+                '--client-root-folder=fileUploads'
+            ],
+            { stdio: 'inherit', shell: true, windowsVerbatimArguments: true, windowsHide: true }
+        );
+        jdlRan.on('error', error => {
+            // Hopeful that this gives informative error messages
+            this.log(`error: ${error.message} \n See stack-trace : \n ${error.stack}`);
+        });
+        jdlRan.stdout.on('data', data => {
+            // Hopeful that this gives informative error messages
+            this.log(`JDl Stdout : ${data.message} \n`);
+        });
+    }
+
+    _runGeneralScript(skipClient) {
+        const jdlRan = spawn(
+            'jhipster',
+            [
+                'import-jdl',
+                '.jhipster/fileUploads-general.jdl',
+                '--fluent-methods=true ',
+                `--skip-client=${skipClient} `,
+                '--client-root-folder=fileUploads'
+            ],
+            { stdio: 'inherit', shell: true, windowsVerbatimArguments: true, windowsHide: true }
+        );
+        jdlRan.on('error', error => {
+            // Hopeful that this gives informative error messages
+            this.log(`error: ${error.message} \n See stack-trace : \n ${error.stack}`);
+        });
+        jdlRan.stdout.on('data', data => {
+            // Hopeful that this gives informative error messages
+            this.log(`JDl Stdout : ${data.message} \n`);
+        });
+    }
+
     install() {
         // todo make wait for the jdlExecution
         this._useJdlExecution(function() {
@@ -183,48 +227,6 @@ module.exports = class extends BaseGenerator {
         } else {
             this.installDependencies(installConfig);
         }
-    }
-
-    _runMicroserviceScript(skipClient) {
-        spawn(
-            'jhipster',
-            [
-                'import-jdl',
-                '.jhipster/fileUploads.jdl',
-                '--fluent-methods=true ',
-                `--skip-client=${skipClient} `,
-                '--client-root-folder=fileUploads'
-            ],
-            { stdio: 'inherit', shell: true, windowsVerbatimArguments: true, windowsHide: true }
-        )
-            .on('error', error => {
-                // Hopeful that this gives informative error messages
-                this.log(`error: ${error.message} \n See stack-trace : \n ${error.stack}`);
-            })
-            .on('close', code => {
-                this.log(`\n JDL generate process exited with code ${code}\n`);
-            });
-    }
-
-    _runGeneralScript(skipClient) {
-        spawn(
-            'jhipster',
-            [
-                'import-jdl',
-                '.jhipster/fileUploads-general.jdl',
-                '--fluent-methods=true ',
-                `--skip-client=${skipClient} `,
-                '--client-root-folder=fileUploads'
-            ],
-            { stdio: 'inherit', shell: true, windowsVerbatimArguments: true, windowsHide: true }
-        )
-            .on('error', error => {
-                // Hopeful that this gives informative error messages
-                this.log(`error: ${error.message} \n See stack-trace : \n ${error.stack}`);
-            })
-            .on('close', code => {
-                this.log(`\n JDL generate child_process exited with code ${code}\n`);
-            });
     }
 
     end() {
