@@ -6,6 +6,8 @@ const jhipsterConstants = require('generator-jhipster/generators/generator-const
 const { spawn } = require('child_process');
 const packagejs = require('../../package.json');
 
+const GENERAL_CLIENT_ROOT_FOLDER = 'fileUploads';
+
 module.exports = class extends BaseGenerator {
     get initializing() {
         return {
@@ -132,7 +134,7 @@ module.exports = class extends BaseGenerator {
         if (this.jhipsterAppConfig.applicationType === 'microservice') {
             this.template('fileUploads.jdl.ejs', '.jhipster/fileUploads.jdl');
         } else {
-            this.template('fileUploads-general.jdl', '.jhipster/fileUploads-general.jdl');
+            this.template('fileUploads-general.jdl.ejs', '.jhipster/fileUploads-general.jdl');
         }
         createdJdl();
 
@@ -189,7 +191,7 @@ module.exports = class extends BaseGenerator {
                 '.jhipster/fileUploads-general.jdl',
                 '--fluent-methods=true ',
                 `--skip-client=${skipClient} `,
-                '--client-root-folder=fileUploads'
+                `--client-root-folder=${GENERAL_CLIENT_ROOT_FOLDER}`
             ],
             { stdio: 'inherit', shell: true, windowsVerbatimArguments: true, windowsHide: true }
         );
