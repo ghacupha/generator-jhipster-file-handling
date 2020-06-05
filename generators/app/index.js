@@ -62,7 +62,7 @@ module.exports = class extends BaseGenerator {
                     this.jhipsterAppConfig.applicationType === 'gateway',
                 type: 'input',
                 name: 'gatewayMicroserviceName',
-                message: 'This being a gateway, what name is the microservice with the file handling service?',
+                message: 'What is the microservice name for the file handling workflow?',
                 default: `${this.jhipsterAppConfig.baseName}Main`
             }
         ];
@@ -159,6 +159,7 @@ module.exports = class extends BaseGenerator {
     }
 
     _runMicroserviceScript(skipClient) {
+        const jdlHasRan = this.async();
         const jdlRan = spawn(
             'jhipster',
             [
@@ -178,9 +179,15 @@ module.exports = class extends BaseGenerator {
             // Hopeful that this gives informative error messages
             this.log(`JDl Stdout : ${data.message} \n`);
         });
+        jdlRan.stderr.on('data', data => {
+            // Hopeful that this gives informative error messages
+            this.log(`JDl Stderr : ${data.message} \n`);
+        });
+        jdlHasRan();
     }
 
     _runGeneralScript(skipClient) {
+        const jdlHasRan = this.async();
         const jdlRan = spawn(
             'jhipster',
             [
@@ -200,6 +207,11 @@ module.exports = class extends BaseGenerator {
             // Hopeful that this gives informative error messages
             this.log(`JDl Stdout : ${data.message} \n`);
         });
+        jdlRan.stderr.on('data', data => {
+            // Hopeful that this gives informative error messages
+            this.log(`JDl Stderr : ${data.message} \n`);
+        });
+        jdlHasRan();
     }
 
     install() {
