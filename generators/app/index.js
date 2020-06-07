@@ -66,6 +66,14 @@ module.exports = class extends BaseGenerator {
                 name: 'gatewayMicroserviceName',
                 message: 'What is the microservice name for the file handling workflow?',
                 default: `${this.jhipsterAppConfig.baseName}Main`
+            },
+            {
+                when: () =>
+                    typeof this.generalClientRootFolder === 'undefined' && this.jhipsterAppConfig.applicationType !== 'microservice',
+                type: 'input',
+                name: 'generalClientRootFolder',
+                message: "What is the general client folder's name for the file handling workflow?",
+                default: GENERAL_CLIENT_ROOT_FOLDER
             }
         ];
 
@@ -101,6 +109,10 @@ module.exports = class extends BaseGenerator {
 
         if (typeof this.gatewayMicroserviceName === 'undefined') {
             this.gatewayMicroserviceName = this.promptAnswers.gatewayMicroserviceName;
+        }
+
+        if (typeof this.generalClientRootFolder === 'undefined') {
+            this.generalClientRootFolder = this.promptAnswers.generalClientRootFolder;
         }
 
         // show all variables
@@ -183,6 +195,7 @@ module.exports = class extends BaseGenerator {
     }
 
     _runGeneralScript(skipClient) {
+        const generalClientRootFolder = GENERAL_CLIENT_ROOT_FOLDER;
         const jdlHasRan = this.async();
         const jdlRan = spawn(
             'jhipster',
@@ -191,7 +204,7 @@ module.exports = class extends BaseGenerator {
                 '.jhipster/fileUploads-general.jdl',
                 '--fluent-methods=true ',
                 `--skip-client=${skipClient} `,
-                `--client-root-folder=${GENERAL_CLIENT_ROOT_FOLDER}`
+                `--client-root-folder=${generalClientRootFolder}`
             ],
             { stdio: 'inherit', shell: true, windowsVerbatimArguments: true, windowsHide: true }
         );
