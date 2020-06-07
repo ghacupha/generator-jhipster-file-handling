@@ -7,6 +7,7 @@ const { spawn } = require('child_process');
 const packagejs = require('../../package.json');
 
 const GENERAL_CLIENT_ROOT_FOLDER = 'fileUploads';
+const EXAMPLE_FILE_MODEL_TYPES = 'SERVICE_OUTLETS,CURRENCY_LIST,FX_RATES,SCHEME_LIST,SECTORS,LEDGERS';
 
 module.exports = class extends BaseGenerator {
     get initializing() {
@@ -74,6 +75,13 @@ module.exports = class extends BaseGenerator {
                 name: 'generalClientRootFolder',
                 message: "What is the general client folder's name for the file handling workflow?",
                 default: GENERAL_CLIENT_ROOT_FOLDER
+            },
+            {
+                when: () => typeof this.fileModelTypes === 'undefined',
+                type: 'input',
+                name: 'fileModelTypes',
+                message: 'What file model types would you like to represent?',
+                default: EXAMPLE_FILE_MODEL_TYPES
             }
         ];
 
@@ -113,6 +121,10 @@ module.exports = class extends BaseGenerator {
 
         if (typeof this.generalClientRootFolder === 'undefined') {
             this.generalClientRootFolder = this.promptAnswers.generalClientRootFolder;
+        }
+
+        if (typeof this.fileModelTypes === 'undefined') {
+            this.fileModelTypes = this.promptAnswers.fileModelTypes;
         }
 
         // show all variables

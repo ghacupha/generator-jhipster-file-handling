@@ -38,18 +38,7 @@ enum FileMediumTypes {
   JSON,
   HTML5
 }
-enum FileModelType {
-  SERVICE_OUTLETS,
-  SBU_LIST,
-  CURRENCY_LIST,
-  DEPOSIT_LIST,
-  BRANCH_LIST,
-   FX_RATES,
-  SCHEME_LIST,
-  SECTORS,
-  SUB_SECTORS,
-  GENERAL_LEDGERS
-}
+enum FileModelType { <%= fileModelTypes %> }
 dto FileUpload, MessageToken with mapstruct
 paginate FileType, FileUpload, MessageToken with pagination
 service FileUpload, MessageToken with serviceImpl
