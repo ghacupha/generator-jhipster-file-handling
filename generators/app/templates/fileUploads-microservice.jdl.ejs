@@ -1,0 +1,47 @@
+entity <%= gatewayMicroserviceName %>FileType {
+    <%= gatewayMicroserviceName %>FileTypeName String required unique,
+    <%= gatewayMicroserviceName %>FileMediumType <%= gatewayMicroserviceName %>FileMediumTypes required,
+    description String,
+    fileTemplate AnyBlob,
+    fileType <%= gatewayMicroserviceName %>FileModelType
+  }
+  entity <%= gatewayMicroserviceName %>FileUpload {
+    description String required,
+    fileName String required unique,
+    periodFrom LocalDate,
+    periodTo LocalDate,
+    <%= gatewayMicroserviceName %>FileTypeId Long required,
+    dataFile AnyBlob required,
+    uploadSuccessful Boolean,
+    uploadProcessed Boolean,
+    uploadToken String unique
+  }
+  entity <%= gatewayMicroserviceName %>MessageToken {
+    description String,
+    timeSent Long required,
+    tokenValue String required,
+    received Boolean,
+    actioned Boolean,
+    contentFullyEnqueued Boolean
+  }
+  enum <%= gatewayMicroserviceName %>FileMediumTypes {
+    EXCEL,
+    EXCEL_XLS,
+    EXCEL_XLSX,
+    EXCEL_XLSB,
+    EXCEL_CSV,
+    EXCEL_XML,
+    PDF,
+    POWERPOINT,
+    DOC,
+    TEXT,
+    JSON,
+    HTML5
+  }
+  enum <%= gatewayMicroserviceName %>FileModelType { <%= fileModelTypes %> }
+  dto <%= gatewayMicroserviceName %>FileUpload, <%= gatewayMicroserviceName %>MessageToken with mapstruct
+  paginate <%= gatewayMicroserviceName %>FileType, <%= gatewayMicroserviceName %>FileUpload, <%= gatewayMicroserviceName %>MessageToken with pagination
+  service <%= gatewayMicroserviceName %>FileUpload, <%= gatewayMicroserviceName %>MessageToken with serviceImpl
+  service <%= gatewayMicroserviceName %>FileType with serviceClass
+  filter <%= gatewayMicroserviceName %>FileType, <%= gatewayMicroserviceName %>FileUpload, <%= gatewayMicroserviceName %>MessageToken
+  clientRootFolder <%= gatewayMicroserviceName %>FileType, <%= gatewayMicroserviceName %>FileUpload, <%= gatewayMicroserviceName %>MessageToken with <%= gatewayMicroserviceName %>
