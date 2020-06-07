@@ -55,7 +55,7 @@ module.exports = class extends BaseGenerator {
                     'Gateways are not supported, its instead assumed that the gateway is formed once the microservice is complete using the entity files in the .jhipster folder'
                 );
                 if (this.jhipsterAppConfig.applicationType === 'gateway') {
-                    this.error('This module is not for gateways');
+                    throw new Error('This module is not for gateways');
                 }
             },
             checkGit() {
