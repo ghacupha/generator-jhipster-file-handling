@@ -1,10 +1,11 @@
 {
   "name": "generator-jhipster-file-handling",
-  "version": "0.0.0",
+  "version": "6.9.0",
   "description": "Installs entities and dependencies to enable reading from excel file data",
   "keywords": [
     "yeoman-generator",
     "jhipster-module",
+    "excel files upload",
     "jhipster-6"
   ],
   "homepage": "https://github.com/ghacupha/generator-jhipster-file-handling",
