@@ -45,20 +45,13 @@ module.exports = class extends BaseGenerator {
                 }
             },
             checkGit() {
-                this.log('Experience has shown that this kind of thing really needs a working knowledge. So beware');
+                this.log('Experience has shown that this kind of thing really needs a working knowledge of git. So beware');
             }
         };
     }
 
     prompting() {
         const prompts = [
-            {
-                when: () => typeof this.message === 'undefined',
-                type: 'input',
-                name: 'message',
-                message: 'Do you want front end code installed?',
-                default: 'y'
-            },
             {
                 when: () =>
                     (typeof this.gatewayMicroserviceName === 'undefined' && this.jhipsterAppConfig.applicationType === 'microservice') ||
@@ -70,9 +63,19 @@ module.exports = class extends BaseGenerator {
             },
             {
                 when: () =>
+                    (typeof this.addFieldAndClassPrefix === 'undefined' && this.jhipsterAppConfig.applicationType === 'microservice') ||
+                    this.jhipsterAppConfig.applicationType === 'gateway',
+                type: 'input',
+                name: 'addFieldAndClassPrefix',
+                message: 'Do you want to prefix fields and classes for the microservice file handling workflows? (true/false)',
+                default: false
+            },
+            {
+                when: () =>
                     typeof this.generalClientRootFolder === 'undefined' && this.jhipsterAppConfig.applicationType !== 'microservice',
                 type: 'input',
                 name: 'generalClientRootFolder',
+                // eslint-disable-next-line quotes
                 message: "What is the general client folder's name for the file handling workflow?",
                 default: GENERAL_CLIENT_ROOT_FOLDER
             },
@@ -93,6 +96,15 @@ module.exports = class extends BaseGenerator {
         });
     }
 
+    /**
+     *
+     * @param {String} string the string to capitalze
+     * @return {String} string with camel-case
+     */
+    _capitalizeFLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
     writing() {
         // read config from .yo-rc.json
         this.baseName = this.jhipsterAppConfig.baseName;
@@ -111,10 +123,6 @@ module.exports = class extends BaseGenerator {
         const webappDir = jhipsterConstants.CLIENT_MAIN_SRC_DIR;
 
         // variable from questions
-        if (typeof this.message === 'undefined') {
-            this.message = this.promptAnswers.message;
-        }
-
         if (typeof this.gatewayMicroserviceName === 'undefined') {
             this.gatewayMicroserviceName = this.promptAnswers.gatewayMicroserviceName;
         }
@@ -125,6 +133,10 @@ module.exports = class extends BaseGenerator {
 
         if (typeof this.fileModelTypes === 'undefined') {
             this.fileModelTypes = this.promptAnswers.fileModelTypes;
+        }
+
+        if (typeof this.addFieldAndClassPrefix === 'undefined') {
+            this.addFieldAndClassPrefix = this.promptAnswers.addFieldAndClassPrefix;
         }
 
         // show all variables
@@ -154,10 +166,20 @@ module.exports = class extends BaseGenerator {
             this.fs.copyTpl(this.templatePath(source), this.destinationPath(destination), this);
         };
 
+        // setup field and class names
+        this.fieldNamesPrefix = this.gatewayMicroserviceName;
+        this.classNamesPrefix = this._capitalizeFLetter(this.gatewayMicroserviceName);
+
         const createdJdl = this.async();
-        if (this.jhipsterAppConfig.applicationType === 'microservice') {
+        if (this.addFieldAndClassPrefix && this.jhipsterAppConfig.applicationType === 'microservice') {
+            this.template('fileUploads-microservice.jdl.ejs', '.jhipster/fileUploads-microservice.jdl');
+        }
+
+        if (!this.addFieldAndClassPrefix && this.jhipsterAppConfig.applicationType === 'microservice') {
             this.template('fileUploads.jdl.ejs', '.jhipster/fileUploads.jdl');
-        } else {
+        }
+
+        if (this.jhipsterAppConfig.applicationType !== 'microservice') {
             this.template('fileUploads-general.jdl.ejs', '.jhipster/fileUploads-general.jdl');
         }
         createdJdl();
@@ -177,9 +199,15 @@ module.exports = class extends BaseGenerator {
      * @param {Boolean} skipClient
      */
     _executeJdlScript(skipClient) {
-        if (this.jhipsterAppConfig.applicationType === 'microservice') {
-            this._runMicroserviceScript(skipClient);
-        } else {
+        if (this.jhipsterAppConfig.applicationType === 'microservice' && this.addFieldAndClassPrefix) {
+            this._runMicroserviceScript(skipClient, 'fileUploads-microservice');
+        }
+
+        if (this.jhipsterAppConfig.applicationType === 'microservice' && !this.addFieldAndClassPrefix) {
+            this._runMicroserviceScript(skipClient, 'fileUploads');
+        }
+
+        if (this.jhipsterAppConfig.applicationType !== 'microservice') {
             this._runGeneralScript(skipClient);
         }
     }
@@ -187,12 +215,13 @@ module.exports = class extends BaseGenerator {
     /**
      *
      * @param {Boolean} skipClient
+     * @param {String} jdlScriptFile
      */
-    _runMicroserviceScript(skipClient) {
+    _runMicroserviceScript(skipClient, jdlScriptFile) {
         const jdlHasRan = this.async();
         const jdlRan = spawn(
             'jhipster',
-            ['import-jdl', '.jhipster/fileUploads.jdl', '--fluent-methods=true ', `--skip-client=${skipClient} `],
+            ['import-jdl', `.jhipster/${jdlScriptFile}.jdl`, '--fluent-methods=true ', `--skip-client=${skipClient} `],
             { stdio: 'inherit', shell: true, windowsVerbatimArguments: true, windowsHide: true }
         );
         jdlRan.on('error', error => {
@@ -210,6 +239,10 @@ module.exports = class extends BaseGenerator {
         jdlHasRan();
     }
 
+    /**
+     * @deprecated todo replace this method with script-name args
+     * @param {Boolean} skipClient
+     */
     _runGeneralScript(skipClient) {
         const generalClientRootFolder = GENERAL_CLIENT_ROOT_FOLDER;
         const jdlHasRan = this.async();

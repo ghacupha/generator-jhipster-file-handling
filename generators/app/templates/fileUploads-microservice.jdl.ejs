@@ -1,22 +1,22 @@
-entity <%= gatewayMicroserviceName %>FileType {
-    <%= gatewayMicroserviceName %>FileTypeName String required unique,
-    <%= gatewayMicroserviceName %>FileMediumType <%= gatewayMicroserviceName %>FileMediumTypes required,
+entity <%= classNamesPrefix %>FileType {
+    <%= fieldNamesPrefix %>FileTypeName String required unique,
+    <%= fieldNamesPrefix %>FileMediumType <%= classNamesPrefix %>FileMediumTypes required,
     description String,
     fileTemplate AnyBlob,
-    fileType <%= gatewayMicroserviceName %>FileModelType
+    <%= fieldNamesPrefix %>fileType <%= classNamesPrefix %>FileModelType
   }
-  entity <%= gatewayMicroserviceName %>FileUpload {
+  entity <%= classNamesPrefix %>FileUpload {
     description String required,
     fileName String required unique,
     periodFrom LocalDate,
     periodTo LocalDate,
-    <%= gatewayMicroserviceName %>FileTypeId Long required,
+    <%= fieldNamesPrefix %>FileTypeId Long required,
     dataFile AnyBlob required,
     uploadSuccessful Boolean,
     uploadProcessed Boolean,
     uploadToken String unique
   }
-  entity <%= gatewayMicroserviceName %>MessageToken {
+  entity <%= classNamesPrefix %>MessageToken {
     description String,
     timeSent Long required,
     tokenValue String required,
@@ -24,7 +24,7 @@ entity <%= gatewayMicroserviceName %>FileType {
     actioned Boolean,
     contentFullyEnqueued Boolean
   }
-  enum <%= gatewayMicroserviceName %>FileMediumTypes {
+  enum <%= classNamesPrefix %>FileMediumTypes {
     EXCEL,
     EXCEL_XLS,
     EXCEL_XLSX,
@@ -38,10 +38,10 @@ entity <%= gatewayMicroserviceName %>FileType {
     JSON,
     HTML5
   }
-  enum <%= gatewayMicroserviceName %>FileModelType { <%= fileModelTypes %> }
-  dto <%= gatewayMicroserviceName %>FileUpload, <%= gatewayMicroserviceName %>MessageToken with mapstruct
-  paginate <%= gatewayMicroserviceName %>FileType, <%= gatewayMicroserviceName %>FileUpload, <%= gatewayMicroserviceName %>MessageToken with pagination
-  service <%= gatewayMicroserviceName %>FileUpload, <%= gatewayMicroserviceName %>MessageToken with serviceImpl
-  service <%= gatewayMicroserviceName %>FileType with serviceClass
-  filter <%= gatewayMicroserviceName %>FileType, <%= gatewayMicroserviceName %>FileUpload, <%= gatewayMicroserviceName %>MessageToken
-  clientRootFolder <%= gatewayMicroserviceName %>FileType, <%= gatewayMicroserviceName %>FileUpload, <%= gatewayMicroserviceName %>MessageToken with <%= gatewayMicroserviceName %>
+  enum <%= classNamesPrefix %>FileModelType { <%= fileModelTypes %> }
+  dto <%= classNamesPrefix %>FileUpload, <%= classNamesPrefix %>MessageToken with mapstruct
+  paginate <%= classNamesPrefix %>FileType, <%= classNamesPrefix %>FileUpload, <%= classNamesPrefix %>MessageToken with pagination
+  service <%= classNamesPrefix %>FileUpload, <%= classNamesPrefix %>MessageToken with serviceImpl
+  service <%= classNamesPrefix %>FileType with serviceClass
+  filter <%= classNamesPrefix %>FileType, <%= classNamesPrefix %>FileUpload, <%= classNamesPrefix %>MessageToken
+  clientRootFolder <%= classNamesPrefix %>FileType, <%= classNamesPrefix %>FileUpload, <%= classNamesPrefix %>MessageToken with <%= gatewayMicroserviceName %>
