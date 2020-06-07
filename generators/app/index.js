@@ -6,6 +6,12 @@ const jhipsterConstants = require('generator-jhipster/generators/generator-const
 const { spawn } = require('child_process');
 const packagejs = require('../../package.json');
 
+// jdl scripts
+const FILE_UPLOADS_JDL = 'fileUploads';
+const GENERAL_FILE_UPLOADS_JDL = 'fileUploads-general';
+const MICROSERVICE_FILE_UPLOADS_JDL = 'fileUploads-microservice';
+
+// other constants
 const GENERAL_CLIENT_ROOT_FOLDER = 'fileUploads';
 const EXAMPLE_FILE_MODEL_TYPES = 'SERVICE_OUTLETS,CURRENCY_LIST,FX_RATES,SCHEME_LIST,SECTORS,LEDGERS';
 
@@ -157,9 +163,7 @@ module.exports = class extends BaseGenerator {
 
         this.log('\n--- variables from questions ---');
         this.log(`create client code?=${this.message}`);
-        if (this.jhipsterAppConfig.applicationType === 'gateway') {
-            this.log(`Gateway microservice name?=${this.gatewayMicroserviceName}`);
-        }
+        this.log(`Gateway microservice name?=${this.gatewayMicroserviceName}`);
         this.log('------\n');
 
         this.template = function(source, destination) {
@@ -167,20 +171,22 @@ module.exports = class extends BaseGenerator {
         };
 
         // setup field and class names
-        this.fieldNamesPrefix = this.gatewayMicroserviceName;
-        this.classNamesPrefix = this._capitalizeFLetter(this.gatewayMicroserviceName);
+        if (this.jhipsterAppConfig.applicationType === 'microservice') {
+            this.fieldNamesPrefix = this.gatewayMicroserviceName;
+            this.classNamesPrefix = this._capitalizeFLetter(this.gatewayMicroserviceName);
+        }
 
         const createdJdl = this.async();
         if (this.addFieldAndClassPrefix && this.jhipsterAppConfig.applicationType === 'microservice') {
-            this.template('fileUploads-microservice.jdl.ejs', '.jhipster/fileUploads-microservice.jdl');
+            this.template(`${MICROSERVICE_FILE_UPLOADS_JDL}.jdl.ejs`, `.jhipster/${MICROSERVICE_FILE_UPLOADS_JDL}.jdl`);
         }
 
         if (!this.addFieldAndClassPrefix && this.jhipsterAppConfig.applicationType === 'microservice') {
-            this.template('fileUploads.jdl.ejs', '.jhipster/fileUploads.jdl');
+            this.template(`${FILE_UPLOADS_JDL}.jdl.ejs`, `.jhipster/${FILE_UPLOADS_JDL}.jdl`);
         }
 
         if (this.jhipsterAppConfig.applicationType !== 'microservice') {
-            this.template('fileUploads-general.jdl.ejs', '.jhipster/fileUploads-general.jdl');
+            this.template(`${GENERAL_FILE_UPLOADS_JDL}.jdl.ejs`, `.jhipster/${GENERAL_FILE_UPLOADS_JDL}.jdl`);
         }
         createdJdl();
 
@@ -200,15 +206,15 @@ module.exports = class extends BaseGenerator {
      */
     _executeJdlScript(skipClient) {
         if (this.jhipsterAppConfig.applicationType === 'microservice' && this.addFieldAndClassPrefix) {
-            this._runMicroserviceScript(skipClient, 'fileUploads-microservice');
+            this._runMicroserviceScript(skipClient, `${MICROSERVICE_FILE_UPLOADS_JDL}`);
         }
 
         if (this.jhipsterAppConfig.applicationType === 'microservice' && !this.addFieldAndClassPrefix) {
-            this._runMicroserviceScript(skipClient, 'fileUploads');
+            this._runMicroserviceScript(skipClient, `${FILE_UPLOADS_JDL}`);
         }
 
         if (this.jhipsterAppConfig.applicationType !== 'microservice') {
-            this._runGeneralScript(skipClient);
+            this._runGeneralScript(skipClient, `${GENERAL_FILE_UPLOADS_JDL}`);
         }
     }
 
@@ -242,15 +248,16 @@ module.exports = class extends BaseGenerator {
     /**
      * @deprecated todo replace this method with script-name args
      * @param {Boolean} skipClient
+     * @param {String} jdlScriptFile
      */
-    _runGeneralScript(skipClient) {
+    _runGeneralScript(skipClient, jdlScriptFile) {
         const generalClientRootFolder = GENERAL_CLIENT_ROOT_FOLDER;
         const jdlHasRan = this.async();
         const jdlRan = spawn(
             'jhipster',
             [
                 'import-jdl',
-                '.jhipster/fileUploads-general.jdl',
+                `.jhipster/${jdlScriptFile}.jdl`,
                 '--fluent-methods=true ',
                 `--skip-client=${skipClient} `,
                 `--client-root-folder=${generalClientRootFolder}`
