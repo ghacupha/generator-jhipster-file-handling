@@ -172,6 +172,10 @@ module.exports = class extends BaseGenerator {
         }
     }
 
+    /**
+     *
+     * @param {Boolean} skipClient
+     */
     _runMicroserviceScript(skipClient) {
         const jdlHasRan = this.async();
         const jdlRan = spawn(
@@ -184,11 +188,11 @@ module.exports = class extends BaseGenerator {
             this.log(`error: ${error.message} \n See stack-trace : \n ${error.stack}`);
         });
         jdlRan.stdout.on('data', data => {
-            // Hopeful that this gives informative error messages
+            // TODO This thing causes an error at the end but it helps synch the workflow
             this.log(`JDl Stdout : ${data.message} \n`);
         });
         jdlRan.stderr.on('data', data => {
-            // Hopeful that this gives informative error messages
+            // TODO This thing causes an error at the end but it helps synch the workflow
             this.log(`JDl Stderr : ${data.message} \n`);
         });
         jdlHasRan();
@@ -213,11 +217,11 @@ module.exports = class extends BaseGenerator {
             this.log(`error: ${error.message} \n See stack-trace : \n ${error.stack}`);
         });
         jdlRan.stdout.on('data', data => {
-            // Hopeful that this gives informative error messages
+            // TODO This thing causes an error at the end but it helps synch the workflow
             this.log(`JDl Stdout : ${data.message} \n`);
         });
         jdlRan.stderr.on('data', data => {
-            // Hopeful that this gives informative error messages
+            // TODO This thing causes an error at the end but it helps synch the workflow
             this.log(`JDl Stderr : ${data.message} \n`);
         });
         jdlHasRan();
