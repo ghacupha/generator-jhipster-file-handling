@@ -131,8 +131,12 @@ module.exports = class extends BaseGenerator {
         // use function in generator-base.js from generator-jhipster
         this.angularAppName = this.getAngularAppName();
 
+        // Get the application name for use with main class
+        this.appName = this.baseName.charAt(0).toUpperCase() + this.baseName.slice(1);
+
         // use constants from generator-constants.js
         const javaDir = `${jhipsterConstants.SERVER_MAIN_SRC_DIR + this.packageFolder}/`;
+        const javaTestDir = `${jhipsterConstants.SERVER_TEST_SRC_DIR + this.packageFolder}/`;
         const resourceDir = jhipsterConstants.SERVER_MAIN_RES_DIR;
         const webappDir = jhipsterConstants.CLIENT_MAIN_SRC_DIR;
 
@@ -184,7 +188,7 @@ module.exports = class extends BaseGenerator {
             this.classNamesPrefix = this._capitalizeFLetter(this.gatewayMicroserviceName);
         }
 
-        const createdJdl = this.async();
+        const wroteFiles = this.async();
         if (this.addFieldAndClassPrefix && this.jhipsterAppConfig.applicationType === 'microservice') {
             this.template(`${MICROSERVICE_FILE_UPLOADS_JDL}.jdl.ejs`, `.jhipster/${MICROSERVICE_FILE_UPLOADS_JDL}.jdl`);
         }
@@ -196,7 +200,11 @@ module.exports = class extends BaseGenerator {
         if (this.jhipsterAppConfig.applicationType !== 'microservice') {
             this.template(`${GENERAL_FILE_UPLOADS_JDL}.jdl.ejs`, `.jhipster/${GENERAL_FILE_UPLOADS_JDL}.jdl`);
         }
-        createdJdl();
+
+        // Write the other files
+        this._installServerCode(javaDir, javaTestDir, resourceDir);
+
+        wroteFiles();
 
         this._useJdlExecution();
     }
