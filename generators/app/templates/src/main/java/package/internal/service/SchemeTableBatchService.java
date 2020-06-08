@@ -1,4 +1,4 @@
-package io.github.deposits.app.service;
+package <%= packageName %>.internal.service;
 
 import io.github.deposits.repository.SchemeTableRepository;
 import io.github.deposits.repository.search.SchemeTableSearchRepository;
@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * This is a sample application of scheme model as a batch service
+ */
 @Transactional
 @Service
 public class SchemeTableBatchService implements BatchService<SchemeTableDTO> {

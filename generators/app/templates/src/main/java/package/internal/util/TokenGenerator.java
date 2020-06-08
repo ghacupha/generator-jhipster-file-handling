@@ -1,4 +1,4 @@
-package io.github.deposits.app.util;
+package <%= packageName %>.internal.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;

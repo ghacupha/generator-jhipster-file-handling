@@ -1,4 +1,4 @@
-package io.github.deposits.app.service;
+package <%= packageName %>.internal.service;
 
 import io.github.deposits.service.dto.DepositAccountDTO;
 

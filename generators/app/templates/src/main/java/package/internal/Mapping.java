@@ -1,4 +1,4 @@
-package io.github.deposits.app;
+package <%= packageName %>.internal;
 
 import com.google.common.collect.ImmutableList;
 

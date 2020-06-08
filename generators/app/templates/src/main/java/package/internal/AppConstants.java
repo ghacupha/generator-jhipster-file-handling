@@ -1,4 +1,4 @@
-package io.github.deposits.app;
+package <%= packageName %>.internal;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
