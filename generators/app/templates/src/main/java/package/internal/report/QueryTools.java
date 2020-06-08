@@ -7,6 +7,9 @@ import org.hibernate.loader.criteria.CriteriaJoinWalker;
 import org.hibernate.loader.criteria.CriteriaQueryTranslator;
 import org.hibernate.persister.entity.OuterJoinLoadable;
 
+/**
+ * General utils used in tests and logs for checking queries created by JPA
+ */
 public class QueryTools {
 
     public static String toSQL(Criteria crit) {

@@ -1,4 +1,4 @@
-package io.github.deposits.app.batch;
+package <%= packageName %>.internal.batch;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.JobExecution;

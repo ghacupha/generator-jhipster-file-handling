@@ -1,4 +1,4 @@
-package io.github.deposits.app.messaging.platform;
+package <%= packageName %>.internal.messaging.platform;
 
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.SubscribableChannel;

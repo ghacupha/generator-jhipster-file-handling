@@ -1,4 +1,4 @@
-package io.github.deposits.app.messaging.platform;
+package <%= packageName %>.internal.messaging.platform;
 
 /**
  * This is mostly a marker and corresponds to listeners who give no response

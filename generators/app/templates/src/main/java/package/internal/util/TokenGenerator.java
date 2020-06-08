@@ -11,11 +11,11 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.Base64;
 
-import static io.github.deposits.app.AppConstants.TOKEN_BYTE_LENGTH;
+import static <%= packageName %>.internal.AppConstants.TOKEN_BYTE_LENGTH;
 
 
 /**
- * Used as token generator for messaging
+ * Used as token generator for messaging and also for generating message tokens
  */
 @Component("tokenGenerator")
 public class TokenGenerator {

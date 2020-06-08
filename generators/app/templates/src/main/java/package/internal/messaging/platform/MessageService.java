@@ -1,4 +1,4 @@
-package io.github.deposits.app.messaging.platform;
+package <%= packageName %>.internal.messaging.platform;
 
 /**
  * This is an abstraction for sending a services into a queue. It is expected that the implemntation internally has a way of persisting message-tokens generated

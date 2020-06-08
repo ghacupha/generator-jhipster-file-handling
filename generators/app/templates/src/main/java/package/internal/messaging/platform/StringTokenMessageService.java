@@ -1,11 +1,11 @@
-package io.github.deposits.app.messaging.platform;
+package <%= packageName %>.internal.messaging.platform;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import io.github.deposits.app.util.TokenGenerator;
-import io.github.deposits.domain.MessageToken;
-import io.github.deposits.service.MessageTokenService;
-import io.github.deposits.service.dto.MessageTokenDTO;
-import io.github.deposits.service.mapper.MessageTokenMapper;
+import <%= packageName %>.internal.util.TokenGenerator;
+import <%= packageName %>.domain.MessageToken;
+import <%= packageName %>.service.MessageTokenService;
+import <%= packageName %>.service.dto.MessageTokenDTO;
+import <%= packageName %>.service.mapper.MessageTokenMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHeaders;

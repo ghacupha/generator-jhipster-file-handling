@@ -1,13 +1,15 @@
-package io.github.deposits.app.messaging.sample;
+package <%= packageName %>.internal.messaging.sample;
 
-import io.github.deposits.app.messaging.platform.MessageStreams;
+import <%= packageName %>.internal.messaging.platform.MessageStreams;
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.SubscribableChannel;
 
 /**
- * Test configuration for greetings streams
+ * Test configuration for greetings streams. Check the 
+ * <p/>
+ * application-properties to ensure this topics are configured
  */
 public interface GreetingsStreams extends MessageStreams {
 

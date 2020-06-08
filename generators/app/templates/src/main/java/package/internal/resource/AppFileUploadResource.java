@@ -1,14 +1,14 @@
-package io.github.deposits.app.resource;
+package <%= packageName %>.internal.resource;
 
-import io.github.deposits.app.messaging.fileNotification.FileNotification;
-import io.github.deposits.app.messaging.platform.MessageService;
-import io.github.deposits.app.messaging.platform.TokenizableMessage;
-import io.github.deposits.app.resource.decorator.IFileUploadResource;
-import io.github.deposits.domain.FileType;
-import io.github.deposits.service.FileTypeService;
-import io.github.deposits.service.dto.FileUploadCriteria;
-import io.github.deposits.service.dto.FileUploadDTO;
-import io.github.deposits.service.dto.MessageTokenDTO;
+import <%= packageName %>.internal.messaging.fileNotification.FileNotification;
+import <%= packageName %>.internal.messaging.platform.MessageService;
+import <%= packageName %>.internal.messaging.platform.TokenizableMessage;
+import <%= packageName %>.internal.resource.decorator.IFileUploadResource;
+import <%= packageName %>.domain.FileType;
+import <%= packageName %>.service.FileTypeService;
+import <%= packageName %>.service.dto.FileUploadCriteria;
+import <%= packageName %>.service.dto.FileUploadDTO;
+import <%= packageName %>.service.dto.MessageTokenDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +25,19 @@ import javax.validation.Valid;
 import java.net.URISyntaxException;
 import java.util.List;
 
+/**
+ * This resource contains custome file-uploads code. For instance when we receive a POST request
+ * <p/>
+ * containing the file, we both persist the file and send a file-notification into the queue
+ * <p/>
+ * thereby triggering secondary file processing protocols and batch processor instances.
+ * <p/>
+ * Future development might involve a delete process that triggers all tokens associated with a particular
+ * <p/>
+ * file-upload.
+ * <p/>
+ * Watch out for the logs for they are created with lombok. So make sure you get that dependency
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api/app")

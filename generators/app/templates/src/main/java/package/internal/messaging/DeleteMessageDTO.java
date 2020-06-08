@@ -1,6 +1,6 @@
-package io.github.deposits.app.messaging;
+package <%= packageName %>.internal.messaging;
 
-import io.github.deposits.app.messaging.platform.TokenizableMessage;
+import <%= packageName %>.internal.messaging.platform.TokenizableMessage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

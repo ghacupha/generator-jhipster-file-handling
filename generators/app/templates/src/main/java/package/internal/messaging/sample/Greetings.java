@@ -1,10 +1,13 @@
-package io.github.deposits.app.messaging.sample;
+package <%= packageName %>.internal.messaging.sample;
 
-import io.github.deposits.app.messaging.platform.TokenizableMessage;
+import <%= packageName %>.internal.messaging.platform.TokenizableMessage;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * This is a sample object being transmitted in the kafka stream
+ */
 @Getter
 @Setter
 @Builder

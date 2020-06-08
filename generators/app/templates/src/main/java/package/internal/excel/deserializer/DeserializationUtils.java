@@ -1,4 +1,4 @@
-package io.github.deposits.app.excel.deserializer;
+package <%= packageName %>.internal.excel.deserializer;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

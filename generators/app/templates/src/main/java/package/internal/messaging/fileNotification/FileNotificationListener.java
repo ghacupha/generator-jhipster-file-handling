@@ -1,9 +1,9 @@
-package io.github.deposits.app.messaging.fileNotification;
+package <%= packageName %>.internal.messaging.fileNotification;
 
-import io.github.deposits.app.messaging.fileNotification.processors.FileUploadProcessorChain;
-import io.github.deposits.app.messaging.platform.MuteListener;
-import io.github.deposits.service.FileUploadService;
-import io.github.deposits.service.dto.FileUploadDTO;
+import <%= packageName %>.internal.messaging.fileNotification.processors.FileUploadProcessorChain;
+import <%= packageName %>.internal.messaging.platform.MuteListener;
+import <%= packageName %>.service.FileUploadService;
+import <%= packageName %>.service.dto.FileUploadDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -11,11 +11,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static io.github.deposits.app.AppConstants.PROCESSED_TOKENS;
+import static <%= packageName %>.internal.AppConstants.PROCESSED_TOKENS;
 
 /**
- * This class was transactional but such behavior is now regarded with careful caution as triggering that may lead to upload of the same file twice. We can't have that can we?
- *
+ * This class was transactional but such behavior is now regarded with careful caution as 
+ * <p/>
+ * triggering that may lead to upload of the same file twice. We can't have that can we?
+ * <p/>
  * The listener attends to all files and sends each into a chain for processing
  */
 @Slf4j

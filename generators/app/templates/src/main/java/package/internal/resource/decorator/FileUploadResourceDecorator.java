@@ -1,8 +1,8 @@
-package io.github.deposits.app.resource.decorator;
+package <%= packageName %>.internal.resource.decorator;
 
-import io.github.deposits.service.dto.FileUploadCriteria;
-import io.github.deposits.service.dto.FileUploadDTO;
-import io.github.deposits.web.rest.FileUploadResource;
+import <%= packageName %>.service.dto.FileUploadCriteria;
+import <%= packageName %>.service.dto.FileUploadDTO;
+import <%= packageName %>.web.rest.FileUploadResource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -17,6 +17,18 @@ import javax.validation.Valid;
 import java.net.URISyntaxException;
 import java.util.List;
 
+/**
+ * This decorator implements the {@code IFileUploadResource} using the original {@code FileUploadResource}
+ * <p/>
+ * which has the effect that the original code will have not indication whatsoever that it has been
+ * <p/>
+ * tempered with to implement some interface
+ * <p/>
+ * This class can now be extented by a client to extend the original code without repeatative calls
+ * <p/>
+ * to the original code itself. Check child classes for illustration
+ * @param fileUploadResource
+ */
 @Component("fileUploadResourceDecorator")
 public class FileUploadResourceDecorator implements IFileUploadResource {
 

@@ -1,8 +1,8 @@
-package io.github.deposits.app.messaging.fileNotification.processors;
+package <%= packageName %>.internal.messaging.fileNotification.processors;
 
 import com.google.common.collect.ImmutableList;
-import io.github.deposits.app.messaging.fileNotification.FileNotification;
-import io.github.deposits.service.dto.FileUploadDTO;
+import <%= packageName %>.internal.messaging.fileNotification.FileNotification;
+import <%= packageName %>.service.dto.FileUploadDTO;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;

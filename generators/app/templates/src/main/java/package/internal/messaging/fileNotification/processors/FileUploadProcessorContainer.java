@@ -1,4 +1,4 @@
-package io.github.deposits.app.messaging.fileNotification.processors;
+package <%= packageName %>.internal.messaging.fileNotification.processors;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.launch.JobLauncher;
@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import static io.github.deposits.domain.enumeration.FileModelType.BRANCH_LIST;
-import static io.github.deposits.domain.enumeration.FileModelType.CURRENCY_LIST;
-import static io.github.deposits.domain.enumeration.FileModelType.DEPOSIT_LIST;
-import static io.github.deposits.domain.enumeration.FileModelType.GENERAL_LEDGERS;
-import static io.github.deposits.domain.enumeration.FileModelType.SBU_LIST;
-import static io.github.deposits.domain.enumeration.FileModelType.SCHEME_LIST;
+// todo loop for every file model type
+import static <%= packageName %>.domain.enumeration.FileModelType.BRANCH_LIST;
+import static <%= packageName %>.domain.enumeration.FileModelType.CURRENCY_LIST;
+import static <%= packageName %>.domain.enumeration.FileModelType.DEPOSIT_LIST;
+import static <%= packageName %>.domain.enumeration.FileModelType.GENERAL_LEDGERS;
+import static <%= packageName %>.domain.enumeration.FileModelType.SBU_LIST;
+import static <%= packageName %>.domain.enumeration.FileModelType.SCHEME_LIST;
 
 /**
  * This object maintains a list of all existing processors. This is a short in the dark about automatically configuring the chain at start up

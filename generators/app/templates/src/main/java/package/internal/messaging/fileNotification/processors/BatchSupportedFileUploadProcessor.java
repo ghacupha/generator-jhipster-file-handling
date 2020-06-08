@@ -1,8 +1,8 @@
-package io.github.deposits.app.messaging.fileNotification.processors;
+package <%= packageName %>.internal.messaging.fileNotification.processors;
 
-import io.github.deposits.app.messaging.fileNotification.FileNotification;
-import io.github.deposits.domain.enumeration.FileModelType;
-import io.github.deposits.service.dto.FileUploadDTO;
+import <%= packageName %>.internal.messaging.fileNotification.FileNotification;
+import <%= packageName %>.domain.enumeration.FileModelType;
+import <%= packageName %>.service.dto.FileUploadDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersBuilder;

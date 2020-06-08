@@ -1,4 +1,4 @@
-package io.github.deposits.app.messaging.sample;
+package <%= packageName %>.internal.messaging.sample;
 
 import org.springframework.cloud.stream.annotation.EnableBinding;
 

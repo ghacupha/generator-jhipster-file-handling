@@ -1,4 +1,4 @@
-package io.github.deposits.app.batch;
+package <%= packageName %>.internal.batch;
 
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;

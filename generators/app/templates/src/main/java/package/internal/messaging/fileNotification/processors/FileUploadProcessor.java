@@ -1,6 +1,6 @@
-package io.github.deposits.app.messaging.fileNotification.processors;
+package <%= packageName %>.internal.messaging.fileNotification.processors;
 
-import io.github.deposits.app.messaging.fileNotification.FileNotification;
+import <%= packageName %>.internal.messaging.fileNotification.FileNotification;
 
 public interface FileUploadProcessor<T> {
 

@@ -4,6 +4,13 @@ import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
+/**
+ * This is a general interface for mapping one type of entity or data transfer object
+ * <p/>
+ * into another commonly used with mapstruct. So here we are also assuming client code to 
+ * <p/>
+ * mapstruct configurations at the ready
+ */
 public interface Mapping<V1, V2> {
 
     V1 toValue1(V2 vs);

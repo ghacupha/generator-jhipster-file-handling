@@ -1,11 +1,14 @@
-package io.github.deposits.app.messaging;
+package <%= packageName %>.internal.messaging;
 
-import io.github.deposits.service.MessageTokenQueryService;
-import io.github.deposits.service.dto.MessageTokenCriteria;
-import io.github.deposits.service.dto.MessageTokenDTO;
+import <%= packageName %>.service.MessageTokenQueryService;
+import <%= packageName %>.service.dto.MessageTokenCriteria;
+import <%= packageName %>.service.dto.MessageTokenDTO;
 import io.github.jhipster.service.filter.StringFilter;
 import org.springframework.stereotype.Service;
 
+/**
+ * Implentation of token-search where the token value itself is of the value string
+ */
 @Service("stringTokenValueSearch")
 public class StringTokenValueSearch implements TokenValueSearch<String> {
 

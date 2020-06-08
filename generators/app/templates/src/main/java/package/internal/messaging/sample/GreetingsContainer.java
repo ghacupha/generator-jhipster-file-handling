@@ -1,18 +1,23 @@
-package io.github.deposits.app.messaging.sample;
+package <%= packageName %>.internal.messaging.sample;
 
-import io.github.deposits.app.messaging.platform.MessageService;
-import io.github.deposits.app.messaging.platform.StringTokenMessageService;
-import io.github.deposits.app.messaging.platform.TokenizableMessage;
-import io.github.deposits.app.util.TokenGenerator;
-import io.github.deposits.service.MessageTokenService;
-import io.github.deposits.service.dto.MessageTokenDTO;
-import io.github.deposits.service.mapper.MessageTokenMapper;
+import <%= packageName %>.internal.messaging.platform.MessageService;
+import <%= packageName %>.internal.messaging.platform.StringTokenMessageService;
+import <%= packageName %>.internal.messaging.platform.TokenizableMessage;
+import <%= packageName %>.internal.util.TokenGenerator;
+import <%= packageName %>.service.MessageTokenService;
+import <%= packageName %>.service.dto.MessageTokenDTO;
+import <%= packageName %>.service.mapper.MessageTokenMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import static io.github.deposits.app.messaging.MessageServiceContainer.configureService;
+import static <%= packageName %>.internal.messaging.MessageServiceContainer.configureService;
 
+/**
+ * Example configuration of a typical streams container
+ * 
+ * @return
+ */
 @Configuration
 public class GreetingsContainer {
 

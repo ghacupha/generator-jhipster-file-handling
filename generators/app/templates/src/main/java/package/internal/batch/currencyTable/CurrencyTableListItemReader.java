@@ -1,9 +1,9 @@
-package io.github.deposits.app.batch.currencyTable;
+package <%= packageName %>.internal.batch.currencyTable;
 
-import io.github.deposits.app.batch.ListPartition;
-import io.github.deposits.app.excel.ExcelFileDeserializer;
-import io.github.deposits.app.model.CurrencyTableEVM;
-import io.github.deposits.service.FileUploadService;
+import <%= packageName %>.internal.batch.ListPartition;
+import <%= packageName %>.internal.excel.ExcelFileDeserializer;
+import <%= packageName %>.internal.model.CurrencyTableEVM;
+import <%= packageName %>.service.FileUploadService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;

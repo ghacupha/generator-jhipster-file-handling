@@ -1,4 +1,4 @@
-package io.github.deposits.app.messaging.platform;
+package <%= packageName %>.internal.messaging.platform;
 
 /**
  * This is a message that is tokenizable that contains description and timestamp as well

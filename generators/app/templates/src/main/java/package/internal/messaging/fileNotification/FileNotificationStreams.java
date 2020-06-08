@@ -1,11 +1,20 @@
-package io.github.deposits.app.messaging.fileNotification;
+package <%= packageName %>.internal.messaging.fileNotification;
 
-import io.github.deposits.app.messaging.platform.MessageStreams;
+import <%= packageName %>.internal.messaging.platform.MessageStreams;
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.SubscribableChannel;
 
+/**
+ * Configuration of topics for file-upload notification.
+ * <p/>
+ * Please check application-properties configuration to ensure the 
+ * <p/>
+ * topics have been configured.
+ * <p/>
+ * @return
+ */
 public interface FileNotificationStreams extends MessageStreams {
 
     String INPUT = "file-notifications-in";

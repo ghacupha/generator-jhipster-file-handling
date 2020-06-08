@@ -1,4 +1,4 @@
-package io.github.deposits.app.messaging.platform;
+package <%= packageName %>.internal.messaging.platform;
 
 /**
  * This is a marker of an interface which might turn out to be

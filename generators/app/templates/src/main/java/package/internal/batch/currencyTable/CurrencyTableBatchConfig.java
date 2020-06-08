@@ -1,12 +1,13 @@
-package io.github.deposits.app.batch.currencyTable;
+package <%= packageName %>.internal.batch.currencyTable;
 
 import com.google.common.collect.ImmutableList;
-import io.github.deposits.app.Mapping;
-import io.github.deposits.app.excel.ExcelFileDeserializer;
-import io.github.deposits.app.model.CurrencyTableEVM;
-import io.github.deposits.app.service.BatchService;
-import io.github.deposits.service.FileUploadService;
-import io.github.deposits.service.dto.CurrencyTableDTO;
+import <%= packageName %>.internal.Mapping;
+import <%= packageName %>.internal.excel.ExcelFileDeserializer;
+import <%= packageName %>.internal.service.BatchService;
+import <%= packageName %>.service.FileUploadService;
+// todo replace these entities with entity names from client
+import <%= packageName %>.internal.model.CurrencyTableEVM;
+import <%= packageName %>.service.dto.CurrencyTableDTO;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.Step;

@@ -1,7 +1,7 @@
-package io.github.deposits.app.resource.decorator;
+package <%= packageName %>.internal.resource.decorator;
 
-import io.github.deposits.service.dto.FileUploadCriteria;
-import io.github.deposits.service.dto.FileUploadDTO;
+import <%= packageName %>.service.dto.FileUploadCriteria;
+import <%= packageName %>.service.dto.FileUploadDTO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +11,11 @@ import javax.validation.Valid;
 import java.net.URISyntaxException;
 import java.util.List;
 
+/**
+ * This interface provides the client alternative ways to implement already existing responses
+ * <p/>
+ * for file-uploads
+ */
 public interface IFileUploadResource {
     /**
      * {@code POST  /file-uploads} : Create a new fileUpload.

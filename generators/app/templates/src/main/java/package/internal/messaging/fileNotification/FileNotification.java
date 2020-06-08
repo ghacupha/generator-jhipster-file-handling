@@ -1,12 +1,15 @@
-package io.github.deposits.app.messaging.fileNotification;
+package <%= packageName %>.internal.messaging.fileNotification;
 
-import io.github.deposits.app.messaging.platform.TokenizableMessage;
-import io.github.deposits.domain.enumeration.FileModelType;
+import <%= packageName %>.internal.messaging.platform.TokenizableMessage;
+import <%= packageName %>.domain.enumeration.FileModelType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * This is a notification which contains metadata of a recently uploaded which a listener might act upon
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

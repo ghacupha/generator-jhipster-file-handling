@@ -1,11 +1,15 @@
 package <%= packageName %>.internal.service;
 
-import io.github.deposits.service.dto.DepositAccountDTO;
-
 import java.util.List;
 
 /**
- * This interface is intended to be implemented transactionally but with batch items persisted for every commit
+ * This interface is intended to be implemented transactionally
+ * <p/>
+ *  but with batch items persisted for every commit. We are also assuming
+ * <p/>
+ * that the client uses a search engine. I mean the fact that you are using this
+ * <p/>
+ * right?
  */
 public interface BatchService<T> {
 

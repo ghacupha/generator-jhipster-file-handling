@@ -1,4 +1,4 @@
-package io.github.deposits.app.excel.deserializer;
+package <%= packageName %>.internal.excel.deserializer;
 
 import com.poiji.bind.Poiji;
 import com.poiji.exception.PoijiExcelType;
@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.InputStream;
 import java.util.List;
 
-import static io.github.deposits.app.excel.deserializer.DeserializationUtils.getFileInputStream;
+import static <%= packageName %>.internal.excel.deserializer.DeserializationUtils.getFileInputStream;
 
 
 @Slf4j
