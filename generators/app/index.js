@@ -201,6 +201,75 @@ module.exports = class extends BaseGenerator {
         this._useJdlExecution();
     }
 
+    /**
+     * This install back-end java code and liquibase migration configuration
+     *
+     * @param {String} javaDir path of the project's java directory
+     * @param {String} javaTestDir path of the project's java test directory
+     * @param {String} resourceDir  path of the main resource directory
+     */
+    _installServerCode(javaDir, javaTestDir, resourceDir) {
+        // utility function to write templates
+        this.template = function(source, destination) {
+            this.fs.copyTpl(this.templatePath(source), this.destinationPath(destination), this);
+        };
+
+        this._installServerDependencies();
+
+        // add Java source code
+        this.template('src/main/java/package/domain/', `${javaDir}domain/`);
+        this.template('src/main/java/package/repository/', `${javaDir}repository/`);
+        this.template('src/main/java/package/service/', `${javaDir}service/`);
+        this.template('src/main/java/package/web/', `${javaDir}web/`);
+
+        // Add test code
+        this.template('src/test/java/package/domain/', `${javaTestDir}domain/`);
+        this.template('src/test/java/package/web/', `${javaTestDir}web/`);
+        this.template('src/test/java/package/service/', `${javaTestDir}service/`);
+
+        // TODO Add liquibase config for spring batch
+        // Add liquibase resources
+        this.changelogDate = this.dateFormatForLiquibase();
+        this.template(
+            'src/main/resources/config/liquibase/changelog/_added_springbatch_schema.xml',
+            `${resourceDir}config/liquibase/changelog/${this.changelogDate}_added_springbatch_schema.xml`
+        );
+        this.addChangelogToLiquibase(`${this.changelogDate}_added_springbatch_schema.xml`);
+    }
+
+    /**
+     * Install server libraries for handling excel and their DTOs
+     */
+    _installServerDependencies() {
+        const OZLERHAKAN_POIJI_VERSION = '1.20.0';
+        const OZLERHAKAN_POIJI_VERSION_PROPERTY = '${poiji.version}';
+        const LOMBOK_VERSION = '1.18.6';
+        const LOMBOK_VERSION_PROPERTY = '${lombok.version}';
+
+        if (this.buildTool === 'maven') {
+            if (typeof this.addMavenDependencyManagement === 'function') {
+                this.addMavenDependency('com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION_PROPERTY);
+                this.addMavenDependency('org.projectlombok', 'lombok', LOMBOK_VERSION_PROPERTY);
+            } else {
+                this.addMavenDependency('com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION_PROPERTY);
+                this.addMavenDependency('org.projectlombok', 'lombok', LOMBOK_VERSION_PROPERTY);
+            }
+            this.addMavenAnnotationProcessor('org.projectlombok', 'lombok', LOMBOK_VERSION_PROPERTY);
+            this.addMavenProperty('lombok.version', LOMBOK_VERSION);
+            this.addMavenProperty('poiji.version', OZLERHAKAN_POIJI_VERSION);
+        } else if (this.buildTool === 'gradle') {
+            if (typeof this.addGradleDependencyManagement === 'function') {
+                this.addGradleDependency('compile', 'com.github.ozlerhakan', 'poiji');
+                this.addGradleDependency('compile', 'org.projectlombok', 'lombok');
+            } else {
+                this.addGradleDependency('compile', 'com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION_PROPERTY);
+                this.addGradleDependency('compile', 'org.projectlombok', 'lombok', LOMBOK_VERSION_PROPERTY);
+            }
+            this.addAnnotationProcessor('org.projectlombok', 'lombok', LOMBOK_VERSION);
+            this.addGradleProperty('poiji.version', OZLERHAKAN_POIJI_VERSION);
+        }
+    }
+
     _useJdlExecution(_callback) {
         // run jdl script
         this._executeJdlScript(this.jhipsterAppConfig.applicationType === 'microservice');
