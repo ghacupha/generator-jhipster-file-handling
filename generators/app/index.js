@@ -22,8 +22,8 @@ const semver = require('semver');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
 const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
 const packagejs = require('../../package.json');
-const utilYaml = require('./utilYaml.js');
 const UtilJdl = require('./utilJdl.js');
+const utilProps = require('./utilProperties.js');
 
 // jdl scripts
 const FILE_UPLOADS_JDL = 'fileUploads';
@@ -40,7 +40,7 @@ const DEFAULT_RABBITMQ_MESSAGE_NAME = 'message';
 
 // MQ dependencies
 const STREAM_RABBIT_VERSION = '1.3.0.RELEASE';
-const STREAM_KAFKA_VERSION = '1.3.0.RELEASE';
+// const STREAM_KAFKA_VERSION = '1.3.0.RELEASE';
 const STREAM_CLOUD_DEPENDENCY_VERSION = 'Chelsea.SR2';
 const STREAM_CLOUD_STREAM_VERSION = '1.3.0.RELEASE';
 
@@ -284,15 +284,11 @@ module.exports = class extends BaseGenerator {
         this._installServerCode(javaDir, javaTestDir, resourceDir);
 
         // optional installs for either kafka or rabbitMQ
-        switch (this.messageBrokerType) {
-            case RABBITMQ:
-                this._installRabbitMq(resourceDir, javaDir, this);
-                break;
-            case KAFKA:
-                this._installKafka(resourceDir, javaDir, this);
-                break;
-            default:
-                break;
+        if (this.messageBrokerType === RABBITMQ) {
+            // todo update the arguments
+            this._installRabbitMq(resourceDir, javaDir, this, this.buildTool, this.messageBrokerType, this.rabbitMqNameOfMessage);
+        } else if (this.messageBrokerType === KAFKA) {
+            this._installKafka(resourceDir, javaDir, this);
         }
 
         // install jdl entities
@@ -305,18 +301,21 @@ module.exports = class extends BaseGenerator {
      * @param {String} resourceDir
      * @param {String} javaDir
      * @param {object} generator
+     * @param {String} buildTool
+     * @param {String} messageBrokerType
+     * @param {String} rabbitMqNameOfMessage
      * @private
      */
-    _installRabbitMq(resourceDir, javaDir, generator) {
-        this.log(`\nmessage broker type = ${this.messageBrokerType}`);
+    _installRabbitMq(resourceDir, javaDir, generator, buildTool, messageBrokerType, rabbitMqNameOfMessage) {
+        this.log(`\n message broker type = ${messageBrokerType}`);
         // add dependencies
-        if (this.buildTool === 'maven') {
+        if (buildTool === 'maven') {
             if (typeof this.addMavenDependencyManagement === 'function') {
                 this.addMavenDependency('org.springframework.cloud', 'spring-cloud-starter-stream-rabbit');
             } else {
                 this.addMavenDependency('org.springframework.cloud', 'spring-cloud-starter-stream-rabbit', STREAM_RABBIT_VERSION);
             }
-        } else if (this.buildTool === 'gradle') {
+        } else if (buildTool === 'gradle') {
             if (typeof this.addGradleDependencyManagement === 'function') {
                 this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-starter-stream-rabbit');
             } else {
@@ -331,9 +330,9 @@ module.exports = class extends BaseGenerator {
 
         // add docker-compose file
         this.template('src/main/docker/_rabbitmq.yml', 'src/main/docker/rabbitmq.yml');
-        const messageName = this.rabbitMqNameOfMessage.charAt(0).toUpperCase() + this.rabbitMqNameOfMessage.slice(1);
+        const messageName = this._capitalizeFLetter(rabbitMqNameOfMessage);
         this.rabbitMessageName = messageName;
-        this.rabbitMessageNameNonUcFirst = messageName.charAt(0).toLowerCase() + messageName.slice(1);
+        this.rabbitMessageNameNonUcFirst = this._unCapitalizeFLetter(messageName);
 
         // add Java classes
         this.template(
@@ -341,33 +340,7 @@ module.exports = class extends BaseGenerator {
             `${javaDir}config/CloudMessagingConfiguration.java`
         );
 
-        // application-dev.yml
-        const yamlAppDevProperties = {};
-        utilYaml.updatePropertyInArray(yamlAppDevProperties, 'spring.cloud.stream.default.contentType', generator, 'application/json');
-        utilYaml.updatePropertyInArray(yamlAppDevProperties, 'spring.cloud.stream.bindings.input.destination', generator, 'topic-jhipster');
-        utilYaml.updatePropertyInArray(
-            yamlAppDevProperties,
-            'spring.cloud.stream.bindings.output.destination',
-            generator,
-            'topic-jhipster'
-        );
-        utilYaml.updatePropertyInArray(
-            yamlAppDevProperties,
-            'spring.cloud.stream.bindings.rabbit.bindings.output.producer.routingKeyExpression',
-            generator,
-            'headers.title'
-        );
-        utilYaml.updateYamlProperties(`${resourceDir}config/application-dev.yml`, yamlAppDevProperties, generator);
-
-        // application-prod.yml
-        const yamlAppProdProperties = yamlAppDevProperties;
-        utilYaml.updatePropertyInArray(
-            yamlAppProdProperties,
-            'spring.cloud.stream.bindings.rabbit.bindings.output.producer.routingKeyExpression',
-            generator,
-            'payload.title'
-        );
-        utilYaml.updateYamlProperties(`${resourceDir}config/application-prod.yml`, yamlAppProdProperties, generator);
+        utilProps.updateAppProperties(generator, resourceDir);
     }
 
     /**
@@ -379,61 +352,7 @@ module.exports = class extends BaseGenerator {
      * @private
      */
     _installKafka(resourceDir, javaDir, generator) {
-        this.log(`\nmessage broker type = ${this.messageBrokerType}`);
-        // add dependencies
-        if (this.buildTool === 'maven') {
-            if (typeof this.addMavenDependencyManagement === 'function') {
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-starter-stream-kafka');
-            } else {
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-starter-stream-kafka', STREAM_KAFKA_VERSION);
-            }
-        } else if (this.buildTool === 'gradle') {
-            if (typeof this.addGradleDependencyManagement === 'function') {
-                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-starter-stream-kafka');
-            } else {
-                this.addGradleDependency(
-                    'compile',
-                    'org.springframework.cloud',
-                    'spring-cloud-starter-stream-rabbit',
-                    STREAM_KAFKA_VERSION
-                );
-            }
-        }
-
-        // todo add docker-compose file
-        this.template('src/main/docker/_rabbitmq.yml', 'src/main/docker/rabbitmq.yml');
-        const messageName = this.rabbitMqNameOfMessage.charAt(0).toUpperCase() + this.rabbitMqNameOfMessage.slice(1);
-        this.rabbitMessageName = messageName;
-        this.rabbitMessageNameNonUcFirst = messageName.charAt(0).toLowerCase() + messageName.slice(1);
-
-        // add Java classes
-        this.template(
-            'src/main/java/package/config/_CloudMessagingConfiguration.java',
-            `${javaDir}config/CloudMessagingConfiguration.java`
-        );
-
-        // application-dev.yml
-        const yamlAppDevProperties = {};
-        utilYaml.updatePropertyInArray(yamlAppDevProperties, 'spring.cloud.stream.default.contentType', this, 'application/json');
-        utilYaml.updatePropertyInArray(yamlAppDevProperties, 'spring.cloud.stream.bindings.input.destination', this, 'topic-jhipster');
-        utilYaml.updatePropertyInArray(yamlAppDevProperties, 'spring.cloud.stream.bindings.output.destination', this, 'topic-jhipster');
-        utilYaml.updatePropertyInArray(
-            yamlAppDevProperties,
-            'spring.cloud.stream.bindings.kafka.bindings.output.producer.routingKeyExpression',
-            this,
-            'headers.title'
-        );
-        utilYaml.updateYamlProperties(`${resourceDir}config/application-dev.yml`, yamlAppDevProperties, this);
-
-        // application-prod.yml
-        const yamlAppProdProperties = yamlAppDevProperties;
-        utilYaml.updatePropertyInArray(
-            yamlAppProdProperties,
-            'spring.cloud.stream.bindings.kafka.bindings.output.producer.routingKeyExpression',
-            this,
-            'payload.title'
-        );
-        utilYaml.updateYamlProperties(`${resourceDir}config/application-prod.yml`, yamlAppProdProperties, this);
+        this.log('Work in progress');
     }
 
     _useJdlExecution(_callback) {
@@ -480,8 +399,10 @@ module.exports = class extends BaseGenerator {
      */
     _installServerDependencies() {
         const OZLERHAKAN_POIJI_VERSION = '1.20.0';
+        // eslint-disable-next-line no-template-curly-in-string
         const OZLERHAKAN_POIJI_VERSION_PROPERTY = '${poiji.version}';
         const LOMBOK_VERSION = '1.18.6';
+        // eslint-disable-next-line no-template-curly-in-string
         const LOMBOK_VERSION_PROPERTY = '${lombok.version}';
 
         // const STREAM_CLOUD_DEPENDENCY_VERSION
