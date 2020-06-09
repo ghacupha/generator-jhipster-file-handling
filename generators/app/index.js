@@ -176,12 +176,21 @@ module.exports = class extends BaseGenerator {
     }
 
     /**
-     *
      * @param {String} string the string to capitalze
      * @return {String} string with camel-case
+     * @private
      */
     _capitalizeFLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    /**
+     * @param {String} string the string to capitalze
+     * @return {String} string with camel-case
+     * @private
+     */
+    _unCapitalizeFLetter(string) {
+        return string.charAt(0).toLowerCase() + string.slice(1);
     }
 
     writing() {
@@ -197,7 +206,7 @@ module.exports = class extends BaseGenerator {
         this.angularAppName = this.getAngularAppName();
 
         // Get the application name for use with main class
-        this.appName = this.baseName.charAt(0).toUpperCase() + this.baseName.slice(1);
+        this.appName = this._capitalizeFLetter(this.baseName);
 
         // use constants from generator-constants.js
         const javaDir = `${jhipsterConstants.SERVER_MAIN_SRC_DIR + this.packageFolder}/`;
@@ -220,6 +229,10 @@ module.exports = class extends BaseGenerator {
 
         if (typeof this.addFieldAndClassPrefix === 'undefined') {
             this.addFieldAndClassPrefix = this.promptAnswers.addFieldAndClassPrefix;
+        }
+
+        if (typeof this.messageBrokerType === 'undefined') {
+            this.messageBrokerType = this.promptAnswers.messageBrokerType;
         }
 
         // show all variables
@@ -270,12 +283,13 @@ module.exports = class extends BaseGenerator {
         // Write the other files
         this._installServerCode(javaDir, javaTestDir, resourceDir);
 
+        // optional installs for either kafka or rabbitMQ
         switch (this.messageBrokerType) {
             case RABBITMQ:
-                this._installRabbitMq();
+                this._installRabbitMq(resourceDir, javaDir, this);
                 break;
             case KAFKA:
-                this._installKafka();
+                this._installKafka(resourceDir, javaDir, this);
                 break;
             default:
                 break;
@@ -285,7 +299,15 @@ module.exports = class extends BaseGenerator {
         this._useJdlExecution();
     }
 
-    _installRabbitMq() {
+    /**
+     * Install rabbitMq-specific dependencies and templates
+     *
+     * @param {String} resourceDir
+     * @param {String} javaDir
+     * @param {object} generator
+     * @private
+     */
+    _installRabbitMq(resourceDir, javaDir, generator) {
         this.log(`\nmessage broker type = ${this.messageBrokerType}`);
         // add dependencies
         if (this.buildTool === 'maven') {
@@ -321,29 +343,42 @@ module.exports = class extends BaseGenerator {
 
         // application-dev.yml
         const yamlAppDevProperties = {};
-        utilYaml.updatePropertyInArray(yamlAppDevProperties, 'spring.cloud.stream.default.contentType', this, 'application/json');
-        utilYaml.updatePropertyInArray(yamlAppDevProperties, 'spring.cloud.stream.bindings.input.destination', this, 'topic-jhipster');
-        utilYaml.updatePropertyInArray(yamlAppDevProperties, 'spring.cloud.stream.bindings.output.destination', this, 'topic-jhipster');
+        utilYaml.updatePropertyInArray(yamlAppDevProperties, 'spring.cloud.stream.default.contentType', generator, 'application/json');
+        utilYaml.updatePropertyInArray(yamlAppDevProperties, 'spring.cloud.stream.bindings.input.destination', generator, 'topic-jhipster');
+        utilYaml.updatePropertyInArray(
+            yamlAppDevProperties,
+            'spring.cloud.stream.bindings.output.destination',
+            generator,
+            'topic-jhipster'
+        );
         utilYaml.updatePropertyInArray(
             yamlAppDevProperties,
             'spring.cloud.stream.bindings.rabbit.bindings.output.producer.routingKeyExpression',
-            this,
+            generator,
             'headers.title'
         );
-        utilYaml.updateYamlProperties(`${resourceDir}config/application-dev.yml`, yamlAppDevProperties, this);
+        utilYaml.updateYamlProperties(`${resourceDir}config/application-dev.yml`, yamlAppDevProperties, generator);
 
         // application-prod.yml
         const yamlAppProdProperties = yamlAppDevProperties;
         utilYaml.updatePropertyInArray(
             yamlAppProdProperties,
             'spring.cloud.stream.bindings.rabbit.bindings.output.producer.routingKeyExpression',
-            this,
+            generator,
             'payload.title'
         );
-        utilYaml.updateYamlProperties(`${resourceDir}config/application-prod.yml`, yamlAppProdProperties, this);
+        utilYaml.updateYamlProperties(`${resourceDir}config/application-prod.yml`, yamlAppProdProperties, generator);
     }
 
-    _installKafka() {
+    /**
+     * Install kafka-specific dependencies and templates
+     *
+     * @param {String} resourceDir
+     * @param {String} javaDir
+     * @param {object} generator
+     * @private
+     */
+    _installKafka(resourceDir, javaDir, generator) {
         this.log(`\nmessage broker type = ${this.messageBrokerType}`);
         // add dependencies
         if (this.buildTool === 'maven') {
