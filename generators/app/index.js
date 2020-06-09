@@ -137,7 +137,6 @@ module.exports = class extends BaseGenerator {
                         value: RABBITMQ,
                         name: 'RabbitMQ message broker (recommended for simple projects)'
                     },
-                    // keep commented as it's not implemented yet
                     {
                         value: KAFKA,
                         name: 'Kafka message broker (recommended for advanced projects) not implemented yet'
@@ -157,23 +156,14 @@ module.exports = class extends BaseGenerator {
         ];
 
         const done = this.async();
-        this.prompt(prompts).then(answers => {
-            this.promptAnswers = answers;
-            // To access props answers use this.promptAnswers.someOption;
-            // done();
-        });
         if (this.defaultOptions) {
             this.messageBrokerType = DEFAULT_BROKER_TYPE;
             this.rabbitMqNameOfMessage = DEFAULT_RABBITMQ_MESSAGE_NAME;
-            // done();
+            done();
         } else {
-            this.prompt(prompts).then(props => {
-                this.props = props;
-                // variable from questions
-                this.messageBrokerType = this.props.messageBrokerType;
-                if (this.props.messageBrokerType === RABBITMQ) {
-                    this.rabbitMqNameOfMessage = this.props.rabbitMqNameOfMessage;
-                }
+            this.prompt(prompts).then(answers => {
+                this.promptAnswers = answers;
+                // To access props answers use this.promptAnswers.someOption;
                 done();
             });
         }
@@ -285,6 +275,7 @@ module.exports = class extends BaseGenerator {
                 break;
         }
 
+        // install jdl entities
         this._useJdlExecution();
     }
 
