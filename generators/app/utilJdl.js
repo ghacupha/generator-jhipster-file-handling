@@ -89,7 +89,6 @@ module.exports = class extends BaseGenerator {
 
     /**
      * @deprecated todo replace this method with script-name args
-     * @param {Boolean} skipClient
      * @param {String} jdlScriptFile
      */
     runGeneralScript(jdlScriptFile) {
