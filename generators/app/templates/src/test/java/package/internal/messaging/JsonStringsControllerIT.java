@@ -8,7 +8,7 @@ import <%= packageName %>.internal.messaging.jsonStrings.StringMessageDTO;
 import <%= packageName %>.internal.messaging.platform.MessageService;
 import <%= packageName %>.internal.messaging.platform.TokenizableMessage;
 import <%= packageName %>.internal.util.TokenGenerator;
-import <%= packageName %>.service.dto.MessageTokenDTO;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>MessageTokenDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ public class JsonStringsControllerIT {
     @Autowired
     private TokenGenerator tokenGenerator;
     @Autowired
-    private MessageService<TokenizableMessage<String>, MessageTokenDTO> jsonStringMessageService;
+    private MessageService<TokenizableMessage<String>, <%= classNamesPrefix %>MessageTokenDTO> jsonStringMessageService;
 
     @Test
     public void callJsonStringService() throws Exception {
@@ -46,7 +46,7 @@ public class JsonStringsControllerIT {
 
         final TokenizableMessage<String> unMutatedGreeting = SerializationUtils.clone(jsonMessage);
 
-        MessageTokenDTO messageToken = jsonStringMessageService.sendMessage(jsonMessage);
+        <%= classNamesPrefix %>MessageTokenDTO messageToken = jsonStringMessageService.sendMessage(jsonMessage);
 
         log.info("Message sent with the token: {}", messageToken.getTokenValue());
 

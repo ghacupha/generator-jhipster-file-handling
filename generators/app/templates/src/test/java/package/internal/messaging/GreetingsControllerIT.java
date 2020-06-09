@@ -6,7 +6,7 @@ import <%= packageName %>.internal.messaging.platform.TokenizableMessage;
 import <%= packageName %>.internal.messaging.sample.Greetings;
 import <%= packageName %>.internal.messaging.sample.GreetingsStreams;
 import <%= packageName %>.internal.util.TokenGenerator;
-import <%= packageName %>.service.dto.MessageTokenDTO;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>MessageTokenDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class GreetingsControllerIT {
 
     @Autowired
-    private MessageService<TokenizableMessage<String>, MessageTokenDTO> greetingsService;
+    private MessageService<TokenizableMessage<String>, <%= classNamesPrefix %>MessageTokenDTO> greetingsService;
 
     @Autowired
     private MessageCollector messageCollector;
@@ -73,7 +73,7 @@ public class GreetingsControllerIT {
 
         final Greetings unMutatedGreeting = SerializationUtils.clone(greeting);
 
-        MessageTokenDTO messageToken = greetingsService.sendMessage(greeting);
+        <%= classNamesPrefix %>MessageTokenDTO messageToken = greetingsService.sendMessage(greeting);
 
         log.info("Message sent with the token: {}", messageToken.getTokenValue());
 

@@ -6,7 +6,7 @@ import <%= packageName %>.internal.messaging.fileNotification.FileNotificationSt
 import <%= packageName %>.internal.messaging.platform.MessageService;
 import <%= packageName %>.internal.messaging.platform.TokenizableMessage;
 import <%= packageName %>.internal.util.TokenGenerator;
-import <%= packageName %>.service.dto.MessageTokenDTO;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>MessageTokenDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ public class FileNotificationControllerIT {
 
 
     @Autowired
-    private MessageService<TokenizableMessage<String>, MessageTokenDTO> fileNotificationMessageService;
+    private MessageService<TokenizableMessage<String>, <%= classNamesPrefix %>MessageTokenDTO> fileNotificationMessageService;
 
     @Autowired
     private MessageCollector messageCollector;
@@ -50,7 +50,7 @@ public class FileNotificationControllerIT {
 
         final FileNotification unMutatedFileNotification = SerializationUtils.clone(fileNotification);
 
-        MessageTokenDTO messageToken = fileNotificationMessageService.sendMessage(fileNotification);
+        <%= classNamesPrefix %>MessageTokenDTO messageToken = fileNotificationMessageService.sendMessage(fileNotification);
 
         BlockingQueue<?> mq = messageCollector.forChannel(fileNotificationStreams.outbound());
         assertThat(mq).isNotNull();
