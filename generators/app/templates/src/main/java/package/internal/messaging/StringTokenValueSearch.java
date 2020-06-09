@@ -1,8 +1,8 @@
 package <%= packageName %>.internal.messaging;
 
-import <%= packageName %>.service.MessageTokenQueryService;
-import <%= packageName %>.service.dto.MessageTokenCriteria;
-import <%= packageName %>.service.dto.MessageTokenDTO;
+import <%= packageName %>.service.<%= classNamesPrefix %>MessageTokenQueryService;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>MessageTokenCriteria;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>MessageTokenDTO;
 import io.github.jhipster.service.filter.StringFilter;
 import org.springframework.stereotype.Service;
 
@@ -12,16 +12,16 @@ import org.springframework.stereotype.Service;
 @Service("stringTokenValueSearch")
 public class StringTokenValueSearch implements TokenValueSearch<String> {
 
-    private final MessageTokenQueryService messageTokenQueryService;
+    private final <%= classNamesPrefix %>MessageTokenQueryService messageTokenQueryService;
 
-    public StringTokenValueSearch(final MessageTokenQueryService messageTokenQueryService) {
+    public StringTokenValueSearch(final <%= classNamesPrefix %>MessageTokenQueryService messageTokenQueryService) {
         this.messageTokenQueryService = messageTokenQueryService;
     }
 
-    public MessageTokenDTO getMessageToken(final String tokenValue) {
+    public <%= classNamesPrefix %>MessageTokenDTO getMessageToken(final String tokenValue) {
         StringFilter tokenFilter = new StringFilter();
         tokenFilter.setEquals(tokenValue);
-        MessageTokenCriteria tokenValueCriteria = new MessageTokenCriteria();
+        <%= classNamesPrefix %>MessageTokenCriteria tokenValueCriteria = new <%= classNamesPrefix %>MessageTokenCriteria();
         tokenValueCriteria.setTokenValue(tokenFilter);
         return messageTokenQueryService.findByCriteria(tokenValueCriteria).get(0);
     }

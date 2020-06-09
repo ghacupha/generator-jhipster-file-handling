@@ -1,7 +1,7 @@
 package <%= packageName %>.internal.messaging.fileNotification;
 
 import <%= packageName %>.internal.messaging.platform.TokenizableMessage;
-import <%= packageName %>.domain.enumeration.FileModelType;
+import <%= packageName %>.domain.enumeration.<%= classNamesPrefix %>FileModelType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +26,6 @@ public class FileNotification implements TokenizableMessage<String> {
 
     private String description;
 
-    private FileModelType fileModelType;
+    private <%= classNamesPrefix %>FileModelType fileModelType;
 
 }

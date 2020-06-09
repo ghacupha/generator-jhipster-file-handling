@@ -2,8 +2,8 @@ package <%= packageName %>.internal.messaging.fileNotification;
 
 import <%= packageName %>.internal.messaging.fileNotification.processors.FileUploadProcessorChain;
 import <%= packageName %>.internal.messaging.platform.MuteListener;
-import <%= packageName %>.service.FileUploadService;
-import <%= packageName %>.service.dto.FileUploadDTO;
+import <%= packageName %>.service.<%= classNamesPrefix %>FileUploadService;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>FileUploadDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -24,10 +24,10 @@ import static <%= packageName %>.internal.AppConstants.PROCESSED_TOKENS;
 @Service
 public class FileNotificationListener implements MuteListener<FileNotification> {
 
-    private final FileUploadService fileUploadService;
+    private final <%= classNamesPrefix %>FileUploadService fileUploadService;
     private final FileUploadProcessorChain fileUploadProcessorChain;
 
-    public FileNotificationListener(final FileUploadService fileUploadService, final FileUploadProcessorChain fileUploadProcessorChain) {
+    public FileNotificationListener(final <%= classNamesPrefix %>FileUploadService fileUploadService, final FileUploadProcessorChain fileUploadProcessorChain) {
         this.fileUploadService = fileUploadService;
         this.fileUploadProcessorChain = fileUploadProcessorChain;
     }
@@ -36,12 +36,12 @@ public class FileNotificationListener implements MuteListener<FileNotification> 
     public void handleMessage(@Payload FileNotification fileNotification) {
         log.info("File notification received for: {}", fileNotification.getFilename());
 
-        FileUploadDTO fileUpload =
+        <%= classNamesPrefix %>FileUploadDTO fileUpload =
             fileUploadService.findOne(Long.parseLong(fileNotification.getFileId())).orElseThrow(() -> new IllegalArgumentException("Id # : " + fileNotification.getFileId() + " does not exist"));
-        log.debug("FileUploadDTO object fetched from DB with id: {}", fileUpload.getId());
+        log.debug("<%= classNamesPrefix %>FileUploadDTO object fetched from DB with id: {}", fileUpload.getId());
         if (!PROCESSED_TOKENS.contains(fileNotification.getMessageToken())) {
             log.debug("Processing message with token {}", fileNotification.getMessageToken());
-            List<FileUploadDTO> processedFiles = fileUploadProcessorChain.apply(fileUpload, fileNotification);
+            List<<%= classNamesPrefix %>FileUploadDTO> processedFiles = fileUploadProcessorChain.apply(fileUpload, fileNotification);
             fileUpload.setUploadProcessed(true);
             fileUpload.setUploadSuccessful(true);
             // Explicitly persist new status

@@ -8,12 +8,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 // todo loop for every file model type
-import static <%= packageName %>.domain.enumeration.FileModelType.BRANCH_LIST;
-import static <%= packageName %>.domain.enumeration.FileModelType.CURRENCY_LIST;
-import static <%= packageName %>.domain.enumeration.FileModelType.DEPOSIT_LIST;
-import static <%= packageName %>.domain.enumeration.FileModelType.GENERAL_LEDGERS;
-import static <%= packageName %>.domain.enumeration.FileModelType.SBU_LIST;
-import static <%= packageName %>.domain.enumeration.FileModelType.SCHEME_LIST;
+import static <%= packageName %>.domain.enumeration.<%= classNamesPrefix %>FileModelType.BRANCH_LIST;
+import static <%= packageName %>.domain.enumeration.<%= classNamesPrefix %>FileModelType.CURRENCY_LIST;
+import static <%= packageName %>.domain.enumeration.<%= classNamesPrefix %>FileModelType.DEPOSIT_LIST;
+import static <%= packageName %>.domain.enumeration.<%= classNamesPrefix %>FileModelType.GENERAL_LEDGERS;
+import static <%= packageName %>.domain.enumeration.<%= classNamesPrefix %>FileModelType.SBU_LIST;
+import static <%= packageName %>.domain.enumeration.<%= classNamesPrefix %>FileModelType.SCHEME_LIST;
 
 /**
  * This object maintains a list of all existing processors. This is a short in the dark about automatically configuring the chain at start up

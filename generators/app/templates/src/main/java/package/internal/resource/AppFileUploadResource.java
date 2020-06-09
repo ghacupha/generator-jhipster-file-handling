@@ -4,11 +4,11 @@ import <%= packageName %>.internal.messaging.fileNotification.FileNotification;
 import <%= packageName %>.internal.messaging.platform.MessageService;
 import <%= packageName %>.internal.messaging.platform.TokenizableMessage;
 import <%= packageName %>.internal.resource.decorator.IFileUploadResource;
-import <%= packageName %>.domain.FileType;
-import <%= packageName %>.service.FileTypeService;
-import <%= packageName %>.service.dto.FileUploadCriteria;
-import <%= packageName %>.service.dto.FileUploadDTO;
-import <%= packageName %>.service.dto.MessageTokenDTO;
+import <%= packageName %>.domain.<%= classNamesPrefix %>FileType;
+import <%= packageName %>.service.<%= classNamesPrefix %>FileTypeService;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>FileUploadCriteria;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>FileUploadDTO;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>MessageTokenDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -44,12 +44,11 @@ import java.util.List;
 public class AppFileUploadResource implements IFileUploadResource {
 
     private final IFileUploadResource fileUploadResource;
-    private final MessageService<TokenizableMessage<String>, MessageTokenDTO> fileNotificationMessageService;
+    private final MessageService<TokenizableMessage<String>, <%= classNamesPrefix %>MessageTokenDTO> fileNotificationMessageService;
+    private final <%= classNamesPrefix %>FileTypeService fileTypeService;
 
-    private final FileTypeService fileTypeService;
-
-    public AppFileUploadResource(final IFileUploadResource fileUploadResourceDecorator, final MessageService<TokenizableMessage<String>, MessageTokenDTO> fileNotificationMessageService,
-                                 final FileTypeService fileTypeService) {
+    public AppFileUploadResource(final IFileUploadResource fileUploadResourceDecorator, final MessageService<TokenizableMessage<String>, <%= classNamesPrefix %>MessageTokenDTO> fileNotificationMessageService,
+                                 final <%= classNamesPrefix %>FileTypeService fileTypeService) {
         this.fileUploadResource = fileUploadResourceDecorator;
         this.fileNotificationMessageService = fileNotificationMessageService;
         this.fileTypeService = fileTypeService;
@@ -63,13 +62,13 @@ public class AppFileUploadResource implements IFileUploadResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/file-uploads")
-    public ResponseEntity<FileUploadDTO> createFileUpload(@Valid @RequestBody FileUploadDTO fileUploadDTO) throws URISyntaxException {
+    public ResponseEntity<<%= classNamesPrefix %>FileUploadDTO> createFileUpload(@Valid @RequestBody <%= classNamesPrefix %>FileUploadDTO fileUploadDTO) throws URISyntaxException {
 
-        ResponseEntity<FileUploadDTO> responseEntity = fileUploadResource.createFileUpload(fileUploadDTO);
+        ResponseEntity<<%= classNamesPrefix %>FileUploadDTO> responseEntity = fileUploadResource.createFileUpload(fileUploadDTO);
 
-        FileType fileType = fileTypeService.findOne(fileUploadDTO.getFileTypeId()).get();
+        <%= classNamesPrefix %>FileType fileType = fileTypeService.findOne(fileUploadDTO.getFileTypeId()).get();
 
-        MessageTokenDTO token = fileNotificationMessageService.sendMessage(FileNotification.builder()
+        <%= classNamesPrefix %>MessageTokenDTO token = fileNotificationMessageService.sendMessage(FileNotification.builder()
                                                                                            .filename(fileUploadDTO.getFileName())
                                                                                            .description(fileUploadDTO.getDescription())
                                                                                            .fileModelType(fileType.getFileType())
@@ -90,7 +89,7 @@ public class AppFileUploadResource implements IFileUploadResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/file-uploads")
-    public ResponseEntity<FileUploadDTO> updateFileUpload(@Valid @RequestBody FileUploadDTO fileUploadDTO) throws URISyntaxException {
+    public ResponseEntity<<%= classNamesPrefix %>FileUploadDTO> updateFileUpload(@Valid @RequestBody <%= classNamesPrefix %>FileUploadDTO fileUploadDTO) throws URISyntaxException {
 
         return fileUploadResource.updateFileUpload(fileUploadDTO);
     }
@@ -103,7 +102,7 @@ public class AppFileUploadResource implements IFileUploadResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of fileUploads in body.
      */
     @GetMapping("/file-uploads")
-    public ResponseEntity<List<FileUploadDTO>> getAllFileUploads(FileUploadCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<<%= classNamesPrefix %>FileUploadDTO>> getAllFileUploads (<%= classNamesPrefix %>FileUploadCriteria criteria, Pageable pageable) {
 
         return fileUploadResource.getAllFileUploads(criteria, pageable);
     }
@@ -115,7 +114,7 @@ public class AppFileUploadResource implements IFileUploadResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
      */
     @GetMapping("/file-uploads/count")
-    public ResponseEntity<Long> countFileUploads(FileUploadCriteria criteria) {
+    public ResponseEntity<Long> countFileUploads (<%= classNamesPrefix %>FileUploadCriteria criteria) {
 
         return fileUploadResource.countFileUploads(criteria);
     }
@@ -127,7 +126,7 @@ public class AppFileUploadResource implements IFileUploadResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the fileUploadDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/file-uploads/{id}")
-    public ResponseEntity<FileUploadDTO> getFileUpload(@PathVariable Long id) {
+    public ResponseEntity<<%= classNamesPrefix %>FileUploadDTO> getFileUpload(@PathVariable Long id) {
 
         return fileUploadResource.getFileUpload(id);
     }

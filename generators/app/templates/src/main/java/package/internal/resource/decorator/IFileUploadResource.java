@@ -1,7 +1,7 @@
 package <%= packageName %>.internal.resource.decorator;
 
-import <%= packageName %>.service.dto.FileUploadCriteria;
-import <%= packageName %>.service.dto.FileUploadDTO;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>FileUploadCriteria;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>FileUploadDTO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +24,7 @@ public interface IFileUploadResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new fileUploadDTO, or with status {@code 400 (Bad Request)} if the fileUpload has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    ResponseEntity<FileUploadDTO> createFileUpload(@Valid @RequestBody FileUploadDTO fileUploadDTO) throws URISyntaxException;
+    ResponseEntity<<%= classNamesPrefix %>FileUploadDTO> createFileUpload(@Valid @RequestBody <%= classNamesPrefix %>FileUploadDTO fileUploadDTO) throws URISyntaxException;
 
     /**
      * {@code PUT  /file-uploads} : Updates an existing fileUpload.
@@ -34,7 +34,7 @@ public interface IFileUploadResource {
      * status {@code 500 (Internal Server Error)} if the fileUploadDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    ResponseEntity<FileUploadDTO> updateFileUpload(@Valid @RequestBody FileUploadDTO fileUploadDTO) throws URISyntaxException;
+    ResponseEntity<<%= classNamesPrefix %>FileUploadDTO> updateFileUpload(@Valid @RequestBody <%= classNamesPrefix %>FileUploadDTO fileUploadDTO) throws URISyntaxException;
 
     /**
      * {@code GET  /file-uploads} : get all the fileUploads.
@@ -43,7 +43,7 @@ public interface IFileUploadResource {
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of fileUploads in body.
      */
-    ResponseEntity<List<FileUploadDTO>> getAllFileUploads(FileUploadCriteria criteria, Pageable pageable);
+    ResponseEntity<List<<%= classNamesPrefix %>FileUploadDTO>> getAllFileUploads(<%= classNamesPrefix %>FileUploadCriteria criteria, Pageable pageable);
 
     /**
      * {@code GET  /file-uploads/count} : count all the fileUploads.
@@ -51,7 +51,7 @@ public interface IFileUploadResource {
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
      */
-    ResponseEntity<Long> countFileUploads(FileUploadCriteria criteria);
+    ResponseEntity<Long> countFileUploads(<%= classNamesPrefix %>FileUploadCriteria criteria);
 
     /**
      * {@code GET  /file-uploads/:id} : get the "id" fileUpload.
@@ -59,7 +59,7 @@ public interface IFileUploadResource {
      * @param id the id of the fileUploadDTO to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the fileUploadDTO, or with status {@code 404 (Not Found)}.
      */
-    ResponseEntity<FileUploadDTO> getFileUpload(@PathVariable Long id);
+    ResponseEntity<<%= classNamesPrefix %>FileUploadDTO> getFileUpload(@PathVariable Long id);
 
     /**
      * {@code DELETE  /file-uploads/:id} : delete the "id" fileUpload.

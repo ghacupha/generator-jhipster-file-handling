@@ -1,8 +1,8 @@
 package <%= packageName %>.internal.messaging.fileNotification.processors;
 
 import <%= packageName %>.internal.messaging.fileNotification.FileNotification;
-import <%= packageName %>.domain.enumeration.FileModelType;
-import <%= packageName %>.service.dto.FileUploadDTO;
+import <%= packageName %>.domain.enumeration.<%= classNamesPrefix %>FileModelType;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>FileUploadDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersBuilder;
@@ -16,23 +16,23 @@ import org.springframework.batch.core.repository.JobRestartException;
  * This class is create to enable code reuse where the only parameter that changes the file-model-type
  */
 @Slf4j
-public class BatchSupportedFileUploadProcessor implements FileUploadProcessor<FileUploadDTO>  {
+public class BatchSupportedFileUploadProcessor implements FileUploadProcessor<<%= classNamesPrefix %>FileUploadDTO>  {
 
 
     private final JobLauncher jobLauncher;
     public final Job batchJob;
-    private final FileModelType fileModelType;
+    private final <%= classNamesPrefix %>FileModelType fileModelType;
 
-    public BatchSupportedFileUploadProcessor(final JobLauncher jobLauncher, final Job batchJob, final FileModelType fileModelType) {
+    public BatchSupportedFileUploadProcessor(final JobLauncher jobLauncher, final Job batchJob, final <%= classNamesPrefix %>FileModelType fileModelType) {
         this.jobLauncher = jobLauncher;
         this.batchJob = batchJob;
         this.fileModelType = fileModelType;
     }
 
     @Override
-    public FileUploadDTO processFileUpload(final FileUploadDTO fileUpload, final FileNotification fileNotification) {
+    public <%= classNamesPrefix %>FileUploadDTO processFileUpload(final <%= classNamesPrefix %>FileUploadDTO fileUpload, final FileNotification fileNotification) {
 
-        if (fileNotification.getFileModelType() == fileModelType) {
+        if (fileNotification.get<%= classNamesPrefix %>FileModelType() == fileModelType) {
             log.debug("File-upload type confirmed commencing process...");
 
             JobParametersBuilder jobParametersBuilder = new JobParametersBuilder();

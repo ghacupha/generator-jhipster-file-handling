@@ -1,6 +1,6 @@
 package <%= packageName %>.internal.messaging;
 
-import <%= packageName %>.service.dto.MessageTokenDTO;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>MessageTokenDTO;
 
 /**
  * To search for Message-Token entity with a certain message-token-value
@@ -12,5 +12,5 @@ import <%= packageName %>.service.dto.MessageTokenDTO;
  */
 public interface TokenValueSearch<T> {
 
-    MessageTokenDTO getMessageToken(final T tokenValue);
+    <%= classNamesPrefix %>MessageTokenDTO getMessageToken(final T tokenValue);
 }

@@ -1,4 +1,4 @@
-package io.github.deposits.app.report;
+package <%= packageName %>.internal.report;
 
 import org.hibernate.Criteria;
 import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;

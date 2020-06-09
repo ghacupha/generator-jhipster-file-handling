@@ -3,7 +3,7 @@ package <%= packageName %>.internal.batch.currencyTable;
 import <%= packageName %>.internal.batch.ListPartition;
 import <%= packageName %>.internal.excel.ExcelFileDeserializer;
 import <%= packageName %>.internal.model.CurrencyTableEVM;
-import <%= packageName %>.service.FileUploadService;
+import <%= packageName %>.service.<%= classNamesPrefix %>FileUploadService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;
@@ -22,12 +22,12 @@ public class CurrencyTableListItemReader implements ItemReader<List<CurrencyTabl
     private int listPageSize;
 
     private ExcelFileDeserializer<CurrencyTableEVM> deserializer;
-    private FileUploadService fileUploadService;
+    private <%= classNamesPrefix %>FileUploadService fileUploadService;
     private long fileId;
 
     private ListPartition<CurrencyTableEVM> currencyTableEVMPartition;
 
-    CurrencyTableListItemReader(final ExcelFileDeserializer<CurrencyTableEVM> deserializer, FileUploadService fileUploadService, @Value("#{jobParameters['fileId']}") long fileId,
+    CurrencyTableListItemReader(final ExcelFileDeserializer<CurrencyTableEVM> deserializer, <%= classNamesPrefix %>FileUploadService fileUploadService, @Value("#{jobParameters['fileId']}") long fileId,
                                 @Value("${reader.data_table.list.size}") int maximumPageSize) {
         this.deserializer = deserializer;
         this.fileUploadService = fileUploadService;

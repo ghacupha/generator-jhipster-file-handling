@@ -1,8 +1,8 @@
 package <%= packageName %>.internal.resource.decorator;
 
-import <%= packageName %>.service.dto.FileUploadCriteria;
-import <%= packageName %>.service.dto.FileUploadDTO;
-import <%= packageName %>.web.rest.FileUploadResource;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>FileUploadCriteria;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>FileUploadDTO;
+import <%= packageName %>.web.rest.<%= classNamesPrefix %>FileUploadResource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -32,9 +32,9 @@ import java.util.List;
 @Component("fileUploadResourceDecorator")
 public class FileUploadResourceDecorator implements IFileUploadResource {
 
-    private final FileUploadResource fileUploadResource;
+    private final <%= classNamesPrefix %>FileUploadResource fileUploadResource;
 
-    public FileUploadResourceDecorator(final FileUploadResource fileUploadResource) {
+    public FileUploadResourceDecorator(final <%= classNamesPrefix %>FileUploadResource fileUploadResource) {
         this.fileUploadResource = fileUploadResource;
     }
 
@@ -46,7 +46,7 @@ public class FileUploadResourceDecorator implements IFileUploadResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/file-uploads")
-    public ResponseEntity<FileUploadDTO> createFileUpload(@Valid @RequestBody FileUploadDTO fileUploadDTO) throws URISyntaxException {
+    public ResponseEntity<<%= classNamesPrefix %>FileUploadDTO> createFileUpload(@Valid @RequestBody <%= classNamesPrefix %>FileUploadDTO fileUploadDTO) throws URISyntaxException {
 
         return fileUploadResource.createFileUpload(fileUploadDTO);
     }
@@ -60,7 +60,7 @@ public class FileUploadResourceDecorator implements IFileUploadResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/file-uploads")
-    public ResponseEntity<FileUploadDTO> updateFileUpload(@Valid @RequestBody FileUploadDTO fileUploadDTO) throws URISyntaxException {
+    public ResponseEntity<<%= classNamesPrefix %>FileUploadDTO> updateFileUpload(@Valid @RequestBody <%= classNamesPrefix %>FileUploadDTO fileUploadDTO) throws URISyntaxException {
 
         return fileUploadResource.updateFileUpload(fileUploadDTO);
     }
@@ -73,7 +73,7 @@ public class FileUploadResourceDecorator implements IFileUploadResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of fileUploads in body.
      */
     @GetMapping("/file-uploads")
-    public ResponseEntity<List<FileUploadDTO>> getAllFileUploads(FileUploadCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<<%= classNamesPrefix %>FileUploadDTO>> getAllFileUploads(<%= classNamesPrefix %>FileUploadCriteria criteria, Pageable pageable) {
 
         return fileUploadResource.getAllFileUploads(criteria, pageable);
     }
@@ -85,7 +85,7 @@ public class FileUploadResourceDecorator implements IFileUploadResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
      */
     @GetMapping("/file-uploads/count")
-    public ResponseEntity<Long> countFileUploads(FileUploadCriteria criteria) {
+    public ResponseEntity<Long> countFileUploads(<%= classNamesPrefix %>FileUploadCriteria criteria) {
 
         return fileUploadResource.countFileUploads(criteria);
     }
@@ -97,7 +97,7 @@ public class FileUploadResourceDecorator implements IFileUploadResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the fileUploadDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/file-uploads/{id}")
-    public ResponseEntity<FileUploadDTO> getFileUpload(@PathVariable Long id) {
+    public ResponseEntity<<%= classNamesPrefix %>FileUploadDTO> getFileUpload(@PathVariable Long id) {
 
         return fileUploadResource.getFileUpload(id);
     }

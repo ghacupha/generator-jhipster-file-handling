@@ -1,19 +1,19 @@
-package io.github.deposits.app.messaging.fileNotification.processors;
+package <%= packageName %>.internal.messaging.fileNotification.processors;
 
-import io.github.deposits.app.Mapping;
-import io.github.deposits.app.excel.ExcelFileDeserializer;
-import io.github.deposits.app.messaging.fileNotification.FileNotification;
-import io.github.deposits.app.messaging.platform.MessageService;
-import io.github.deposits.app.messaging.platform.TokenizableMessage;
-import io.github.deposits.domain.enumeration.FileModelType;
-import io.github.deposits.service.dto.FileUploadDTO;
-import io.github.deposits.service.dto.MessageTokenDTO;
+import <%= packageName %>.internal.Mapping;
+import <%= packageName %>.internal.excel.ExcelFileDeserializer;
+import <%= packageName %>.internal.messaging.fileNotification.FileNotification;
+import <%= packageName %>.internal.messaging.platform.MessageService;
+import <%= packageName %>.internal.messaging.platform.TokenizableMessage;
+import <%= packageName %>.domain.enumeration.<%= classNamesPrefix %>FileModelType;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>FileUploadDTO;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>MessageTokenDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static io.github.deposits.app.AppConstants.ENQUEUED_TOKENS;
+import static <%= packageName %>.internal.AppConstants.ENQUEUED_TOKENS;
 
 /**
  * This is a processor which is determined to processe files by sending them into a queue.
@@ -25,16 +25,16 @@ import static io.github.deposits.app.AppConstants.ENQUEUED_TOKENS;
  */
 @Slf4j
 @Transactional
-public class StreamSupportedFileUploadProcessor<EVM> implements FileUploadProcessor<FileUploadDTO> {
+public class StreamSupportedFileUploadProcessor<EVM> implements FileUploadProcessor<<%= classNamesPrefix %>FileUploadDTO> {
 
-    private final MessageService<TokenizableMessage<String>, MessageTokenDTO> schemeTableMessageService;
+    private final MessageService<TokenizableMessage<String>, <%= classNamesPrefix %>MessageTokenDTO> schemeTableMessageService;
     private final ExcelFileDeserializer<EVM> excelFileDeserializer;
     private final Mapping<EVM, TokenizableMessage<String>> schemeTableMTOMapping;
-    private final FileModelType fileModelType;
+    private final <%= classNamesPrefix %>FileModelType fileModelType;
 
-    public StreamSupportedFileUploadProcessor(final MessageService<TokenizableMessage<String>, MessageTokenDTO> schemeTableMessageService,
+    public StreamSupportedFileUploadProcessor(final MessageService<TokenizableMessage<String>, <%= classNamesPrefix %>MessageTokenDTO> schemeTableMessageService,
                                               final ExcelFileDeserializer<EVM> excelFileDeserializer, final Mapping<EVM, TokenizableMessage<String>> schemeTableMTOMapping,
-                                              final FileModelType fileModelType) {
+                                              final <%= classNamesPrefix %>FileModelType fileModelType) {
         this.schemeTableMessageService = schemeTableMessageService;
         this.excelFileDeserializer = excelFileDeserializer;
         this.schemeTableMTOMapping = schemeTableMTOMapping;
@@ -42,11 +42,11 @@ public class StreamSupportedFileUploadProcessor<EVM> implements FileUploadProces
     }
 
     @Override
-    public FileUploadDTO processFileUpload(final FileUploadDTO fileUpload, FileNotification fileNotification) {
+    public <%= classNamesPrefix %>FileUploadDTO processFileUpload(final <%= classNamesPrefix %>FileUploadDTO fileUpload, FileNotification fileNotification) {
         log.debug("Received file-upload for processing :{} with notification :{}", fileUpload, fileNotification);
 
         // Only works on scheme tables
-        if (fileNotification.getFileModelType() == fileModelType) {
+        if (fileNotification.get<%= classNamesPrefix %>FileModelType() == fileModelType) {
             log.debug("File-upload type confirmed commencing process...");
             AtomicInteger processCounter = new AtomicInteger();
 
@@ -59,7 +59,7 @@ public class StreamSupportedFileUploadProcessor<EVM> implements FileUploadProces
                                  .map(schemeTableMTOMapping::toValue2)
                                  .map(schemeTableMessageService::sendMessage)
                                  .peek(i -> {processCounter.incrementAndGet();})
-                                 .map(MessageTokenDTO::getTokenValue)
+                                 .map(<%= classNamesPrefix %>MessageTokenDTO::getTokenValue)
                                  .forEach(ENQUEUED_TOKENS::add);
             // @formatter:on
 

@@ -2,7 +2,7 @@ package <%= packageName %>.internal.messaging.fileNotification.processors;
 
 import com.google.common.collect.ImmutableList;
 import <%= packageName %>.internal.messaging.fileNotification.FileNotification;
-import <%= packageName %>.service.dto.FileUploadDTO;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>FileUploadDTO;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -14,9 +14,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Slf4j
 public class FileUploadProcessorChain {
 
-    private final List<FileUploadProcessor<FileUploadDTO>> fileUploadProcessors;
+    private final List<FileUploadProcessor<<%= classNamesPrefix %>FileUploadDTO>> fileUploadProcessors;
 
-    public FileUploadProcessorChain(final List<FileUploadProcessor<FileUploadDTO>> fileUploadProcessors) {
+    public FileUploadProcessorChain(final List<FileUploadProcessor<<%= classNamesPrefix %>FileUploadDTO>> fileUploadProcessors) {
         this.fileUploadProcessors = fileUploadProcessors;
     }
 
@@ -24,13 +24,13 @@ public class FileUploadProcessorChain {
         this.fileUploadProcessors = new CopyOnWriteArrayList<>();
     }
 
-    public void addProcessor(FileUploadProcessor<FileUploadDTO> fileUploadProcessor) {
+    public void addProcessor(FileUploadProcessor<<%= classNamesPrefix %>FileUploadDTO> fileUploadProcessor) {
         log.info("Adding new file-upload processor {}", fileUploadProcessor);
         this.fileUploadProcessors.add(fileUploadProcessor);
     }
 
-    public List<FileUploadDTO> apply(FileUploadDTO fileUploadDTO, FileNotification fileNotification) {
+    public List<<%= classNamesPrefix %>FileUploadDTO> apply(<%= classNamesPrefix %>FileUploadDTO fileUploadDTO, FileNotification fileNotification) {
         log.debug("Applying {} file upload processors to file-upload {} with notification {}", this.fileUploadProcessors.size(), fileUploadDTO, fileNotification);
-        return fileUploadProcessors.stream().map(processor -> processor.processFileUpload(fileUploadDTO, fileNotification)).collect(ImmutableList.toImmutableList());
+        return fileUploadProcessors.stream().map(processor -> processor.process<%= classNamesPrefix %>FileUpload(fileUploadDTO, fileNotification)).collect(ImmutableList.toImmutableList());
     }
 }

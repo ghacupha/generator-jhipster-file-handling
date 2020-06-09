@@ -2,10 +2,10 @@ package <%= packageName %>.internal.messaging.platform;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import <%= packageName %>.internal.util.TokenGenerator;
-import <%= packageName %>.domain.MessageToken;
-import <%= packageName %>.service.MessageTokenService;
-import <%= packageName %>.service.dto.MessageTokenDTO;
-import <%= packageName %>.service.mapper.MessageTokenMapper;
+import <%= packageName %>.domain.<%= classNamesPrefix %>MessageToken;
+import <%= packageName %>.service.<%= classNamesPrefix %>MessageTokenService;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>MessageTokenDTO;
+import <%= packageName %>.service.mapper.<%= classNamesPrefix %>MessageTokenMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHeaders;
@@ -17,15 +17,15 @@ import org.springframework.util.MimeTypeUtils;
  * which themselves implement @{code MessageService<TokenizableMessage<String>>} interface
  */
 @Slf4j
-public class StringTokenMessageService implements MessageService<TokenizableMessage<String>, MessageTokenDTO> {
+public class StringTokenMessageService implements MessageService<TokenizableMessage<String>, <%= classNamesPrefix %>MessageTokenDTO> {
 
     private final TokenGenerator tokenGenerator;
-    private final MessageTokenService messageTokenService;
+    private final <%= classNamesPrefix %>MessageTokenService messageTokenService;
     private final MessageChannel messageChannel;
-    private final MessageTokenMapper messageTokenMapper;
+    private final <%= classNamesPrefix %>MessageTokenMapper messageTokenMapper;
 
-    public StringTokenMessageService(final TokenGenerator tokenGenerator, final MessageTokenService messageTokenService, final MessageChannel messageChannel,
-                                     final MessageTokenMapper messageTokenMapper) {
+    public StringTokenMessageService(final TokenGenerator tokenGenerator, final <%= classNamesPrefix %>MessageTokenService messageTokenService, final MessageChannel messageChannel,
+                                     final <%= classNamesPrefix %>MessageTokenMapper messageTokenMapper) {
         this.tokenGenerator = tokenGenerator;
         this.messageTokenService = messageTokenService;
         this.messageChannel = messageChannel;
@@ -39,7 +39,7 @@ public class StringTokenMessageService implements MessageService<TokenizableMess
      * @return This is the token for the message that has just been sent
      */
     @Override
-    public MessageTokenDTO sendMessage(final TokenizableMessage<String> message) {
+    public <%= classNamesPrefix %>MessageTokenDTO sendMessage(final TokenizableMessage<String> message) {
 
         log.debug("Tokenizable message {} received for submission", message);
 
@@ -54,10 +54,10 @@ public class StringTokenMessageService implements MessageService<TokenizableMess
         long timestamp = System.currentTimeMillis();
         message.setTimestamp(timestamp);
 
-        MessageToken messageToken = new MessageToken().tokenValue(token).description(message.getDescription()).timeSent(timestamp);
+        <%= classNamesPrefix %>MessageToken messageToken = new <%= classNamesPrefix %>MessageToken().tokenValue(token).description(message.getDescription()).timeSent(timestamp);
 
         if (messageToken != null) {
-            message.setMessageToken(messageToken.getTokenValue());
+            message.set<%= classNamesPrefix %>MessageToken(messageToken.getTokenValue());
         }
 
         messageChannel.send(MessageBuilder.withPayload(message).setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON).build());

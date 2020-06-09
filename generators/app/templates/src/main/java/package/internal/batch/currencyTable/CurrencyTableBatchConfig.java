@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import <%= packageName %>.internal.Mapping;
 import <%= packageName %>.internal.excel.ExcelFileDeserializer;
 import <%= packageName %>.internal.service.BatchService;
-import <%= packageName %>.service.FileUploadService;
+import <%= packageName %>.service.<%= classNamesPrefix %>FileUploadService;
 // todo replace these entities with entity names from client
 import <%= packageName %>.internal.model.CurrencyTableEVM;
 import <%= packageName %>.service.dto.CurrencyTableDTO;
@@ -38,7 +38,7 @@ public class CurrencyTableBatchConfig {
     private ExcelFileDeserializer<CurrencyTableEVM> deserializer;
 
     @Autowired
-    private FileUploadService fileUploadService;
+    private <%= classNamesPrefix %>FileUploadService fileUploadService;
 
     @Value("${reader.data_table.list.size}")
     private static int maximumPageSize;
