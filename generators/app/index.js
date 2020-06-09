@@ -38,6 +38,12 @@ const KAFKA = 'Kafka';
 const DEFAULT_BROKER_TYPE = RABBITMQ;
 const DEFAULT_RABBITMQ_MESSAGE_NAME = 'message';
 
+// MQ dependencies
+const STREAM_RABBIT_VERSION = '1.3.0.RELEASE';
+const STREAM_KAFKA_VERSION = '1.3.0.RELEASE';
+const STREAM_CLOUD_DEPENDENCY_VERSION = 'Chelsea.SR2';
+const STREAM_CLOUD_STREAM_VERSION = '1.3.0.RELEASE';
+
 module.exports = class extends BaseGenerator {
     get initializing() {
         return {
@@ -280,88 +286,18 @@ module.exports = class extends BaseGenerator {
     }
 
     _installRabbitMq() {
-        const STREAM_RABBIT_VERSION = '1.3.0.RELEASE';
-        const STREAM_CLOUD_DEPENDENCY_VERSION = 'Chelsea.SR2';
-        const STREAM_CLOUD_STREAM_VERSION = '1.3.0.RELEASE';
-        // read config from .yo-rc.json
-        this.baseName = this.jhipsterAppConfig.baseName;
-        this.packageName = this.jhipsterAppConfig.packageName;
-        this.packageFolder = this.jhipsterAppConfig.packageFolder;
-        this.clientFramework = this.jhipsterAppConfig.clientFramework;
-        this.clientPackageManager = this.jhipsterAppConfig.clientPackageManager;
-        this.buildTool = this.jhipsterAppConfig.buildTool;
-
-        // use function in generator-base.js from generator-jhipster
-        this.angularAppName = this.getAngularAppName();
-
-        // const webappDir = jhipsterConstants.CLIENT_MAIN_SRC_DIR;
         this.log(`\nmessage broker type = ${this.messageBrokerType}`);
-        this.log(`\nmessage broker type = ${this.rabbitMqNameOfMessage}`);
-        this.log('------\n');
-
-        // use constants from generator-constants.js
-        const javaDir = `${jhipsterConstants.SERVER_MAIN_SRC_DIR + this.packageFolder}/`;
-        const resourceDir = jhipsterConstants.SERVER_MAIN_RES_DIR;
         // add dependencies
         if (this.buildTool === 'maven') {
             if (typeof this.addMavenDependencyManagement === 'function') {
-                this.addMavenDependencyManagement(
-                    'org.springframework.cloud',
-                    'spring-cloud-stream-dependencies',
-                    STREAM_CLOUD_DEPENDENCY_VERSION,
-                    'pom',
-                    'import'
-                );
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream');
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-binder-test');
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-test-support');
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-test-support-internal');
                 this.addMavenDependency('org.springframework.cloud', 'spring-cloud-starter-stream-rabbit');
             } else {
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream', STREAM_CLOUD_STREAM_VERSION);
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-binder-test', STREAM_CLOUD_STREAM_VERSION);
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-test-support', STREAM_CLOUD_STREAM_VERSION);
-                this.addMavenDependency(
-                    'org.springframework.cloud',
-                    'spring-cloud-stream-test-support-internal',
-                    STREAM_CLOUD_STREAM_VERSION
-                );
                 this.addMavenDependency('org.springframework.cloud', 'spring-cloud-starter-stream-rabbit', STREAM_RABBIT_VERSION);
             }
         } else if (this.buildTool === 'gradle') {
             if (typeof this.addGradleDependencyManagement === 'function') {
-                this.addGradleDependencyManagement(
-                    'mavenBom',
-                    'org.springframework.cloud',
-                    'spring-cloud-stream-dependencies',
-                    STREAM_CLOUD_DEPENDENCY_VERSION
-                );
-                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream');
-                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream-binder-test');
-                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream-test-support');
-                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream-test-support-internal');
                 this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-starter-stream-rabbit');
             } else {
-                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream', STREAM_CLOUD_STREAM_VERSION);
-                this.addGradleDependency(
-                    'compile',
-                    'org.springframework.cloud',
-                    'spring-cloud-stream-binder-test',
-                    STREAM_CLOUD_STREAM_VERSION
-                );
-                this.addGradleDependency(
-                    'compile',
-                    'org.springframework.cloud',
-                    'spring-cloud-stream-test-support',
-                    STREAM_CLOUD_STREAM_VERSION
-                );
-                this.addGradleDependency(
-                    'compile',
-                    'org.springframework.cloud',
-                    'spring-cloud-stream-test-support-internal',
-                    STREAM_CLOUD_STREAM_VERSION
-                );
-                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream', STREAM_CLOUD_STREAM_VERSION);
                 this.addGradleDependency(
                     'compile',
                     'org.springframework.cloud',
@@ -408,87 +344,18 @@ module.exports = class extends BaseGenerator {
     }
 
     _installKafka() {
-        const STREAM_KAFKA_VERSION = '1.3.0.RELEASE';
-        const STREAM_CLOUD_DEPENDENCY_VERSION = 'Chelsea.SR2';
-        const STREAM_CLOUD_STREAM_VERSION = '1.3.0.RELEASE';
-        // read config from .yo-rc.json
-        this.baseName = this.jhipsterAppConfig.baseName;
-        this.packageName = this.jhipsterAppConfig.packageName;
-        this.packageFolder = this.jhipsterAppConfig.packageFolder;
-        this.clientFramework = this.jhipsterAppConfig.clientFramework;
-        this.clientPackageManager = this.jhipsterAppConfig.clientPackageManager;
-        this.buildTool = this.jhipsterAppConfig.buildTool;
-
-        // use function in generator-base.js from generator-jhipster
-        this.angularAppName = this.getAngularAppName();
-
-        // const webappDir = jhipsterConstants.CLIENT_MAIN_SRC_DIR;
         this.log(`\nmessage broker type = ${this.messageBrokerType}`);
-        this.log(`\nmessage broker type = ${this.rabbitMqNameOfMessage}`);
-        this.log('------\n');
-
-        // use constants from generator-constants.js
-        const javaDir = `${jhipsterConstants.SERVER_MAIN_SRC_DIR + this.packageFolder}/`;
-        const resourceDir = jhipsterConstants.SERVER_MAIN_RES_DIR;
         // add dependencies
         if (this.buildTool === 'maven') {
             if (typeof this.addMavenDependencyManagement === 'function') {
-                this.addMavenDependencyManagement(
-                    'org.springframework.cloud',
-                    'spring-cloud-stream-dependencies',
-                    STREAM_CLOUD_DEPENDENCY_VERSION,
-                    'pom',
-                    'import'
-                );
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream');
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-binder-test');
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-test-support');
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-test-support-internal');
                 this.addMavenDependency('org.springframework.cloud', 'spring-cloud-starter-stream-kafka');
             } else {
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream', STREAM_CLOUD_STREAM_VERSION);
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-binder-test', STREAM_CLOUD_STREAM_VERSION);
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-test-support', STREAM_CLOUD_STREAM_VERSION);
-                this.addMavenDependency(
-                    'org.springframework.cloud',
-                    'spring-cloud-stream-test-support-internal',
-                    STREAM_CLOUD_STREAM_VERSION
-                );
                 this.addMavenDependency('org.springframework.cloud', 'spring-cloud-starter-stream-kafka', STREAM_KAFKA_VERSION);
             }
         } else if (this.buildTool === 'gradle') {
             if (typeof this.addGradleDependencyManagement === 'function') {
-                this.addGradleDependencyManagement(
-                    'mavenBom',
-                    'org.springframework.cloud',
-                    'spring-cloud-stream-dependencies',
-                    STREAM_CLOUD_DEPENDENCY_VERSION
-                );
-                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream');
-                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream-binder-test');
-                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream-test-support');
-                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream-test-support-internal');
                 this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-starter-stream-kafka');
             } else {
-                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream', STREAM_CLOUD_STREAM_VERSION);
-                this.addGradleDependency(
-                    'compile',
-                    'org.springframework.cloud',
-                    'spring-cloud-stream-binder-test',
-                    STREAM_CLOUD_STREAM_VERSION
-                );
-                this.addGradleDependency(
-                    'compile',
-                    'org.springframework.cloud',
-                    'spring-cloud-stream-test-support',
-                    STREAM_CLOUD_STREAM_VERSION
-                );
-                this.addGradleDependency(
-                    'compile',
-                    'org.springframework.cloud',
-                    'spring-cloud-stream-test-support-internal',
-                    STREAM_CLOUD_STREAM_VERSION
-                );
                 this.addGradleDependency(
                     'compile',
                     'org.springframework.cloud',
@@ -582,25 +449,76 @@ module.exports = class extends BaseGenerator {
         const LOMBOK_VERSION = '1.18.6';
         const LOMBOK_VERSION_PROPERTY = '${lombok.version}';
 
+        // const STREAM_CLOUD_DEPENDENCY_VERSION
+
         if (this.buildTool === 'maven') {
             if (typeof this.addMavenDependencyManagement === 'function') {
+                this.addMavenDependencyManagement(
+                    'org.springframework.cloud',
+                    'spring-cloud-stream-dependencies',
+                    STREAM_CLOUD_DEPENDENCY_VERSION,
+                    'pom',
+                    'import'
+                );
                 this.addMavenDependency('com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION_PROPERTY);
                 this.addMavenDependency('org.projectlombok', 'lombok', LOMBOK_VERSION_PROPERTY);
                 this.addMavenDependency('org.springframework.boot', 'spring-boot-starter-batch');
+                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream');
+                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-binder-test');
+                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-test-support');
+                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-test-support-internal');
             } else {
                 this.addMavenDependency('com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION_PROPERTY);
                 this.addMavenDependency('org.projectlombok', 'lombok', LOMBOK_VERSION_PROPERTY);
                 this.addMavenDependency('org.springframework.boot', 'spring-boot-starter-batch');
+                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream', STREAM_CLOUD_STREAM_VERSION);
+                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-binder-test', STREAM_CLOUD_STREAM_VERSION);
+                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-test-support', STREAM_CLOUD_STREAM_VERSION);
+                this.addMavenDependency(
+                    'org.springframework.cloud',
+                    'spring-cloud-stream-test-support-internal',
+                    STREAM_CLOUD_STREAM_VERSION
+                );
             }
             this.addMavenAnnotationProcessor('org.projectlombok', 'lombok', LOMBOK_VERSION_PROPERTY);
             this.addMavenProperty('lombok.version', LOMBOK_VERSION);
             this.addMavenProperty('poiji.version', OZLERHAKAN_POIJI_VERSION);
         } else if (this.buildTool === 'gradle') {
             if (typeof this.addGradleDependencyManagement === 'function') {
+                this.addGradleDependencyManagement(
+                    'mavenBom',
+                    'org.springframework.cloud',
+                    'spring-cloud-stream-dependencies',
+                    STREAM_CLOUD_DEPENDENCY_VERSION
+                );
+                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream');
+                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream-binder-test');
+                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream-test-support');
+                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream-test-support-internal');
                 this.addGradleDependency('compile', 'com.github.ozlerhakan', 'poiji');
                 this.addGradleDependency('compile', 'org.projectlombok', 'lombok');
                 this.addGradleDependency('compile', 'org.springframework.boot', 'spring-boot-starter-batch');
             } else {
+                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream', STREAM_CLOUD_STREAM_VERSION);
+                this.addGradleDependency(
+                    'compile',
+                    'org.springframework.cloud',
+                    'spring-cloud-stream-binder-test',
+                    STREAM_CLOUD_STREAM_VERSION
+                );
+                this.addGradleDependency(
+                    'compile',
+                    'org.springframework.cloud',
+                    'spring-cloud-stream-test-support',
+                    STREAM_CLOUD_STREAM_VERSION
+                );
+                this.addGradleDependency(
+                    'compile',
+                    'org.springframework.cloud',
+                    'spring-cloud-stream-test-support-internal',
+                    STREAM_CLOUD_STREAM_VERSION
+                );
+                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream', STREAM_CLOUD_STREAM_VERSION);
                 this.addGradleDependency('compile', 'com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION_PROPERTY);
                 this.addGradleDependency('compile', 'org.springframework.boot', 'spring-boot-starter-batch', LOMBOK_VERSION_PROPERTY);
             }
