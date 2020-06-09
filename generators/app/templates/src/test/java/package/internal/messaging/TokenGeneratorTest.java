@@ -1,6 +1,7 @@
-package io.github.deposits.app.messaging;
-import io.github.deposits.app.messaging.sample.Greetings;
-import io.github.deposits.app.util.TokenGenerator;
+package <%= packageName %>.internal.messaging;
+
+import <%= packageName %>.internal.messaging.sample.Greetings;
+import <%= packageName %>.internal.util.TokenGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

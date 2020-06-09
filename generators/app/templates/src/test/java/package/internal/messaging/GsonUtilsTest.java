@@ -1,7 +1,7 @@
-package io.github.deposits.app.messaging;
+package <%= packageName %>.internal.messaging;
 
-import io.github.deposits.app.messaging.fileNotification.FileNotification;
-import io.github.deposits.app.messaging.jsonStrings.GsonUtils;
+import <%= packageName %>.internal.messaging.fileNotification.FileNotification;
+import <%= packageName %>.internal.messaging.jsonStrings.GsonUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

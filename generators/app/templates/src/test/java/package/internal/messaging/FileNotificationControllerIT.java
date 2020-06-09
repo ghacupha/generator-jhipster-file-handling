@@ -1,12 +1,12 @@
-package io.github.deposits.app.messaging;
+package <%= packageName %>.internal.messaging;
 
-import io.github.deposits.DepositAnalysisMainApp;
-import io.github.deposits.app.messaging.fileNotification.FileNotification;
-import io.github.deposits.app.messaging.fileNotification.FileNotificationStreams;
-import io.github.deposits.app.messaging.platform.MessageService;
-import io.github.deposits.app.messaging.platform.TokenizableMessage;
-import io.github.deposits.app.util.TokenGenerator;
-import io.github.deposits.service.dto.MessageTokenDTO;
+import <%= packageName %>.<%= appName %>App;
+import <%= packageName %>.internal.messaging.fileNotification.FileNotification;
+import <%= packageName %>.internal.messaging.fileNotification.FileNotificationStreams;
+import <%= packageName %>.internal.messaging.platform.MessageService;
+import <%= packageName %>.internal.messaging.platform.TokenizableMessage;
+import <%= packageName %>.internal.util.TokenGenerator;
+import <%= packageName %>.service.dto.MessageTokenDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
-@SpringBootTest(classes = {DepositAnalysisMainApp.class})
+@SpringBootTest(classes = {<%= appName %>App.class})
 public class FileNotificationControllerIT {
 
 

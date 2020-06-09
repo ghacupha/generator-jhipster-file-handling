@@ -1,4 +1,4 @@
-package io.github.deposits.app.excel;
+package <%= packageName %>.internal.excel;
 
 import com.poiji.option.PoijiOptions;
 import com.poiji.option.PoijiOptions.PoijiOptionsBuilder;

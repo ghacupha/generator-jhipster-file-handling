@@ -1,14 +1,14 @@
-package io.github.deposits.app.messaging;
+package <%= packageName %>.internal.messaging;
 
 import com.google.common.collect.ImmutableList;
-import io.github.deposits.DepositAnalysisMainApp;
-import io.github.deposits.app.messaging.jsonStrings.GsonUtils;
-import io.github.deposits.app.messaging.jsonStrings.JsonStringStreams;
-import io.github.deposits.app.messaging.jsonStrings.StringMessageDTO;
-import io.github.deposits.app.messaging.platform.MessageService;
-import io.github.deposits.app.messaging.platform.TokenizableMessage;
-import io.github.deposits.app.util.TokenGenerator;
-import io.github.deposits.service.dto.MessageTokenDTO;
+import <%= packageName %>.<%= appName %>App;
+import <%= packageName %>.internal.messaging.jsonStrings.GsonUtils;
+import <%= packageName %>.internal.messaging.jsonStrings.JsonStringStreams;
+import <%= packageName %>.internal.messaging.jsonStrings.StringMessageDTO;
+import <%= packageName %>.internal.messaging.platform.MessageService;
+import <%= packageName %>.internal.messaging.platform.TokenizableMessage;
+import <%= packageName %>.internal.util.TokenGenerator;
+import <%= packageName %>.service.dto.MessageTokenDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ import org.springframework.cloud.stream.test.binder.MessageCollector;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
-@SpringBootTest(classes = {DepositAnalysisMainApp.class})
+@SpringBootTest(classes = {<%= appName %>App.class})
 public class JsonStringsControllerIT {
 
     @Autowired

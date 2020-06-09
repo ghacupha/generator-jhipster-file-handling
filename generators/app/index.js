@@ -311,17 +311,10 @@ module.exports = class extends BaseGenerator {
         this._installServerDependencies();
 
         // add Java source code
-        this.template('src/main/java/package/domain/', `${javaDir}domain/`);
         this.template('src/main/java/package/internal/', `${javaDir}internal/`);
-        this.template('src/main/java/package/repository/', `${javaDir}repository/`);
-        this.template('src/main/java/package/service/', `${javaDir}service/`);
-        this.template('src/main/java/package/web/', `${javaDir}web/`);
 
         // Add test code
-        this.template('src/test/java/package/domain/', `${javaTestDir}domain/`);
         this.template('src/test/java/package/internal/', `${javaTestDir}internal/`);
-        this.template('src/test/java/package/web/', `${javaTestDir}web/`);
-        this.template('src/test/java/package/service/', `${javaTestDir}service/`);
 
         // TODO Add liquibase config for spring batch
         // Add liquibase resources
