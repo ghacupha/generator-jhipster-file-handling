@@ -32,34 +32,44 @@ const GENERAL_CLIENT_ROOT_FOLDER = 'fileUploads';
  */
 module.exports = class extends BaseGenerator {
     /**
-     * @param {Boolean} skipClient
+     * Create an instance of this utility
      * @param {String} applicationType
+     * @param {Boolean} skipClient
      * @param {Boolean} addFieldAndClassPrefix
      */
-    executeJdlScript(skipClient, applicationType, addFieldAndClassPrefix) {
-        if (applicationType === 'microservice' && addFieldAndClassPrefix) {
-            this.runMicroserviceScript(skipClient, `${MICROSERVICE_FILE_UPLOADS_JDL}`);
+    constructor(applicationType, skipClient, addFieldAndClassPrefix) {
+        super();
+        this.applicationType = applicationType;
+        this.skipClient = skipClient;
+        this.addFieldAndClassPrefix = addFieldAndClassPrefix;
+    }
+
+    /**
+     * @param {Boolean} addFieldAndClassPrefix
+     */
+    executeJdlScript() {
+        if (this.applicationType === 'microservice' && this.addFieldAndClassPrefix) {
+            this.runMicroserviceScript(`${MICROSERVICE_FILE_UPLOADS_JDL}`);
         }
 
-        if (applicationType === 'microservice' && !addFieldAndClassPrefix) {
-            this.runMicroserviceScript(skipClient, `${FILE_UPLOADS_JDL}`);
+        if (this.applicationType === 'microservice' && !this.addFieldAndClassPrefix) {
+            this.runMicroserviceScript(`${FILE_UPLOADS_JDL}`);
         }
 
-        if (applicationType !== 'microservice') {
-            this.runGeneralScript(skipClient, `${GENERAL_FILE_UPLOADS_JDL}`);
+        if (this.applicationType !== 'microservice') {
+            this.runGeneralScript(`${GENERAL_FILE_UPLOADS_JDL}`);
         }
     }
 
     /**
      *
-     * @param {Boolean} skipClient
      * @param {String} jdlScriptFile
      */
-    runMicroserviceScript(skipClient, jdlScriptFile) {
+    runMicroserviceScript(jdlScriptFile) {
         const jdlHasRan = this.async();
         const jdlRan = spawn(
             'jhipster',
-            ['import-jdl', `.jhipster/${jdlScriptFile}.jdl`, '--fluent-methods=true ', `--skip-client=${skipClient} `],
+            ['import-jdl', `.jhipster/${jdlScriptFile}.jdl`, '--fluent-methods=true ', `--skip-client=${this.skipClient} `],
             { stdio: 'inherit', shell: true, windowsVerbatimArguments: true, windowsHide: true }
         );
         jdlRan.on('error', error => {
@@ -82,7 +92,7 @@ module.exports = class extends BaseGenerator {
      * @param {Boolean} skipClient
      * @param {String} jdlScriptFile
      */
-    runGeneralScript(skipClient, jdlScriptFile) {
+    runGeneralScript(jdlScriptFile) {
         const generalClientRootFolder = GENERAL_CLIENT_ROOT_FOLDER;
         const jdlHasRan = this.async();
         const jdlRan = spawn(
@@ -91,7 +101,7 @@ module.exports = class extends BaseGenerator {
                 'import-jdl',
                 `.jhipster/${jdlScriptFile}.jdl`,
                 '--fluent-methods=true ',
-                `--skip-client=${skipClient} `,
+                `--skip-client=${this.skipClient} `,
                 `--client-root-folder=${generalClientRootFolder}`
             ],
             { stdio: 'inherit', shell: true, windowsVerbatimArguments: true, windowsHide: true }

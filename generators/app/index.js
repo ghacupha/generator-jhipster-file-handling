@@ -545,8 +545,8 @@ module.exports = class extends BaseGenerator {
 
     _useJdlExecution(_callback) {
         // run jdl script
-        const jdlProcessor = new UtilJdl();
-        jdlProcessor.executeJdlScript(this.skipClient, this.jhipsterAppConfig.applicationType, this.addFieldAndClassPrefix);
+        const jdlProcessor = new UtilJdl(this.jhipsterAppConfig.applicationType, this.skipClient, this.addFieldAndClassPrefix);
+        jdlProcessor.executeJdlScript();
 
         _callback();
     }
