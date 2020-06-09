@@ -21,8 +21,9 @@ const chalk = require('chalk');
 const semver = require('semver');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
 const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
-const { spawn } = require('child_process');
 const packagejs = require('../../package.json');
+const utilYaml = require('./utilYaml.js');
+const UtilJdl = require('./utilJdl.js');
 
 // jdl scripts
 const FILE_UPLOADS_JDL = 'fileUploads';
@@ -154,10 +155,17 @@ module.exports = class extends BaseGenerator {
                 store: true
             }
         ];
+
+        const done = this.async();
+        this.prompt(prompts).then(answers => {
+            this.promptAnswers = answers;
+            // To access props answers use this.promptAnswers.someOption;
+            // done();
+        });
         if (this.defaultOptions) {
             this.messageBrokerType = DEFAULT_BROKER_TYPE;
             this.rabbitMqNameOfMessage = DEFAULT_RABBITMQ_MESSAGE_NAME;
-            done();
+            // done();
         } else {
             this.prompt(prompts).then(props => {
                 this.props = props;
@@ -169,13 +177,6 @@ module.exports = class extends BaseGenerator {
                 done();
             });
         }
-
-        const done = this.async();
-        this.prompt(prompts).then(answers => {
-            this.promptAnswers = answers;
-            // To access props answers use this.promptAnswers.someOption;
-            done();
-        });
     }
 
     /**
@@ -501,7 +502,7 @@ module.exports = class extends BaseGenerator {
                     'compile',
                     'org.springframework.cloud',
                     'spring-cloud-starter-stream-rabbit',
-                    STREAM_RABBIT_VERSION
+                    STREAM_KAFKA_VERSION
                 );
             }
         }
@@ -544,88 +545,10 @@ module.exports = class extends BaseGenerator {
 
     _useJdlExecution(_callback) {
         // run jdl script
-        this._executeJdlScript(this.jhipsterAppConfig.applicationType === 'microservice');
+        const jdlProcessor = new UtilJdl();
+        jdlProcessor.executeJdlScript(this.skipClient, this.jhipsterAppConfig.applicationType, this.addFieldAndClassPrefix);
 
         _callback();
-    }
-
-    /**
-     *
-     * @param {Boolean} skipClient
-     */
-    _executeJdlScript(skipClient) {
-        if (this.jhipsterAppConfig.applicationType === 'microservice' && this.addFieldAndClassPrefix) {
-            this._runMicroserviceScript(skipClient, `${MICROSERVICE_FILE_UPLOADS_JDL}`);
-        }
-
-        if (this.jhipsterAppConfig.applicationType === 'microservice' && !this.addFieldAndClassPrefix) {
-            this._runMicroserviceScript(skipClient, `${FILE_UPLOADS_JDL}`);
-        }
-
-        if (this.jhipsterAppConfig.applicationType !== 'microservice') {
-            this._runGeneralScript(skipClient, `${GENERAL_FILE_UPLOADS_JDL}`);
-        }
-    }
-
-    /**
-     *
-     * @param {Boolean} skipClient
-     * @param {String} jdlScriptFile
-     */
-    _runMicroserviceScript(skipClient, jdlScriptFile) {
-        const jdlHasRan = this.async();
-        const jdlRan = spawn(
-            'jhipster',
-            ['import-jdl', `.jhipster/${jdlScriptFile}.jdl`, '--fluent-methods=true ', `--skip-client=${skipClient} `],
-            { stdio: 'inherit', shell: true, windowsVerbatimArguments: true, windowsHide: true }
-        );
-        jdlRan.on('error', error => {
-            // Hopeful that this gives informative error messages
-            this.log(`error: ${error.message} \n See stack-trace : \n ${error.stack}`);
-        });
-        jdlRan.stdout.on('data', data => {
-            // TODO This thing causes an error at the end but it helps synch the workflow
-            this.log(`JDl Stdout : ${data.message} \n`);
-        });
-        jdlRan.stderr.on('data', data => {
-            // TODO This thing causes an error at the end but it helps synch the workflow
-            this.log(`JDl Stderr : ${data.message} \n`);
-        });
-        jdlHasRan();
-    }
-
-    /**
-     * @deprecated todo replace this method with script-name args
-     * @param {Boolean} skipClient
-     * @param {String} jdlScriptFile
-     */
-    _runGeneralScript(skipClient, jdlScriptFile) {
-        const generalClientRootFolder = GENERAL_CLIENT_ROOT_FOLDER;
-        const jdlHasRan = this.async();
-        const jdlRan = spawn(
-            'jhipster',
-            [
-                'import-jdl',
-                `.jhipster/${jdlScriptFile}.jdl`,
-                '--fluent-methods=true ',
-                `--skip-client=${skipClient} `,
-                `--client-root-folder=${generalClientRootFolder}`
-            ],
-            { stdio: 'inherit', shell: true, windowsVerbatimArguments: true, windowsHide: true }
-        );
-        jdlRan.on('error', error => {
-            // Hopeful that this gives informative error messages
-            this.log(`error: ${error.message} \n See stack-trace : \n ${error.stack}`);
-        });
-        jdlRan.stdout.on('data', data => {
-            // TODO This thing causes an error at the end but it helps synch the workflow
-            this.log(`JDl Stdout : ${data.message} \n`);
-        });
-        jdlRan.stderr.on('data', data => {
-            // TODO This thing causes an error at the end but it helps synch the workflow
-            this.log(`JDl Stderr : ${data.message} \n`);
-        });
-        jdlHasRan();
     }
 
     /**
