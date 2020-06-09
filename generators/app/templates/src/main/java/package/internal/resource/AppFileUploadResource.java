@@ -66,12 +66,12 @@ public class AppFileUploadResource implements IFileUploadResource {
 
         ResponseEntity<<%= classNamesPrefix %>FileUploadDTO> responseEntity = fileUploadResource.createFileUpload(fileUploadDTO);
 
-        <%= classNamesPrefix %>FileType fileType = fileTypeService.findOne(fileUploadDTO.getFileTypeId()).get();
+        <%= classNamesPrefix %>FileType fileType = fileTypeService.findOne(fileUploadDTO.get<%= classNamesPrefix %>FileTypeId()).get();
 
         <%= classNamesPrefix %>MessageTokenDTO token = fileNotificationMessageService.sendMessage(FileNotification.builder()
                                                                                            .filename(fileUploadDTO.getFileName())
                                                                                            .description(fileUploadDTO.getDescription())
-                                                                                           .fileModelType(fileType.getFileType())
+                                                                                           .fileModelType(fileType.get<%= classNamesPrefix %>FileType())
                                                                                            .fileId(String.valueOf(responseEntity.getBody().getId()))
                                                                                            .build());
 

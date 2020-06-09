@@ -57,7 +57,7 @@ public class StringTokenMessageService implements MessageService<TokenizableMess
         <%= classNamesPrefix %>MessageToken messageToken = new <%= classNamesPrefix %>MessageToken().tokenValue(token).description(message.getDescription()).timeSent(timestamp);
 
         if (messageToken != null) {
-            message.set<%= classNamesPrefix %>MessageToken(messageToken.getTokenValue());
+            message.setMessageToken(messageToken.getTokenValue());
         }
 
         messageChannel.send(MessageBuilder.withPayload(message).setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON).build());
