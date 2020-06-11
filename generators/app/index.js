@@ -24,6 +24,7 @@ const jhipsterConstants = require('generator-jhipster/generators/generator-const
 const packagejs = require('../../package.json');
 const UtilJdl = require('./utilJdl.js');
 const utilProps = require('./utilProperties.js');
+const genUtils = require('./genUtils.js');
 
 // jdl scripts
 const FILE_UPLOADS_JDL = 'fileUploads';
@@ -63,7 +64,7 @@ module.exports = class extends BaseGenerator {
             displayLogo() {
                 // it's here to show that you can use functions from generator-jhipster
                 // this function is in: generator-jhipster/generators/generator-base.js
-                this.printJHipsterLogo();
+                // this.printJHipsterLogo();
 
                 // Have Yeoman greet the user.
                 this.log(
@@ -77,14 +78,6 @@ module.exports = class extends BaseGenerator {
                     this.warning(
                         `\nYour generated project used an old JHipster version (${currentJhipsterVersion})... you need at least (${minimumJhipsterVersion})\n`
                     );
-                }
-            },
-            checkGateway() {
-                this.log(
-                    'Gateways are not supported, its instead assumed that the gateway is formed once the microservice is complete using the entity files in the .jhipster folder'
-                );
-                if (this.jhipsterAppConfig.applicationType === 'gateway') {
-                    throw new Error('This module is not for gateways');
                 }
             },
             checkServerFramework() {
@@ -175,24 +168,6 @@ module.exports = class extends BaseGenerator {
         }
     }
 
-    /**
-     * @param {String} string the string to capitalze
-     * @return {String} string with camel-case
-     * @private
-     */
-    _capitalizeFLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-
-    /**
-     * @param {String} string the string to capitalze
-     * @return {String} string with camel-case
-     * @private
-     */
-    _unCapitalizeFLetter(string) {
-        return string.charAt(0).toLowerCase() + string.slice(1);
-    }
-
     writing() {
         // read config from .yo-rc.json
         this.baseName = this.jhipsterAppConfig.baseName;
@@ -206,13 +181,15 @@ module.exports = class extends BaseGenerator {
         this.angularAppName = this.getAngularAppName();
 
         // Get the application name for use with main class
-        this.appName = this._capitalizeFLetter(this.baseName);
+        this.appName = genUtils.capitalizeFLetter(this.baseName);
 
         // use constants from generator-constants.js
-        const javaDir = `${jhipsterConstants.SERVER_MAIN_SRC_DIR + this.packageFolder}/`;
-        const javaTestDir = `${jhipsterConstants.SERVER_TEST_SRC_DIR + this.packageFolder}/`;
-        const resourceDir = jhipsterConstants.SERVER_MAIN_RES_DIR;
-        const webappDir = jhipsterConstants.CLIENT_MAIN_SRC_DIR;
+        this.javaDir = `${jhipsterConstants.SERVER_MAIN_SRC_DIR + this.packageFolder}/`;
+        this.javaTestDir = `${jhipsterConstants.SERVER_TEST_SRC_DIR + this.packageFolder}/`;
+        this.resourceDir = jhipsterConstants.SERVER_MAIN_RES_DIR;
+        this.webappDir = jhipsterConstants.CLIENT_MAIN_SRC_DIR;
+        this.javaTemplateDir = 'src/main/java/package';
+        this.javaTemplateTestDir = 'src/test/java/package';
 
         // variable from questions
         if (typeof this.gatewayMicroserviceName === 'undefined') {
@@ -247,9 +224,9 @@ module.exports = class extends BaseGenerator {
         this.log(`angularAppName=${this.angularAppName}`);
 
         this.log('\n--- some const ---');
-        this.log(`javaDir=${javaDir}`);
-        this.log(`resourceDir=${resourceDir}`);
-        this.log(`webappDir=${webappDir}`);
+        this.log(`javaDir=${this.javaDir}`);
+        this.log(`resourceDir=${this.resourceDir}`);
+        this.log(`webappDir=${this.webappDir}`);
 
         this.log('\n--- variables from questions ---');
         this.log(`create client code?=${this.message}`);
@@ -263,7 +240,7 @@ module.exports = class extends BaseGenerator {
         // setup field and class names
         if (this.jhipsterAppConfig.applicationType === 'microservice') {
             this.fieldNamesPrefix = this.gatewayMicroserviceName;
-            this.classNamesPrefix = this._capitalizeFLetter(this.gatewayMicroserviceName);
+            this.classNamesPrefix = genUtils.capitalizeFLetter(this.gatewayMicroserviceName);
         }
 
         const wroteFiles = this.async();
@@ -281,14 +258,14 @@ module.exports = class extends BaseGenerator {
         wroteFiles();
 
         // Write the other files
-        this._installServerCode(javaDir, javaTestDir, resourceDir);
+        this._installServerCode(this.javaTemplateDir, this.javaTemplateTestDir, this.javaDir, this.javaTestDir, this.resourceDir);
 
         // optional installs for either kafka or rabbitMQ
         if (this.messageBrokerType === RABBITMQ) {
             // todo update the arguments
-            this._installRabbitMq(resourceDir, javaDir, this, this.buildTool, this.messageBrokerType, this.rabbitMqNameOfMessage);
+            this._installRabbitMq(this.resourceDir, this.javaDir, this, this.buildTool, this.messageBrokerType, this.rabbitMqNameOfMessage);
         } else if (this.messageBrokerType === KAFKA) {
-            this._installKafka(resourceDir, javaDir, this);
+            this._installKafka(this.resourceDir, this.javaDir, this);
         }
 
         // install jdl entities
@@ -330,15 +307,9 @@ module.exports = class extends BaseGenerator {
 
         // add docker-compose file
         this.template('src/main/docker/_rabbitmq.yml', 'src/main/docker/rabbitmq.yml');
-        const messageName = this._capitalizeFLetter(rabbitMqNameOfMessage);
+        const messageName = genUtils.capitalizeFLetter(rabbitMqNameOfMessage);
         this.rabbitMessageName = messageName;
-        this.rabbitMessageNameNonUcFirst = this._unCapitalizeFLetter(messageName);
-
-        // add Java classes
-        this.template(
-            'src/main/java/package/config/_CloudMessagingConfiguration.java',
-            `${javaDir}config/CloudMessagingConfiguration.java`
-        );
+        this.rabbitMessageNameNonUcFirst = genUtils.unCapitalizeFLetter(messageName);
 
         utilProps.updateAppProperties(generator, resourceDir);
     }
@@ -366,32 +337,64 @@ module.exports = class extends BaseGenerator {
     /**
      * This install back-end java code and liquibase migration configuration
      *
+     * @param {String} javaTemplateDir path of the template in this module
+     * @param {String} javaTemplateTestDir
      * @param {String} javaDir path of the project's java directory
      * @param {String} javaTestDir path of the project's java test directory
      * @param {String} resourceDir  path of the main resource directory
+     * @private
      */
-    _installServerCode(javaDir, javaTestDir, resourceDir) {
-        // utility function to write templates
-        this.template = function(source, destination) {
-            this.fs.copyTpl(this.templatePath(source), this.destinationPath(destination), this);
-        };
+    _installServerCode(javaTemplateDir, javaTemplateTestDir, javaDir, javaTestDir, resourceDir) {
+        // collect files to copy
+        const files = [
+            {
+                from: `${javaTemplateTestDir}/internal/excel/ExcelFileUtilsIT.java`,
+                to: `${javaTestDir}/internal/excel/ExcelFileUtilsIT.java`
+            },
+            {
+                from: `${javaTemplateTestDir}/internal/excel/ExcelFileUtilsTest.java`,
+                to: `${javaTestDir}/internal/excel/ExcelFileUtilsTest.java`
+            },
+            {
+                from: `${javaTemplateTestDir}/internal/excel/ExcelTestUtil.java`,
+                to: `${javaTestDir}/internal/excel/ExcelTestUtil.java`
+            },
+            {
+                from: `${javaTemplateTestDir}/internal/messaging/FileNotificationControllerIT.java`,
+                to: `${javaTestDir}/internal/messaging/FileNotificationControllerIT.java`
+            },
+            {
+                from: `${javaTemplateTestDir}/internal/messaging/GreetingsControllerIT.java`,
+                to: `${javaTestDir}/internal/messaging/GreetingsControllerIT.java`
+            },
+            {
+                from: `${javaTemplateTestDir}/internal/messaging/GsonUtilsTest.java`,
+                to: `${javaTestDir}/internal/messaging/GsonUtilsTest.java`
+            },
+            {
+                from: `${javaTemplateTestDir}/internal/messaging/JsonStringsControllerIT.java`,
+                to: `${javaTestDir}/internal/messaging/JsonStringsControllerIT.java`
+            },
+            {
+                from: `${javaTemplateTestDir}/internal/messaging/TokenGenerator.java`,
+                to: `${javaTestDir}/internal/messaging/TokenGenerator.java`
+            }
+        ];
 
-        this._installServerDependencies();
-
-        // add Java source code
-        this.template('src/main/java/package/internal/', `${javaDir}internal/`);
-
-        // Add test code
-        this.template('src/test/java/package/internal/', `${javaTestDir}internal/`);
+        genUtils.copyFiles(this, files);
 
         // TODO Add liquibase config for spring batch
         // Add liquibase resources
         this.changelogDate = this.dateFormatForLiquibase();
+        // eslint-disable-next-line prettier/prettier
         this.template(
             'src/main/resources/config/liquibase/changelog/_added_springbatch_schema.xml',
             `${resourceDir}config/liquibase/changelog/${this.changelogDate}_added_springbatch_schema.xml`
         );
         this.addChangelogToLiquibase(`${this.changelogDate}_added_springbatch_schema.xml`);
+
+        // update maven dependencies
+        this._installServerDependencies();
     }
 
     /**
