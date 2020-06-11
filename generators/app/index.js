@@ -1,5 +1,5 @@
 /**
- * Copyright 2013-2017 the Edwin Njeru, Pascal Grimaud and the respective JHipster contributors.
+ * Copyright 2013-2017 the Edwin Njeru and the respective JHipster contributors.
  *
  * This file is part of the JHipster project, see http://www.jhipster.tech/
  * for more information.
@@ -24,7 +24,7 @@ const jhipsterConstants = require('generator-jhipster/generators/generator-const
 const packagejs = require('../../package.json');
 const UtilJdl = require('./utilJdl.js');
 const utilProps = require('./utilProperties.js');
-const genUtils = require('./genUtils.js');
+const genUtils = require('./generalUtils.js');
 const templateUtils = require('./utilTemplates.js');
 
 // jdl scripts
