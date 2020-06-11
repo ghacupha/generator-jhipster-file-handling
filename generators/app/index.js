@@ -212,6 +212,10 @@ module.exports = class extends BaseGenerator {
             this.messageBrokerType = this.promptAnswers.messageBrokerType;
         }
 
+        if (typeof this.rabbitMqNameOfMessage === 'undefined') {
+            this.rabbitMqNameOfMessage = this.promptAnswers.rabbitMqNameOfMessage;
+        }
+
         // show all variables
         this.log('\n--- some config read from config ---');
         this.log(`baseName=${this.baseName}`);
@@ -260,12 +264,15 @@ module.exports = class extends BaseGenerator {
         // Write the other files
         this._installServerCode(this, this.javaTemplateDir, this.javaTemplateTestDir, this.javaDir, this.javaTestDir, this.resourceDir);
 
+        // update maven dependencies
+        this._installServerDependencies();
+
         // optional installs for either kafka or rabbitMQ
         if (this.messageBrokerType === RABBITMQ) {
-            // todo update the arguments
-            this._installRabbitMq(this.resourceDir, this.javaDir, this, this.buildTool, this.messageBrokerType, this.rabbitMqNameOfMessage);
+            // this._installRabbitMq(this.resourceDir, this.javaDir, this, this.buildTool, this.messageBrokerType, this.rabbitMqNameOfMessage);
+            this._installRabbitMq(this);
         } else if (this.messageBrokerType === KAFKA) {
-            this._installKafka(this.resourceDir, this.javaDir, this);
+            this._installKafka(this);
         }
 
         // install jdl entities
@@ -275,15 +282,14 @@ module.exports = class extends BaseGenerator {
     /**
      * Install rabbitMq-specific dependencies and templates
      *
-     * @param {String} resourceDir
-     * @param {String} javaDir
-     * @param {object} generator
-     * @param {String} buildTool
-     * @param {String} messageBrokerType
-     * @param {String} rabbitMqNameOfMessage
      * @private
+     * @param {Object} gen generator
      */
-    _installRabbitMq(resourceDir, javaDir, generator, buildTool, messageBrokerType, rabbitMqNameOfMessage) {
+    _installRabbitMq(gen) {
+        const resourceDir = gen.resourceDir;
+        const buildTool = gen.buildTool;
+        const messageBrokerType = gen.messageBrokerType;
+        const rabbitMqNameOfMessage = gen.rabbitMqNameOfMessage;
         this.log(`\n message broker type = ${messageBrokerType}`);
         // add dependencies
         if (buildTool === 'maven') {
@@ -311,18 +317,20 @@ module.exports = class extends BaseGenerator {
         this.rabbitMessageName = messageName;
         this.rabbitMessageNameNonUcFirst = genUtils.unCapitalizeFLetter(messageName);
 
-        utilProps.updateAppProperties(generator, resourceDir);
+        utilProps.updateAppProperties(gen, resourceDir);
     }
 
     /**
      * Install kafka-specific dependencies and templates
      *
-     * @param {String} resourceDir
-     * @param {String} javaDir
-     * @param {object} generator
      * @private
+     * @param generator
      */
-    _installKafka(resourceDir, javaDir, generator) {
+    _installKafka(generator) {
+        // eslint-disable-next-line no-unused-vars
+        const resourceDir = generator.resourceDir;
+        // eslint-disable-next-line no-unused-vars
+        const javaDir = generator.resourceDir;
         this.log('Work in progress');
     }
 
@@ -337,6 +345,7 @@ module.exports = class extends BaseGenerator {
     /**
      * This install back-end java code and liquibase migration configuration
      *
+     * @param {Object} gen generator
      * @param {String} javaTemplateDir path of the template in this module
      * @param {String} javaTemplateTestDir
      * @param {String} javaDir path of the project's java directory
@@ -632,16 +641,13 @@ module.exports = class extends BaseGenerator {
 
         // TODO Add liquibase config for spring batch
         // Add liquibase resources
-        this.changelogDate = this.dateFormatForLiquibase();
+        this.changelogDate = gen.dateFormatForLiquibase();
         // eslint-disable-next-line prettier/prettier
         this.template(
             'src/main/resources/config/liquibase/changelog/_added_springbatch_schema.xml',
-            `${resourceDir}config/liquibase/changelog/${this.changelogDate}_added_springbatch_schema.xml`
+            `${resourceDir}config/liquibase/changelog/${gen.changelogDate}_added_springbatch_schema.xml`
         );
-        this.addChangelogToLiquibase(`${this.changelogDate}_added_springbatch_schema.xml`);
-
-        // update maven dependencies
-        this._installServerDependencies();
+        this.addChangelogToLiquibase(`${gen.changelogDate}_added_springbatch_schema.xml`);
     }
 
     /**
