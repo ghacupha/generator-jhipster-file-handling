@@ -1,4 +1,4 @@
-package <%= packagename %>.internal.messaging.jsonStrings;
+package <%= packageName %>.internal.messaging.jsonStrings;
 
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.Output;

@@ -1,12 +1,12 @@
-package <%= packagename %>.internal.messaging.jsonStrings;
+package <%= packageName %>.internal.messaging.jsonStrings;
 
 import com.google.common.collect.ImmutableList;
-import <%= packagename %>.internal.Mapping;
-import <%= packagename %>.internal.messaging.platform.MuteListener;
-import <%= packagename %>.internal.model.DepositAccountEVM;
-import <%= packagename %>.service.DepositAccountService;
-import <%= packagename %>.service.dto.DepositAccountDTO;
-import <%= packagename %>.service.dto.<%= classNamesPrefix %>MessageTokenDTO;
+import <%= packageName %>.internal.Mapping;
+import <%= packageName %>.internal.messaging.platform.MuteListener;
+import <%= packageName %>.internal.model.DepositAccountEVM;
+import <%= packageName %>.service.DepositAccountService;
+import <%= packageName %>.service.dto.DepositAccountDTO;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>MessageTokenDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.handler.annotation.Payload;

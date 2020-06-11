@@ -1,4 +1,4 @@
-package <%= packagename %>.internal.messaging.jsonStrings;
+package <%= packageName %>.internal.messaging.jsonStrings;
 
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;

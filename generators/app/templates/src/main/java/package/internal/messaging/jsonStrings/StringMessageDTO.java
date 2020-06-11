@@ -1,6 +1,6 @@
-package <%= packagename %>.internal.messaging.jsonStrings;
+package <%= packageName %>.internal.messaging.jsonStrings;
 
-import <%= packagename %>.internal.messaging.platform.TokenizableMessage;
+import <%= packageName %>.internal.messaging.platform.TokenizableMessage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -12,13 +12,17 @@ module.exports = {
  */
 function copyFiles(gen, files) {
     files.forEach(file => {
-        gen.copyTemplate(
-            file.from,
-            file.to,
-            file.type ? file.type : 'template',
-            gen,
-            file.interpolate ? { interpolate: file.interpolate } : undefined
-        );
+        try {
+            gen.copyTemplate(
+                file.from,
+                file.to,
+                file.type ? file.type : 'template',
+                gen,
+                file.interpolate ? { interpolate: file.interpolate } : undefined
+            );
+        } catch (e) {
+            throw new Error(`Exception encountered : ${e.message}`);
+        }
     });
 }
 

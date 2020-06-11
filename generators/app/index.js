@@ -258,7 +258,7 @@ module.exports = class extends BaseGenerator {
         wroteFiles();
 
         // Write the other files
-        this._installServerCode(this.javaTemplateDir, this.javaTemplateTestDir, this.javaDir, this.javaTestDir, this.resourceDir);
+        this._installServerCode(this, this.javaTemplateDir, this.javaTemplateTestDir, this.javaDir, this.javaTestDir, this.resourceDir);
 
         // optional installs for either kafka or rabbitMQ
         if (this.messageBrokerType === RABBITMQ) {
@@ -344,8 +344,14 @@ module.exports = class extends BaseGenerator {
      * @param {String} resourceDir  path of the main resource directory
      * @private
      */
-    _installServerCode(javaTemplateDir, javaTemplateTestDir, javaDir, javaTestDir, resourceDir) {
+    _installServerCode(gen, javaTemplateDir, javaTemplateTestDir, javaDir, javaTestDir, resourceDir) {
         // todo copy config file
+        // eslint-disable-next-line no-unused-vars
+        const packageName = gen.packageName;
+        // eslint-disable-next-line no-unused-vars
+        const classNamesPrefix = gen.classNamesPrefix;
+        // eslint-disable-next-line no-unused-vars
+        const fieldNamesPrefix = gen.fieldNamesPrefix;
         // collect files to copy
         const files = [
             {
@@ -375,6 +381,206 @@ module.exports = class extends BaseGenerator {
             {
                 from: `${javaTemplateDir}/internal/batch/package-info.java`,
                 to: `${javaDir}/internal/batch/package-info.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/batch/PersistenceJobListener.java`,
+                to: `${javaDir}/internal/batch/PersistenceJobListener.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/excel/deserializer/DefaultExcelFileDeserializer.java`,
+                to: `${javaDir}/internal/excel/deserializer/DefaultExcelFileDeserializer.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/excel/deserializer/DeserializationUtils.java`,
+                to: `${javaDir}/internal/excel/deserializer/DeserializationUtils.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/excel/ExcelDeserializerContainer.java`,
+                to: `${javaDir}/internal/excel/ExcelDeserializerContainer.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/excel/ExcelFileDeserializer.java`,
+                to: `${javaDir}/internal/excel/ExcelFileDeserializer.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/excel/PoijiOptionsConfig.java`,
+                to: `${javaDir}/internal/excel/PoijiOptionsConfig.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/DeleteMessageDTO.java`,
+                to: `${javaDir}/internal/messaging/DeleteMessageDTO.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/MessageServiceContainer.java`,
+                to: `${javaDir}/internal/messaging/MessageServiceContainer.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/StringTokenValueSearch.java`,
+                to: `${javaDir}/internal/messaging/StringTokenValueSearch.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/TokenValueSearch.java`,
+                to: `${javaDir}/internal/messaging/TokenValueSearch.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/fileNotification/FileNotification.java`,
+                to: `${javaDir}/internal/messaging/fileNotification/FileNotification.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/fileNotification/FileNotificationListener.java`,
+                to: `${javaDir}/internal/messaging/fileNotification/FileNotificationListener.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/fileNotification/FileNotificationStreams.java`,
+                to: `${javaDir}/internal/messaging/fileNotification/FileNotificationStreams.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/fileNotification/FileNotificationStreamsConfig.java`,
+                to: `${javaDir}/internal/messaging/fileNotification/FileNotificationStreamsConfig.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/fileNotification/processors/BatchSupportedFileUploadProcessor.java`,
+                to: `${javaDir}/internal/messaging/fileNotification/processors/BatchSupportedFileUploadProcessor.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/fileNotification/processors/FileUploadProcessor.java`,
+                to: `${javaDir}/internal/messaging/fileNotification/processors/FileUploadProcessor.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/fileNotification/processors/FileUploadProcessorChain.java`,
+                to: `${javaDir}/internal/messaging/fileNotification/processors/FileUploadProcessorChain.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/fileNotification/processors/FileUploadProcessorContainer.java`,
+                to: `${javaDir}/internal/messaging/fileNotification/processors/FileUploadProcessorContainer.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/fileNotification/processors/StreamSupportedFileUploadProcessor.java`,
+                to: `${javaDir}/internal/messaging/fileNotification/processors/StreamSupportedFileUploadProcessor.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/fileNotification/processors/package-info.java`,
+                to: `${javaDir}/internal/messaging/fileNotification/processors/package-info.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/jsonStrings/GsonUtils.java`,
+                to: `${javaDir}/internal/messaging/jsonStrings/GsonUtils.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/jsonStrings/JsonStringStreams.java`,
+                to: `${javaDir}/internal/messaging/jsonStrings/JsonStringStreams.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/jsonStrings/JsonStringStreamsConfig.java`,
+                to: `${javaDir}/internal/messaging/jsonStrings/JsonStringStreamsConfig.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/jsonStrings/JsonStringStreamsListener.java`,
+                to: `${javaDir}/internal/messaging/jsonStrings/JsonStringStreamsListener.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/jsonStrings/StringMessageDTO.java`,
+                to: `${javaDir}/internal/messaging/jsonStrings/StringMessageDTO.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/platform/MessageService.java`,
+                to: `${javaDir}/internal/messaging/platform/MessageService.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/platform/MessageStreams.java`,
+                to: `${javaDir}/internal/messaging/platform/MessageStreams.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/platform/MuteListener.java`,
+                to: `${javaDir}/internal/messaging/platform/MuteListener.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/platform/ResponsiveListener.java`,
+                to: `${javaDir}/internal/messaging/platform/ResponsiveListener.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/platform/StringTokenMessageService.java`,
+                to: `${javaDir}/internal/messaging/platform/StringTokenMessageService.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/platform/Tokenizable.java`,
+                to: `${javaDir}/internal/messaging/platform/Tokenizable.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/platform/TokenizableMessage.java`,
+                to: `${javaDir}/internal/messaging/platform/TokenizableMessage.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/sample/Greetings.java`,
+                to: `${javaDir}/internal/messaging/sample/Greetings.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/sample/GreetingsContainer.java`,
+                to: `${javaDir}/internal/messaging/sample/GreetingsContainer.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/sample/GreetingsListener.java`,
+                to: `${javaDir}/internal/messaging/sample/GreetingsListener.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/sample/GreetingsStreams.java`,
+                to: `${javaDir}/internal/messaging/sample/GreetingsStreams.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/sample/GreetingsStreamsConfig.java`,
+                to: `${javaDir}/internal/messaging/sample/GreetingsStreamsConfig.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/DeleteMessageDTO.java`,
+                to: `${javaDir}/internal/messaging/DeleteMessageDTO.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/MessageServiceContainer.java`,
+                to: `${javaDir}/internal/messaging/MessageServiceContainer.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/StringTokenValueSearch.java`,
+                to: `${javaDir}/internal/messaging/StringTokenValueSearch.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/messaging/TokenValueSearch.java`,
+                to: `${javaDir}/internal/messaging/TokenValueSearch.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/model/package-info.java`,
+                to: `${javaDir}/internal/model/package-info.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/report/QueryTools.java`,
+                to: `${javaDir}/internal/report/QueryTools.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/report/Report.java`,
+                to: `${javaDir}/internal/report/Report.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/resource/decorator/FileUploadResourceDecorator.java`,
+                to: `${javaDir}/internal/resource/decorator/FileUploadResourceDecorator.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/resource/decorator/IFileUploadResource.java`,
+                to: `${javaDir}/internal/resource/decorator/IFileUploadResource.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/resource/AppFileUploadResource.java`,
+                to: `${javaDir}/internal/resource/AppFileUploadResource.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/resource/ReportList.java`,
+                to: `${javaDir}/internal/resource/ReportList.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/service/BatchService.java`,
+                to: `${javaDir}/internal/service/package-info.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/util/TokenGenerator.java`,
+                to: `${javaDir}/internal/util/TokenGenerator.java`
             },
             {
                 from: `${javaTemplateDir}/internal/AppConstants.java`,
@@ -417,8 +623,8 @@ module.exports = class extends BaseGenerator {
                 to: `${javaTestDir}/internal/messaging/JsonStringsControllerIT.java`
             },
             {
-                from: `${javaTemplateTestDir}/internal/messaging/TokenGenerator.java`,
-                to: `${javaTestDir}/internal/messaging/TokenGenerator.java`
+                from: `${javaTemplateTestDir}/internal/messaging/TokenGeneratorTest.java`,
+                to: `${javaTestDir}/internal/messaging/TokenGeneratorTest.java`
             }
         ];
 
@@ -443,11 +649,7 @@ module.exports = class extends BaseGenerator {
      */
     _installServerDependencies() {
         const OZLERHAKAN_POIJI_VERSION = '1.20.0';
-        // eslint-disable-next-line no-template-curly-in-string
-        const OZLERHAKAN_POIJI_VERSION_PROPERTY = '${poiji.version}';
         const LOMBOK_VERSION = '1.18.6';
-        // eslint-disable-next-line no-template-curly-in-string
-        const LOMBOK_VERSION_PROPERTY = '${lombok.version}';
 
         // const STREAM_CLOUD_DEPENDENCY_VERSION
 
@@ -460,16 +662,20 @@ module.exports = class extends BaseGenerator {
                     'pom',
                     'import'
                 );
-                this.addMavenDependency('com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION_PROPERTY);
-                this.addMavenDependency('org.projectlombok', 'lombok', LOMBOK_VERSION_PROPERTY);
+                this.addMavenDependency('com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION);
+                this.addMavenDependency('org.projectlombok', 'lombok', LOMBOK_VERSION);
                 this.addMavenDependency('org.springframework.boot', 'spring-boot-starter-batch');
                 this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream');
                 this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-binder-test');
                 this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-test-support');
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-test-support-internal');
+                this.addMavenDependency(
+                    'org.springframework.cloud',
+                    'spring-cloud-stream-test-support-internal',
+                    STREAM_CLOUD_STREAM_VERSION
+                );
             } else {
-                this.addMavenDependency('com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION_PROPERTY);
-                this.addMavenDependency('org.projectlombok', 'lombok', LOMBOK_VERSION_PROPERTY);
+                this.addMavenDependency('com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION);
+                this.addMavenDependency('org.projectlombok', 'lombok', LOMBOK_VERSION);
                 this.addMavenDependency('org.springframework.boot', 'spring-boot-starter-batch');
                 this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream', STREAM_CLOUD_STREAM_VERSION);
                 this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-binder-test', STREAM_CLOUD_STREAM_VERSION);
@@ -480,7 +686,7 @@ module.exports = class extends BaseGenerator {
                     STREAM_CLOUD_STREAM_VERSION
                 );
             }
-            this.addMavenAnnotationProcessor('org.projectlombok', 'lombok', LOMBOK_VERSION_PROPERTY);
+            this.addMavenAnnotationProcessor('org.projectlombok', 'lombok', LOMBOK_VERSION);
             this.addMavenProperty('lombok.version', LOMBOK_VERSION);
             this.addMavenProperty('poiji.version', OZLERHAKAN_POIJI_VERSION);
         } else if (this.buildTool === 'gradle') {
@@ -519,8 +725,8 @@ module.exports = class extends BaseGenerator {
                     STREAM_CLOUD_STREAM_VERSION
                 );
                 this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream', STREAM_CLOUD_STREAM_VERSION);
-                this.addGradleDependency('compile', 'com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION_PROPERTY);
-                this.addGradleDependency('compile', 'org.springframework.boot', 'spring-boot-starter-batch', LOMBOK_VERSION_PROPERTY);
+                this.addGradleDependency('compile', 'com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION);
+                this.addGradleDependency('compile', 'org.springframework.boot', 'spring-boot-starter-batch', LOMBOK_VERSION);
             }
             this.addAnnotationProcessor('org.projectlombok', 'lombok', LOMBOK_VERSION);
             this.addGradleProperty('poiji.version', OZLERHAKAN_POIJI_VERSION);
