@@ -71,7 +71,7 @@ public class AppFileUploadResource implements IFileUploadResource {
         <%= classNamesPrefix %>MessageTokenDTO token = fileNotificationMessageService.sendMessage(FileNotification.builder()
                                                                                            .filename(fileUploadDTO.getFileName())
                                                                                            .description(fileUploadDTO.getDescription())
-                                                                                           .fileModelType(fileType.get<%= classNamesPrefix %>FileType())
+                                                                                           .fileModelType(fileType.get<%= classNamesPrefix %>fileType())
                                                                                            .fileId(String.valueOf(responseEntity.getBody().getId()))
                                                                                            .build());
 

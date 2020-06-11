@@ -306,7 +306,7 @@ function getTemplateFiles(javaTemplateDir, javaDir, javaTemplateTestDir, javaTes
         },
         {
             from: `${javaTemplateDir}/internal/service/BatchService.java`,
-            to: `${javaDir}/internal/service/package-info.java`
+            to: `${javaDir}/internal/service/BatchService.java`
         },
         {
             from: `${javaTemplateDir}/internal/util/TokenGenerator.java`,

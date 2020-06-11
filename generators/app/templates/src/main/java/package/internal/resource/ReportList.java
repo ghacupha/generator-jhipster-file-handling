@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 /**
- * This is a general interface that gives a report but summarised as a 
+ * This is a general interface that gives a report but summarised as a
  * <p/>
  * list of pre-designated measures, and served as a resource.
  * <p/>
@@ -17,8 +17,8 @@ import java.util.List;
  * <p/>
  * A typical implementation might look like so:
  * <p/>
- * {@code 
- * 
+ * {@code
+ *
         @Slf4j
         @RestController
         @RequestMapping("/api/app")
@@ -37,11 +37,9 @@ import java.util.List;
                 return ResponseEntity.ok(dpfSummaryReport.createReport(new DPFSummaryParameters(monthOfStudy)));
             }
         }
- * 
+ *
  * }
- * 
- * @param parameters
- * @return
+ *
  */
 public interface ReportList<Entity, Parameter> {
 
