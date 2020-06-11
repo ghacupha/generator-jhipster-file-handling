@@ -345,8 +345,49 @@ module.exports = class extends BaseGenerator {
      * @private
      */
     _installServerCode(javaTemplateDir, javaTemplateTestDir, javaDir, javaTestDir, resourceDir) {
+        // todo copy config file
         // collect files to copy
         const files = [
+            {
+                from: `${javaTemplateDir}/config/_CloudMessagingConfiguration.java`,
+                to: `${javaDir}/config/CloudMessagingConfiguration.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/batch/currencyTable/CurrencyTableBatchConfig.java`,
+                to: `${javaDir}/internal/batch/currencyTable/CurrencyTableBatchConfig.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/batch/currencyTable/CurrencyTableListItemReader.java`,
+                to: `${javaDir}/internal/batch/currencyTable/CurrencyTableListItemReader.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/batch/currencyTable/package-info.java`,
+                to: `${javaDir}/internal/batch/currencyTable/package-info.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/batch/BatchConfigs.java`,
+                to: `${javaDir}/internal/batch/BatchConfigs.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/batch/ListPartition.java`,
+                to: `${javaDir}/internal/batch/ListPartition.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/batch/package-info.java`,
+                to: `${javaDir}/internal/batch/package-info.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/AppConstants.java`,
+                to: `${javaDir}/internal/AppConstants.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/Mapping.java`,
+                to: `${javaDir}/internal/Mapping.java`
+            },
+            {
+                from: `${javaTemplateDir}/internal/package-info.java`,
+                to: `${javaDir}/internal/package-info.java`
+            },
             {
                 from: `${javaTemplateTestDir}/internal/excel/ExcelFileUtilsIT.java`,
                 to: `${javaTestDir}/internal/excel/ExcelFileUtilsIT.java`
