@@ -8,7 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is for handling bits as sublists and for batches should have a job-scope
+ * This class is for handling bits as sub-lists and for batches should have a job-scope
+ * <p>
+ * The object is initialized once for every list that is being processed and should exist
+ * <p>
+ * the entire time the list if still in progress. If a new one is initialized it will cause
+ * <p>
+ * trouble
  */
 @Slf4j
 public class ListPartition<T> {

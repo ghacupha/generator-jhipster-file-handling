@@ -8,8 +8,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * This is an example of processed message received from the stream
- * 
- * @param greetings
+ *
  */
 @Component
 @Slf4j

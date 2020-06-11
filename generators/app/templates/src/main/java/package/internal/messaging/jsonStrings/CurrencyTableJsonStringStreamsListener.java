@@ -1,12 +1,11 @@
 package <%= packageName %>.internal.messaging.jsonStrings;
 
-import com.google.common.collect.ImmutableList;
 import <%= packageName %>.internal.Mapping;
 import <%= packageName %>.internal.messaging.platform.MuteListener;
-import <%= packageName %>.internal.model.DepositAccountEVM;
+import <%= packageName %>.internal.model.sampleDataModel.CurrencyTableEVM;
 import <%= packageName %>.service.DepositAccountService;
 import <%= packageName %>.service.dto.DepositAccountDTO;
-import <%= packageName %>.service.dto.<%= classNamesPrefix %>MessageTokenDTO;
+import com.google.common.collect.ImmutableList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -18,12 +17,12 @@ import java.util.List;
 @Slf4j
 @Transactional
 @Service
-public class JsonStringStreamsListener implements MuteListener<StringMessageDTO> {
+public class CurrencyTableJsonStringStreamsListener implements MuteListener<StringMessageDTO> {
 
     private final DepositAccountService depositAccountService;
-    private final Mapping<DepositAccountEVM, DepositAccountDTO> depositAccountDTOMapping;
+    private final Mapping<CurrencyTableEVM, DepositAccountDTO> depositAccountDTOMapping;
 
-    public JsonStringStreamsListener(final DepositAccountService depositAccountService, final Mapping<DepositAccountEVM, DepositAccountDTO> depositAccountDTOMapping) {
+    public CurrencyTableJsonStringStreamsListener(final DepositAccountService depositAccountService, final Mapping<CurrencyTableEVM, DepositAccountDTO> depositAccountDTOMapping) {
         this.depositAccountService = depositAccountService;
         this.depositAccountDTOMapping = depositAccountDTOMapping;
     }
@@ -34,11 +33,11 @@ public class JsonStringStreamsListener implements MuteListener<StringMessageDTO>
 
         log.info("JSON string list items received for persistence : {}", message);
 
-//        List<DepositAccountEVM> messageQueueData = GsonUtils.stringToList(message.getJsonString(), DepositAccountEVM[].class);
-//
-//        List<DepositAccountDTO> persistedData =
-//            messageQueueData.stream().map(depositAccountDTOMapping::toValue2).map(depositAccountService::save).collect(ImmutableList.toImmutableList());
-//
-//        log.info("{} Items persisted to the sink", persistedData.size());
+        List<CurrencyTableEVM> messageQueueData = GsonUtils.stringToList(message.getJsonString(), CurrencyTableEVM[].class);
+
+        List<DepositAccountDTO> persistedData =
+            messageQueueData.stream().map(depositAccountDTOMapping::toValue2).map(depositAccountService::save).collect(ImmutableList.toImmutableList());
+
+        log.info("{} Items persisted to the sink", persistedData.size());
     }
 }

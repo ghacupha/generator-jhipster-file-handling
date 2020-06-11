@@ -17,9 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * This container generally contains services configurations for message services.
  * <p/>
- * Each of these beans had initially been configured as transaction, 
+ * Each of these beans had initially been configured as transaction,
  * <p/>
- * a recipe for big disaster as the framework kept uploading the same 
+ * a recipe for big disaster as the framework kept uploading the same
  * <p/>
  * messages especially if big amounts of information is involved in the file.
  */
@@ -44,7 +44,7 @@ public class MessageServiceContainer {
 
     /**
      * Utility configuration for message service to enable on the fly stream-syntax configuration inline
-     * 
+     *
      * @param tokenGenerator
      * @param messageTokenService
      * @param outbound

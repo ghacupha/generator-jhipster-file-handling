@@ -6,6 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This utility converts a list of stuff into a json string which can then be sent into a
+ * <p>
+ * queue using a simple string-serializer and string-deserializer implementation
+ * <p>
+ * This would further enable a dev to stream string through a queue using a single string topic
+ */
 @Slf4j
 public class GsonUtils<T> {
 

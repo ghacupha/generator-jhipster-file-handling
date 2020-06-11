@@ -1,0 +1,41 @@
+package <%= packageName %>.internal.model.sampleDataModel;
+
+import com.poiji.annotation.ExcelCell;
+import com.poiji.annotation.ExcelRow;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.io.Serializable;
+
+/**
+ * This is a sample entity configured for reading data from an excel file whose
+ * columns are as configured in the fields bellow cell by cell and by data-type.
+ * This means there should exist a similar excel containing this 4 columns; representing
+ * types or currencies their localities and country where they are used
+ */
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Data
+@ToString
+public class CurrencyTableEVM implements Serializable {
+    private static final long serialVersionUID = 4731854415270415743L;
+
+    @ExcelRow
+    private int rowIndex;
+
+    @ExcelCell(0)
+    private String currencyCode;
+
+    @ExcelCell(1)
+    private String locality;
+
+    @ExcelCell(2)
+    private String currencyName;
+
+    @ExcelCell(3)
+    private String country;
+}

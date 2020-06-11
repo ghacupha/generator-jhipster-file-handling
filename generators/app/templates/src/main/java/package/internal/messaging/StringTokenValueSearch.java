@@ -7,7 +7,7 @@ import io.github.jhipster.service.filter.StringFilter;
 import org.springframework.stereotype.Service;
 
 /**
- * Implentation of token-search where the token value itself is of the value string
+ * Implementation of token-search where the token value itself is of the value string
  */
 @Service("stringTokenValueSearch")
 public class StringTokenValueSearch implements TokenValueSearch<String> {

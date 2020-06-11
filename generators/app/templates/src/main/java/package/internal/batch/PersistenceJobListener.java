@@ -5,6 +5,9 @@ import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.context.annotation.Scope;
 
+/**
+ * This class can be used to configure batch related actions before, and after
+ */
 @Slf4j
 @Scope("job")
 public class PersistenceJobListener implements JobExecutionListener {

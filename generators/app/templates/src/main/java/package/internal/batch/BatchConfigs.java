@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Contains general configurations for batch related entities and objects
+ */
 @Configuration
 @EnableBatchProcessing
 public class BatchConfigs {

@@ -13,7 +13,8 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.util.MimeTypeUtils;
 
 /**
- * This implementation handles sending of tokenizable messages and generating persisted tokens on the same. It is not managed by the spring  container but rather is extended by client implementations
+ * This implementation handles sending of tokenizable messages and generating
+ * persisted tokens on the same. It is not managed by the spring  container but rather is extended by client implementations
  * which themselves implement @{code MessageService<TokenizableMessage<String>>} interface
  */
 @Slf4j

@@ -4,8 +4,10 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.SubscribableChannel;
 
 /**
- * This interfce is mostly a marker to ensure a form that corresponds to
+ * This interface is mostly a marker to ensure a form that corresponds to
+ * <p>
  * typical stream definition while real implementation are created by proxy at
+ * <p>
  * runtime
  */
 public interface MessageStreams {

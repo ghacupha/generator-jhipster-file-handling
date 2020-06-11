@@ -1,11 +1,6 @@
 package <%= packageName %>.internal.excel;
 
-import <%= packageName %>.internal.model.BranchTableEVM;
-import <%= packageName %>.internal.model.CurrencyTableEVM;
-import <%= packageName %>.internal.model.DepositAccountEVM;
-import <%= packageName %>.internal.model.SBUTableEVM;
-import <%= packageName %>.internal.model.SchemeTableEVM;
-import <%= packageName %>.internal.model.TypeTableEVM;
+import <%= packageName %>.internal.model.sampleDataModel.CurrencyTableEVM;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

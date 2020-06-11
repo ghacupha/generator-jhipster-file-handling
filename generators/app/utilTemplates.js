@@ -137,6 +137,10 @@ function getTemplateFiles(javaTemplateDir, javaDir, javaTemplateTestDir, javaTes
             to: `${javaDir}/internal/messaging/fileNotification/processors/package-info.java`
         },
         {
+            from: `${javaTemplateDir}/internal/messaging/jsonStrings/CurrencyTableJsonStringStreamsListener.java`,
+            to: `${javaDir}/internal/messaging/jsonStrings/CurrencyTableJsonStringStreamsListener.java`
+        },
+        {
             from: `${javaTemplateDir}/internal/messaging/jsonStrings/GsonUtils.java`,
             to: `${javaDir}/internal/messaging/jsonStrings/GsonUtils.java`
         },
@@ -147,10 +151,6 @@ function getTemplateFiles(javaTemplateDir, javaDir, javaTemplateTestDir, javaTes
         {
             from: `${javaTemplateDir}/internal/messaging/jsonStrings/JsonStringStreamsConfig.java`,
             to: `${javaDir}/internal/messaging/jsonStrings/JsonStringStreamsConfig.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/messaging/jsonStrings/JsonStringStreamsListener.java`,
-            to: `${javaDir}/internal/messaging/jsonStrings/JsonStringStreamsListener.java`
         },
         {
             from: `${javaTemplateDir}/internal/messaging/jsonStrings/StringMessageDTO.java`,
@@ -223,6 +223,62 @@ function getTemplateFiles(javaTemplateDir, javaDir, javaTemplateTestDir, javaTes
         {
             from: `${javaTemplateDir}/internal/model/package-info.java`,
             to: `${javaDir}/internal/model/package-info.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/model/sampleDataModel/package-info.java`,
+            to: `${javaDir}/internal/model/sampleDataModel/package-info.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyLocality.java`,
+            to: `${javaDir}/internal/model/sampleDataModel/CurrencyLocality.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTable.java`,
+            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTable.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableCriteria.java`,
+            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableCriteria.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableDTO.java`,
+            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableDTO.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableEVM.java`,
+            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableEVM.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableEVMMapping.java`,
+            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableEVMMapping.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableMapper.java`,
+            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableMapper.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableQueryService.java`,
+            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableQueryService.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableRepository.java`,
+            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableRepository.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableResource.java`,
+            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableResource.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableSearchRepository.java`,
+            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableSearchRepository.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableService.java`,
+            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableService.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableServiceImpl.java`,
+            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableServiceImpl.java`
         },
         {
             from: `${javaTemplateDir}/internal/report/QueryTools.java`,

@@ -3,7 +3,8 @@ package <%= packageName %>.internal.messaging.platform;
 import java.io.Serializable;
 
 /**
- * This object contains a message token
+ * This transfer object contains a message token
+ *
  * @param <T> Data type for token
  */
 public interface Tokenizable<T> extends Serializable {

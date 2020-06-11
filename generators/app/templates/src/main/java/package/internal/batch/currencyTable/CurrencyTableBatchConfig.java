@@ -6,7 +6,7 @@ import <%= packageName %>.internal.excel.ExcelFileDeserializer;
 import <%= packageName %>.internal.service.BatchService;
 import <%= packageName %>.service.<%= classNamesPrefix %>FileUploadService;
 // todo replace these entities with entity names from client
-import <%= packageName %>.internal.model.CurrencyTableEVM;
+import <%= packageName %>.internal.model.sampleDataModel.CurrencyTableEVM;
 import <%= packageName %>.service.dto.CurrencyTableDTO;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecutionListener;
@@ -24,6 +24,9 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
+/**
+ * This is a sample batch configuration for the currency-table
+ */
 @Configuration
 public class CurrencyTableBatchConfig {
 

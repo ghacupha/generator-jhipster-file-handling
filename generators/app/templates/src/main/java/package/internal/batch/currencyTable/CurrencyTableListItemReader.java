@@ -2,7 +2,7 @@ package <%= packageName %>.internal.batch.currencyTable;
 
 import <%= packageName %>.internal.batch.ListPartition;
 import <%= packageName %>.internal.excel.ExcelFileDeserializer;
-import <%= packageName %>.internal.model.CurrencyTableEVM;
+import <%= packageName %>.internal.model.sampleDataModel.CurrencyTableEVM;
 import <%= packageName %>.service.<%= classNamesPrefix %>FileUploadService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemReader;
@@ -15,6 +15,13 @@ import org.springframework.context.annotation.Scope;
 import javax.annotation.PostConstruct;
 import java.util.List;
 
+/**
+ * This is sample configuration of the currency-table list-item-reader.
+ * <p>
+ * Take special note of how the listPartition is configured once the object is created at the
+ * <p>
+ * beginning of a job. This only works because the bean is configured with job-scope.
+ */
 @Slf4j
 @Scope("job")
 public class CurrencyTableListItemReader implements ItemReader<List<CurrencyTableEVM>> {

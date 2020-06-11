@@ -10,7 +10,10 @@ import java.util.List;
 
 import static <%= packageName %>.internal.excel.deserializer.DeserializationUtils.getFileInputStream;
 
-
+/**
+ * This is the default configuration for excel deserialization for an excel view model of type T
+ * @param <T> Type of excel view model
+ */
 @Slf4j
 public class DefaultExcelFileDeserializer<T> {
 

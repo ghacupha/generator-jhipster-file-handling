@@ -3,7 +3,9 @@ package <%= packageName %>.internal.excel;
 import java.util.List;
 
 /**
- * This generic interface represents operations for converting data contained in files into data that can be saved in a db row by row from the data file
+ * This generic interface represents operations for converting data contained
+ * <p>
+ * in files into data that can be saved in a db row by row from the data file
  *
  * @param <T> Type of data contained in the data file
  */
