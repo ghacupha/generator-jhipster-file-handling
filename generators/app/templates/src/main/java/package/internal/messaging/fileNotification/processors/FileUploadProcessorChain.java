@@ -31,6 +31,6 @@ public class FileUploadProcessorChain {
 
     public List<<%= classNamesPrefix %>FileUploadDTO> apply(<%= classNamesPrefix %>FileUploadDTO fileUploadDTO, FileNotification fileNotification) {
         log.debug("Applying {} file upload processors to file-upload {} with notification {}", this.fileUploadProcessors.size(), fileUploadDTO, fileNotification);
-        return fileUploadProcessors.stream().map(processor -> processor.process<%= classNamesPrefix %>FileUpload(fileUploadDTO, fileNotification)).collect(ImmutableList.toImmutableList());
+        return fileUploadProcessors.stream().map(processor -> processor.processFileUpload(fileUploadDTO, fileNotification)).collect(ImmutableList.toImmutableList());
     }
 }

@@ -46,7 +46,7 @@ public class StreamSupportedFileUploadProcessor<EVM> implements FileUploadProces
         log.debug("Received file-upload for processing :{} with notification :{}", fileUpload, fileNotification);
 
         // Only works on scheme tables
-        if (fileNotification.get<%= classNamesPrefix %>FileModelType() == fileModelType) {
+        if (fileNotification.get<%= classNamesPrefix %>fileModelType() == fileModelType) {
             log.debug("File-upload type confirmed commencing process...");
             AtomicInteger processCounter = new AtomicInteger();
 
@@ -63,7 +63,7 @@ public class StreamSupportedFileUploadProcessor<EVM> implements FileUploadProces
                                  .forEach(ENQUEUED_TOKENS::add);
             // @formatter:on
 
-            log.info("{} scheme-table items enqueued...", processCounter.get());
+            log.info("{} {} items enqueued...", processCounter.get(), fileUpload.getFileName());
 
             fileUpload.setUploadSuccessful(true);
             fileUpload.setUploadProcessed(true);

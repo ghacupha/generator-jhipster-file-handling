@@ -32,7 +32,7 @@ public class BatchSupportedFileUploadProcessor implements FileUploadProcessor<<%
     @Override
     public <%= classNamesPrefix %>FileUploadDTO processFileUpload(final <%= classNamesPrefix %>FileUploadDTO fileUpload, final FileNotification fileNotification) {
 
-        if (fileNotification.get<%= classNamesPrefix %>FileModelType() == fileModelType) {
+        if (fileNotification.get<%= classNamesPrefix %>fileModelType() == fileModelType) {
             log.debug("File-upload type confirmed commencing process...");
 
             JobParametersBuilder jobParametersBuilder = new JobParametersBuilder();

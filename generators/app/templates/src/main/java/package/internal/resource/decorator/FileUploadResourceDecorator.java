@@ -27,7 +27,6 @@ import java.util.List;
  * This class can now be extented by a client to extend the original code without repeatative calls
  * <p/>
  * to the original code itself. Check child classes for illustration
- * @param fileUploadResource
  */
 @Component("fileUploadResourceDecorator")
 public class FileUploadResourceDecorator implements IFileUploadResource {
@@ -48,7 +47,7 @@ public class FileUploadResourceDecorator implements IFileUploadResource {
     @PostMapping("/file-uploads")
     public ResponseEntity<<%= classNamesPrefix %>FileUploadDTO> createFileUpload(@Valid @RequestBody <%= classNamesPrefix %>FileUploadDTO fileUploadDTO) throws URISyntaxException {
 
-        return fileUploadResource.createFileUpload(fileUploadDTO);
+        return fileUploadResource.create<%= classNamesPrefix %>FileUpload(fileUploadDTO);
     }
 
     /**
@@ -62,7 +61,7 @@ public class FileUploadResourceDecorator implements IFileUploadResource {
     @PutMapping("/file-uploads")
     public ResponseEntity<<%= classNamesPrefix %>FileUploadDTO> updateFileUpload(@Valid @RequestBody <%= classNamesPrefix %>FileUploadDTO fileUploadDTO) throws URISyntaxException {
 
-        return fileUploadResource.updateFileUpload(fileUploadDTO);
+        return fileUploadResource.update<%= classNamesPrefix %>FileUpload(fileUploadDTO);
     }
 
     /**
@@ -75,7 +74,7 @@ public class FileUploadResourceDecorator implements IFileUploadResource {
     @GetMapping("/file-uploads")
     public ResponseEntity<List<<%= classNamesPrefix %>FileUploadDTO>> getAllFileUploads(<%= classNamesPrefix %>FileUploadCriteria criteria, Pageable pageable) {
 
-        return fileUploadResource.getAllFileUploads(criteria, pageable);
+        return fileUploadResource.getAll<%= classNamesPrefix %>FileUploads(criteria, pageable);
     }
 
     /**
@@ -87,7 +86,7 @@ public class FileUploadResourceDecorator implements IFileUploadResource {
     @GetMapping("/file-uploads/count")
     public ResponseEntity<Long> countFileUploads(<%= classNamesPrefix %>FileUploadCriteria criteria) {
 
-        return fileUploadResource.countFileUploads(criteria);
+        return fileUploadResource.count<%= classNamesPrefix %>FileUploads(criteria);
     }
 
     /**
@@ -99,7 +98,7 @@ public class FileUploadResourceDecorator implements IFileUploadResource {
     @GetMapping("/file-uploads/{id}")
     public ResponseEntity<<%= classNamesPrefix %>FileUploadDTO> getFileUpload(@PathVariable Long id) {
 
-        return fileUploadResource.getFileUpload(id);
+        return fileUploadResource.get<%= classNamesPrefix %>FileUpload(id);
     }
 
     /**
@@ -111,6 +110,6 @@ public class FileUploadResourceDecorator implements IFileUploadResource {
     @DeleteMapping("/file-uploads/{id}")
     public ResponseEntity<Void> deleteFileUpload(@PathVariable Long id) {
 
-        return fileUploadResource.deleteFileUpload(id);
+        return fileUploadResource.delete<%= classNamesPrefix %>FileUpload(id);
     }
 }

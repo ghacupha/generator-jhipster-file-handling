@@ -26,6 +26,6 @@ public class FileNotification implements TokenizableMessage<String> {
 
     private String description;
 
-    private <%= classNamesPrefix %>FileModelType fileModelType;
+    private <%= classNamesPrefix %>FileModelType <%= classNamesPrefix %>fileModelType;
 
 }
