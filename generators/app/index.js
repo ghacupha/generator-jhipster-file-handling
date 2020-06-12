@@ -374,12 +374,12 @@ module.exports = class extends BaseGenerator {
             'src/main/resources/config/liquibase/changelog/_added_springbatch_schema.xml',
             `${resourceDir}config/liquibase/changelog/${gen.changelogDate}_added_springbatch_schema.xml`
         );
-        this.addChangelogToLiquibase(`${gen.changelogDate}_added_springbatch_schema.xml`);
+        this.addChangelogToLiquibase(`${gen.changelogDate}_added_springbatch_schema`);
         this.template(
             'src/main/resources/config/liquibase/changelog/_added_entity_CurrencyTable.xml',
             `${resourceDir}config/liquibase/changelog/${gen.changelogDate}_added_entity_CurrencyTable.xml`
         );
-        this.addChangelogToLiquibase(`${gen.changelogDate}__added_entity_CurrencyTable.xml`);
+        this.addChangelogToLiquibase(`${gen.changelogDate}_added_entity_CurrencyTable`);
     }
 
     /**
