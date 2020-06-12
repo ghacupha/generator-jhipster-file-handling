@@ -40,7 +40,7 @@ public class CurrencyTableJsonStringStreamsListener implements MuteListener<Stri
 
         List<CurrencyTableEVM> messageQueueData = GsonUtils.stringToList(message.getJsonString(), CurrencyTableEVM[].class);
 
-        List<CurrencyTableDTO> persistedData = messageQueueData.stream().map(currencyTableEVMMappping::toValue2).map(currencyTableService::save).collect(ImmutableList.toImmutableList());
+        List<CurrencyTableDTO> persistedData = messageQueueData.stream().map(currencyTableEVMMapping::toValue2).map(currencyTableService::save).collect(ImmutableList.toImmutableList());
 
         log.info("{} Items persisted to the sink", persistedData.size());
     }
