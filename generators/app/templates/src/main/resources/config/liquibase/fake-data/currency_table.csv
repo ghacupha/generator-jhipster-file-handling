@@ -1,0 +1,11 @@
+id;currency_code;locality;currency_name;country
+1;PKR;FOREIGN;Bolivar Fuerte;Croatia
+2;BRL;LOCAL;Moroccan Dirham;Trinidad and Tobago
+3;LBP;FOREIGN;Manat;Falkland Islands (Malvinas)
+4;MZN;FOREIGN;Lithuanian Litas;Republic of Korea
+5;PYG;FOREIGN;Indian Rupee;Japan
+6;KPW;LOCAL;Fiji Dollar;Virgin Islands, British
+7;NZD;LOCAL;Egyptian Pound;Australia
+8;NIO;FOREIGN;Netherlands Antillian Guilder;Kiribati
+9;;FOREIGN;Rand Loti;Guinea
+10;GNF;FOREIGN;Zambian Kwacha;Bermuda

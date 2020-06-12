@@ -29,6 +29,7 @@ function getTemplateFiles(gen) {
     const javaDir = gen.javaDir;
     const javaTemplateTestDir = gen.javaTemplateTestDir;
     const javaTestDir = gen.javaTestDir;
+    const resourceDir = gen.resourceDir;
     const resourceTestDir = gen.resourceTestDir;
 
     const files = [
@@ -387,6 +388,10 @@ function getTemplateFiles(gen) {
         {
             from: `${resourceTestDir}files/currencies.xlsx`,
             to: `${resourceTestDir}files/currencies.xlsx`
+        },
+        {
+            from: `${resourceDir}config/liquibase/fake-data/currency_table.csv`,
+            to: `${resourceDir}config/liquibase/fake-data/currency_table.csv`
         }
     ];
     return files;
