@@ -355,6 +355,26 @@ function getTemplateFiles(javaTemplateDir, javaDir, javaTemplateTestDir, javaTes
         {
             from: `${javaTemplateTestDir}/internal/messaging/TokenGeneratorTest.java`,
             to: `${javaTestDir}/internal/messaging/TokenGeneratorTest.java`
+        },
+        {
+            from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableDTOTest.java`,
+            to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableDTOTest.java`
+        },
+        {
+            from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableMapperTest.java`,
+            to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableMapperTest.java`
+        },
+        {
+            from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableResourceIT.java`,
+            to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableResourceIT.java`
+        },
+        {
+            from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableSearchRepositoryMockConfiguration.java`,
+            to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableSearchRepositoryMockConfiguration.java`
+        },
+        {
+            from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableTest.java`,
+            to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableTest.java`
         }
     ];
     return files;
