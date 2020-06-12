@@ -40,8 +40,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link CurrencyTableResource} REST controller.
  * Uncomment the following line and comment the next if using OAuth
  */
-<!--@SpringBootTest(classes = { SecurityBeanOverrideConfiguration.class, <%= appName %>App.class })-->
-@SpringBootTest(classes = { SecurityBeanOverrideConfiguration.class, <%= appName %>App.class })
+// @SpringBootTest(classes = { SecurityBeanOverrideConfiguration.class, <%= appName %>App.class })
+@SpringBootTest(classes = { <%= appName %>App.class })
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
