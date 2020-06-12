@@ -20,13 +20,17 @@
 /**
  * This method lists the files in the templates and how they are to be copied into the client code
  *
- * @param javaTemplateDir
- * @param javaDir
- * @param javaTemplateTestDir
- * @param javaTestDir
+ * @param {Object} gen Generator
  * @returns {({from: string, to: string})[]}
  */
-function getTemplateFiles(javaTemplateDir, javaDir, javaTemplateTestDir, javaTestDir) {
+function getTemplateFiles(gen) {
+    // Initialize important variables
+    const javaTemplateDir = gen.javaTemplateDir;
+    const javaDir = gen.javaDir;
+    const javaTemplateTestDir = gen.javaTemplateTestDir;
+    const javaTestDir = gen.javaTestDir;
+    const resourceTestDir = gen.resourceTestDir;
+
     const files = [
         {
             from: `${javaTemplateDir}/config/_CloudMessagingConfiguration.java`,
@@ -375,6 +379,14 @@ function getTemplateFiles(javaTemplateDir, javaDir, javaTemplateTestDir, javaTes
         {
             from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableTest.java`,
             to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableTest.java`
+        },
+        {
+            from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableEVMMappingTest.java`,
+            to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableEVMMappingTest.java`
+        },
+        {
+            from: `${resourceTestDir}files/currencies.xlsx`,
+            to: `${resourceTestDir}files/currencies.xlsx`
         }
     ];
     return files;

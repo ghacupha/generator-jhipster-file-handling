@@ -18,19 +18,18 @@ import static org.junit.Assert.assertEquals;
 public class ExcelFileUtilsIT {
 
     @Autowired
-    private  ExcelFileDeserializer<SchemeTableEVM> schemeTableExcelFileDeserializer;
+    private ExcelFileDeserializer<CurrencyTableEVM> currencyTableEVMExcelFileDeserializer;
 
     @Test
-    public void deserializeSchemesFile() throws Exception {
+    public void deserializeCurrencyTableFile() throws Exception {
 
         // @formatter:off
-        List<SchemeTableEVM> schemes =
-            schemeTableExcelFileDeserializer.deserialize(toBytes(readFile("schemes.xlsx")));
+        List<CurrencyTableEVM> currencies =
+            currencyTableEVMExcelFileDeserializer.deserialize(toBytes(readFile("currencies.xlsx")));
         // @formatter:on
 
-        assertThat(schemes.size()).isEqualTo(3);
-        assertThat(schemes.get(0)).isEqualTo(SchemeTableEVM.builder().rowIndex(1).schemeCode("scheme1").description("scheme1description").build());
-        assertThat(schemes.get(1)).isEqualTo(SchemeTableEVM.builder().rowIndex(2).schemeCode("scheme2").description("scheme2description").build());
-        assertThat(schemes.get(2)).isEqualTo(SchemeTableEVM.builder().rowIndex(3).schemeCode("scheme3").description("scheme3description").build());
+        assertThat(currencies.size()).isEqualTo(3);
+        assertThat(currencies.get(0)).isEqualTo(CurrencyTableEVM.builder().rowIndex(1).country("USA").currencyCode("USD").currencyName("US DOLLAR").locality("FOREIGN").build());
+        assertThat(currencies.get(0)).isEqualTo(CurrencyTableEVM.builder().rowIndex(1).country("UNITED KINGDOM").currencyCode("GBP").currencyName("STERLING").locality("FOREIGN").build());
     }
 }

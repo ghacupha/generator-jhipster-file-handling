@@ -8,6 +8,10 @@
 
 This is a [JHipster](https://www.jhipster.tech/) module, that is meant to be used in a JHipster application.
 
+# Caution
+
+This tools is still in active development and has not attained MVP. The version number is merely to match with the appropriate jhipster-generator version
+
 # Prerequisites
 
 As this is a [JHipster](https://www.jhipster.tech/) module, we expect you have JHipster and its related tools already installed:

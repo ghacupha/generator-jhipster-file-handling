@@ -188,6 +188,7 @@ module.exports = class extends BaseGenerator {
         this.javaDir = `${jhipsterConstants.SERVER_MAIN_SRC_DIR + this.packageFolder}/`;
         this.javaTestDir = `${jhipsterConstants.SERVER_TEST_SRC_DIR + this.packageFolder}/`;
         this.resourceDir = jhipsterConstants.SERVER_MAIN_RES_DIR;
+        this.resourceTestDir = jhipsterConstants.SERVER_TEST_RES_DIR;
         this.webappDir = jhipsterConstants.CLIENT_MAIN_SRC_DIR;
         this.javaTemplateDir = 'src/main/java/package';
         this.javaTemplateTestDir = 'src/test/java/package';
@@ -362,7 +363,7 @@ module.exports = class extends BaseGenerator {
         // eslint-disable-next-line no-unused-vars
         const fieldNamesPrefix = gen.fieldNamesPrefix;
         // collect files to copy
-        const files = templateUtils.getTemplateFiles(javaTemplateDir, javaDir, javaTemplateTestDir, javaTestDir);
+        const files = templateUtils.getTemplateFiles(this);
 
         genUtils.copyFiles(gen, files);
 
