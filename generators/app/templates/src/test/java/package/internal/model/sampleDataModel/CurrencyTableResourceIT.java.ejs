@@ -1,7 +1,8 @@
 package <%= packageName %>.internal.model.sampleDataModel;
 
 import <%= packageName %>.<%= appName %>App;
-import <%= packageName %>.config.SecurityBeanOverrideConfiguration;
+// todo Uncomment the following line and comment the next if using OAuth
+// import <%= packageName %>.internal.config.SecurityBeanOverrideConfiguration;
 import <%= packageName %>.web.rest.TestUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 /**
  * Integration tests for the {@link CurrencyTableResource} REST controller.
+ * Uncomment the following line and comment the next if using OAuth
  */
+<!--@SpringBootTest(classes = { SecurityBeanOverrideConfiguration.class, <%= appName %>App.class })-->
 @SpringBootTest(classes = { SecurityBeanOverrideConfiguration.class, <%= appName %>App.class })
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc

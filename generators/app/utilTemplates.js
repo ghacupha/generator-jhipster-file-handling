@@ -370,7 +370,7 @@ function getTemplateFiles(gen) {
             to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableMapperTest.java`
         },
         {
-            from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableResourceIT.java`,
+            from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableResourceIT.java.ejs`,
             to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableResourceIT.java`
         },
         {

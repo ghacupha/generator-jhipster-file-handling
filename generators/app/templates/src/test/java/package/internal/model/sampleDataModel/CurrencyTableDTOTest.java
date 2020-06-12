@@ -2,7 +2,7 @@ package <%= packageName %>.internal.model.sampleDataModel;
 
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
-import io.github.deposits.web.rest.TestUtil;
+import <%= packageName %>.web.rest.TestUtil;
 
 public class CurrencyTableDTOTest {
 

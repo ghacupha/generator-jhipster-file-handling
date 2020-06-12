@@ -10,7 +10,7 @@ This is a [JHipster](https://www.jhipster.tech/) module, that is meant to be use
 
 # Caution
 
-This tools is still in active development and has not attained MVP. The version number is merely to match with the appropriate jhipster-generator version
+This tool is still in active development and has not attained MVP. Lots of changes are happening to the api
 
 # Prerequisites
 
