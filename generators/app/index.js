@@ -101,7 +101,7 @@ module.exports = class extends BaseGenerator {
                 type: 'input',
                 name: 'gatewayMicroserviceName',
                 message: 'What is the microservice name for the file handling workflow?',
-                default: `${this.jhipsterAppConfig.baseName}Main`
+                default: `${this.jhipsterAppConfig.baseName}`
             },
             {
                 when: () =>

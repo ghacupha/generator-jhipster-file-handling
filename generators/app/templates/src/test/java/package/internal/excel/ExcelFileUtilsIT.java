@@ -1,7 +1,7 @@
 package <%= packageName %>.internal.excel;
 
 import <%= packageName %>.<%= appName %>App;
-import <%= packageName %>.internal.model.SchemeTableEVM;
+import <%= packageName %>.internal.model.sampleDataModel.CurrencyTableEVM;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
