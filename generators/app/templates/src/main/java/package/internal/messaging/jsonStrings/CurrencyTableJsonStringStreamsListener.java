@@ -3,8 +3,8 @@ package <%= packageName %>.internal.messaging.jsonStrings;
 import <%= packageName %>.internal.Mapping;
 import <%= packageName %>.internal.messaging.platform.MuteListener;
 import <%= packageName %>.internal.model.sampleDataModel.CurrencyTableEVM;
-import <%= packageName %>.service.DepositAccountService;
-import <%= packageName %>.service.dto.DepositAccountDTO;
+import <%= packageName %>.internal.model.sampleDataModel.CurrencyTableDTO;
+import <%= packageName %>.internal.model.sampleDataModel.CurrencyTableService;
 import com.google.common.collect.ImmutableList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -14,17 +14,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * This is a sample listener for currency-table entity that handles messages from the queue
+ * <p>
+ * by persisting to the database
+ */
 @Slf4j
 @Transactional
 @Service
 public class CurrencyTableJsonStringStreamsListener implements MuteListener<StringMessageDTO> {
 
-    private final DepositAccountService depositAccountService;
-    private final Mapping<CurrencyTableEVM, DepositAccountDTO> depositAccountDTOMapping;
+    private final CurrencyTableService currencyTableService;
+    private final Mapping<CurrencyTableEVM, CurrencyTableDTO> currencyTableEVMMapping;
 
-    public CurrencyTableJsonStringStreamsListener(final DepositAccountService depositAccountService, final Mapping<CurrencyTableEVM, DepositAccountDTO> depositAccountDTOMapping) {
-        this.depositAccountService = depositAccountService;
-        this.depositAccountDTOMapping = depositAccountDTOMapping;
+    public CurrencyTableJsonStringStreamsListener(final CurrencyTableService currencyTableService, final Mapping<CurrencyTableEVM, CurrencyTableDTO> currencyTableEVMMapping) {
+        this.currencyTableService = currencyTableService;
+        this.currencyTableEVMMapping = currencyTableEVMMapping;
     }
 
     @Override
@@ -35,8 +40,7 @@ public class CurrencyTableJsonStringStreamsListener implements MuteListener<Stri
 
         List<CurrencyTableEVM> messageQueueData = GsonUtils.stringToList(message.getJsonString(), CurrencyTableEVM[].class);
 
-        List<DepositAccountDTO> persistedData =
-            messageQueueData.stream().map(depositAccountDTOMapping::toValue2).map(depositAccountService::save).collect(ImmutableList.toImmutableList());
+        List<CurrencyTableDTO> persistedData = messageQueueData.stream().map(currencyTableEVMMappping::toValue2).map(currencyTableService::save).collect(ImmutableList.toImmutableList());
 
         log.info("{} Items persisted to the sink", persistedData.size());
     }
