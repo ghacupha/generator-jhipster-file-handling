@@ -1,0 +1,19 @@
+# ===================================================================
+# File Uploads Streams and Batch configurations
+#
+# This configuration overrides the application.yml file.
+#
+# ===================================================================
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+
+# Configure list-page sizes
+reader:
+  data_table:
+      list:
+         size: 5
+  deposit:
+      list:
+        size: 5000

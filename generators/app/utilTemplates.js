@@ -396,6 +396,10 @@ function getTemplateFiles(gen) {
         {
             from: `${resourceDir}config/liquibase/fake-data/currency_table.csv`,
             to: `${resourceDir}config/liquibase/fake-data/currency_table.csv`
+        },
+        {
+            from: `${resourceDir}config/application-uploads.yml`,
+            to: `${resourceDir}config/application-uploads.yml`
         }
     ];
     return files;
