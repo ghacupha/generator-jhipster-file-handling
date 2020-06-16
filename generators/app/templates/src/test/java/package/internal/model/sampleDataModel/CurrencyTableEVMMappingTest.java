@@ -3,9 +3,10 @@ package <%= packageName %>.internal.model.sampleDataModel;
 import <%= packageName %>.internal.Mapping;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import <%= packageName %>.service.dto.CurrencyTableDTO;
 
-import static <%= packageName %>.internal.model.sampleDataModel.CurrencyLocality.FOREIGN;
-import static <%= packageName %>.internal.model.sampleDataModel.CurrencyLocality.LOCAL;
+import static <%= packageName %>.domain.enumeration.CurrencyLocality.FOREIGN;
+import static <%= packageName %>.domain.enumeration.CurrencyLocality.LOCAL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CurrencyTableEVMMappingTest {

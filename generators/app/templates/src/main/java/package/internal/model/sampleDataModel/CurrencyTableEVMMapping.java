@@ -2,9 +2,10 @@ package <%= packageName %>.internal.model.sampleDataModel;
 
 import <%= packageName %>.internal.Mapping;
 import org.mapstruct.Mapper;
-
-import static <%= packageName %>.internal.model.sampleDataModel.CurrencyLocality.FOREIGN;
-import static <%= packageName %>.internal.model.sampleDataModel.CurrencyLocality.LOCAL;
+import <%= packageName %>.service.dto.CurrencyTableDTO;
+import <%= packageName %>.domain.enumeration.CurrencyLocality;
+import static <%= packageName %>.domain.enumeration.CurrencyLocality.FOREIGN;
+import static <%= packageName %>.domain.enumeration.CurrencyLocality.LOCAL;
 
 /**
  * This is a sample implementation of how mapping is used to move from an entity's DTO to EVM

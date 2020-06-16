@@ -24,6 +24,16 @@ entity <%= classNamesPrefix %>FileType {
     actioned Boolean,
     contentFullyEnqueued Boolean
   }
+  entity CurrencyTable {
+    currencyCode String unique minlength(3) maxlength(3),
+    locality CurrencyLocality required,
+    currencyName String,
+    country String
+  }
+  enum CurrencyLocality {
+    LOCAL,
+    FOREIGN
+  }
   enum <%= classNamesPrefix %>FileMediumTypes {
     EXCEL,
     EXCEL_XLS,
@@ -39,9 +49,10 @@ entity <%= classNamesPrefix %>FileType {
     HTML5
   }
   enum <%= classNamesPrefix %>FileModelType { <%= fileModelTypes %> }
-  dto <%= classNamesPrefix %>FileUpload, <%= classNamesPrefix %>MessageToken with mapstruct
-  paginate <%= classNamesPrefix %>FileType, <%= classNamesPrefix %>FileUpload, <%= classNamesPrefix %>MessageToken with pagination
-  service <%= classNamesPrefix %>FileUpload, <%= classNamesPrefix %>MessageToken with serviceImpl
+  dto <%= classNamesPrefix %>FileUpload, <%= classNamesPrefix %>MessageToken, CurrencyTable with mapstruct
+  paginate <%= classNamesPrefix %>FileType, <%= classNamesPrefix %>FileUpload, <%= classNamesPrefix %>MessageToken, CurrencyTable with pagination
+  service <%= classNamesPrefix %>FileUpload, <%= classNamesPrefix %>MessageToken, CurrencyTable with serviceImpl
   service <%= classNamesPrefix %>FileType with serviceClass
-  filter <%= classNamesPrefix %>FileType, <%= classNamesPrefix %>FileUpload, <%= classNamesPrefix %>MessageToken
-  clientRootFolder <%= classNamesPrefix %>FileType, <%= classNamesPrefix %>FileUpload, <%= classNamesPrefix %>MessageToken with <%= gatewayMicroserviceName %>
+  search CurrencyTable with elasticsearch
+  filter <%= classNamesPrefix %>FileType, <%= classNamesPrefix %>FileUpload, <%= classNamesPrefix %>MessageToken, CurrencyTable
+  clientRootFolder <%= classNamesPrefix %>FileType, <%= classNamesPrefix %>FileUpload, <%= classNamesPrefix %>MessageToken, CurrencyTable with <%= gatewayMicroserviceName %>

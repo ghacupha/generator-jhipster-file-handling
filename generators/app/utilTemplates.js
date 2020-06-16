@@ -41,11 +41,11 @@ function getTemplateFiles(gen) {
         {
             from: `${javaTemplateDir}/config/_CloudMessagingConfiguration.java`,
             to: `${javaDir}/config/CloudMessagingConfiguration.java`
-        },
-        {
-            from: `${javaTemplateDir}/config/DatabaseConfiguration.java`,
-            to: `${javaDir}/config/DatabaseConfiguration.java`
         }
+        // {
+        //     from: `${javaTemplateDir}/config/DatabaseConfiguration.java`,
+        //     to: `${javaDir}/config/DatabaseConfiguration.java`
+        // }
     ];
 
     /**
@@ -276,26 +276,26 @@ function getTemplateFiles(gen) {
             from: `${javaTemplateDir}/internal/model/sampleDataModel/package-info.java`,
             to: `${javaDir}/internal/model/sampleDataModel/package-info.java`
         },
-        {
-            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyLocality.java`,
-            to: `${javaDir}/internal/model/sampleDataModel/CurrencyLocality.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTable.java`,
-            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTable.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableBatchService.java`,
-            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableBatchService.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableCriteria.java`,
-            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableCriteria.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableDTO.java`,
-            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableDTO.java`
-        },
+        // {
+        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyLocality.java`,
+        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyLocality.java`
+        // },
+        // {
+        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTable.java`,
+        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTable.java`
+        // },
+        // {
+        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableBatchService.java`,
+        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableBatchService.java`
+        // },
+        // {
+        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableCriteria.java`,
+        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableCriteria.java`
+        // },
+        // {
+        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableDTO.java`,
+        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableDTO.java`
+        // },
         {
             from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableEVM.java`,
             to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableEVM.java`
@@ -304,54 +304,54 @@ function getTemplateFiles(gen) {
             from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableEVMMapping.java`,
             to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableEVMMapping.java`
         },
-        {
-            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableMapper.java`,
-            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableMapper.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableQueryService.java`,
-            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableQueryService.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableRepository.java`,
-            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableRepository.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableResource.java`,
-            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableResource.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableSearchRepository.java`,
-            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableSearchRepository.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableService.java`,
-            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableService.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableServiceImpl.java`,
-            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableServiceImpl.java`
-        },
-        {
-            from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableDTOTest.java`,
-            to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableDTOTest.java`
-        },
-        {
-            from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableMapperTest.java`,
-            to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableMapperTest.java`
-        },
-        {
-            from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableResourceIT.java.ejs`,
-            to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableResourceIT.java`
-        },
-        {
-            from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableSearchRepositoryMockConfiguration.java`,
-            to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableSearchRepositoryMockConfiguration.java`
-        },
-        {
-            from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableTest.java`,
-            to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableTest.java`
-        },
+        // {
+        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableMapper.java`,
+        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableMapper.java`
+        // },
+        // {
+        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableQueryService.java`,
+        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableQueryService.java`
+        // },
+        // {
+        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableRepository.java`,
+        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableRepository.java`
+        // },
+        // {
+        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableResource.java`,
+        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableResource.java`
+        // },
+        // {
+        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableSearchRepository.java`,
+        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableSearchRepository.java`
+        // },
+        // {
+        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableService.java`,
+        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableService.java`
+        // },
+        // {
+        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableServiceImpl.java`,
+        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableServiceImpl.java`
+        // },
+        // {
+        //     from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableDTOTest.java`,
+        //     to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableDTOTest.java`
+        // },
+        // {
+        //     from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableMapperTest.java`,
+        //     to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableMapperTest.java`
+        // },
+        // {
+        //     from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableResourceIT.java.ejs`,
+        //     to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableResourceIT.java`
+        // },
+        // {
+        //     from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableSearchRepositoryMockConfiguration.java`,
+        //     to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableSearchRepositoryMockConfiguration.java`
+        // },
+        // {
+        //     from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableTest.java`,
+        //     to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableTest.java`
+        // },
         {
             from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableEVMMappingTest.java`,
             to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableEVMMappingTest.java`
@@ -502,12 +502,12 @@ function getTemplateFiles(gen) {
         .concat(...batchFiles)
         .concat(...excelWorkflowFiles)
         .concat(...messagingWorkflowFiles)
-        .concat(...sampleDataModelFiles)
         .concat(...reportFiles)
         .concat(...internalResourceFiles)
         .concat(...serviceFiles)
         .concat(...testFiles)
-        .concat(...resourceConfigFiles);
+        .concat(...resourceConfigFiles)
+        .concat(...sampleDataModelFiles);
 }
 
 module.exports = {

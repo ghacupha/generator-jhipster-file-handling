@@ -24,6 +24,16 @@ entity MessageToken {
   actioned Boolean,
   contentFullyEnqueued Boolean
 }
+entity CurrencyTable {
+  currencyCode String unique minlength(3) maxlength(3),
+  locality CurrencyLocality required,
+  currencyName String,
+  country String
+}
+enum CurrencyLocality {
+  LOCAL,
+  FOREIGN
+}
 enum FileMediumTypes {
   EXCEL,
   EXCEL_XLS,
@@ -39,9 +49,10 @@ enum FileMediumTypes {
   HTML5
 }
 enum FileModelType { <%= fileModelTypes %> }
-dto FileUpload, MessageToken with mapstruct
-paginate FileType, FileUpload, MessageToken with pagination
-service FileUpload, MessageToken with serviceImpl
+dto FileUpload, CurrencyTable, MessageToken with mapstruct
+paginate FileType, CurrencyTable, FileUpload, MessageToken with pagination
+service FileUpload, CurrencyTable, MessageToken with serviceImpl
 service FileType with serviceClass
+search CurrencyTable with elasticsearch
 filter FileType, FileUpload, MessageToken
-clientRootFolder FileType, FileUpload, MessageToken with <%= gatewayMicroserviceName %>
+clientRootFolder FileType, CurrencyTable, FileUpload, MessageToken with <%= gatewayMicroserviceName %>

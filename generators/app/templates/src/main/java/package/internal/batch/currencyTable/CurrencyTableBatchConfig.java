@@ -7,7 +7,7 @@ import <%= packageName %>.internal.service.BatchService;
 import <%= packageName %>.service.<%= classNamesPrefix %>FileUploadService;
 // todo replace these entities with entity names from client
 import <%= packageName %>.internal.model.sampleDataModel.CurrencyTableEVM;
-import <%= packageName %>.internal.model.sampleDataModel.CurrencyTableDTO;
+import <%= packageName %>.service.dto.CurrencyTableDTO;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.Step;
