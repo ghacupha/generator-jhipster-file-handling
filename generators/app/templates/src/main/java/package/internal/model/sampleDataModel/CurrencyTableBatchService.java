@@ -1,6 +1,10 @@
 package <%= packageName %>.internal.model.sampleDataModel;
 
 import <%= packageName %>.internal.service.BatchService;
+import <%= packageName %>.service.dto.CurrencyTableDTO;
+import <%= packageName %>.service.mapper.CurrencyTableMapper;
+import <%= packageName %>.repository.CurrencyTableRepository;
+import <%= packageName %>.repository.search.CurrencyTableSearchRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

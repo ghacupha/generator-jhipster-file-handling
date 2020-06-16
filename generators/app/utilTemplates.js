@@ -284,10 +284,10 @@ function getTemplateFiles(gen) {
         //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTable.java`,
         //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTable.java`
         // },
-        // {
-        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableBatchService.java`,
-        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableBatchService.java`
-        // },
+        {
+            from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableBatchService.java`,
+            to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableBatchService.java`
+        },
         // {
         //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableCriteria.java`,
         //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableCriteria.java`
