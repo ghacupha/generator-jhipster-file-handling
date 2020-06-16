@@ -11,6 +11,8 @@ import lombok.ToString;
 
 /**
  * A DTO for the {@link CurrencyTable} entity.
+ *
+ * TODO Replace current DTO with this
  */
  @NoArgsConstructor
  @AllArgsConstructor

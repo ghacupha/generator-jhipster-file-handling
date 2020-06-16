@@ -48,17 +48,27 @@ module.exports = class extends BaseGenerator {
      * @param {Boolean} addFieldAndClassPrefix
      */
     executeJdlScript() {
+        const done = this.async();
         if (this.applicationType === 'microservice' && this.addFieldAndClassPrefix) {
             this.runMicroserviceScript(`${MICROSERVICE_FILE_UPLOADS_JDL}`);
+            done();
         }
 
         if (this.applicationType === 'microservice' && !this.addFieldAndClassPrefix) {
             this.runMicroserviceScript(`${FILE_UPLOADS_JDL}`);
+            done();
         }
 
         if (this.applicationType !== 'microservice') {
             this.runGeneralScript(`${GENERAL_FILE_UPLOADS_JDL}`);
+            done();
         }
+
+        // TODO replace CurrencyTable DTO
+        this.template(
+            `${this.javaTemplateDir}internal/model/sampleDataModel/CurrencyTableDTO.java`,
+            `${this.javaDir}service/dto/CurrencyTableDTO.java`
+        );
     }
 
     /**
