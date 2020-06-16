@@ -3,4 +3,4 @@
  *
  * and is used to power the sample use illustration in the file handling code
  */
-package io.github.deposits.internal.model.sampleDataModel;
+package <%= packageName %>.internal.model.sampleDataModel;
