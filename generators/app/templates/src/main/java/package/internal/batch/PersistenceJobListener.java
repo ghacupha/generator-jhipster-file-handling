@@ -6,7 +6,7 @@ import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.context.annotation.Scope;
 
 /**
- * This class can be used to configure batch related actions before, and after
+ * This class can be used to configure batch related actions before, and after but only within this job
  */
 @Slf4j
 @Scope("job")
