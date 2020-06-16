@@ -48,6 +48,11 @@ function getTemplateFiles(gen) {
         }
     ];
 
+    /**
+     * Returns an array with the java batch workflow files
+     *
+     * @type {({from: string, to: string})[]}
+     */
     const batchFiles = [
         // Batch files
         {
@@ -80,6 +85,11 @@ function getTemplateFiles(gen) {
         }
     ];
 
+    /**
+     * Returns an array with the java excel files workflow templates
+     *
+     * @type {({from: string, to: string})[]}
+     */
     const excelWorkflowFiles = [
         // Excel workflow files
         {
@@ -104,6 +114,11 @@ function getTemplateFiles(gen) {
         }
     ];
 
+    /**
+     * Returns an array with the messaging workflow template files
+     *
+     * @type {({from: string, to: string})[]}
+     */
     const messagingWorkflowFiles = [
         {
             from: `${javaTemplateDir}/internal/messaging/DeleteMessageDTO.java`,
@@ -247,6 +262,11 @@ function getTemplateFiles(gen) {
         }
     ];
 
+    /**
+     * Returns an array with the sample data for currency-table entity
+     *
+     * @type {({from: string, to: string})[]}
+     */
     const sampleDataModelFiles = [
         {
             from: `${javaTemplateDir}/internal/model/package-info.java`,
@@ -314,6 +334,11 @@ function getTemplateFiles(gen) {
         }
     ];
 
+    /**
+     * Returns an array with the report template files
+     *
+     * @type {({from: string, to: string})[]}
+     */
     const reportFiles = [
         {
             from: `${javaTemplateDir}/internal/report/QueryTools.java`,
@@ -325,6 +350,11 @@ function getTemplateFiles(gen) {
         }
     ];
 
+    /**
+     * Returns an array with the custom internal java resources files
+     *
+     * @type {({from: string, to: string})[]}
+     */
     const internalResourceFiles = [
         {
             from: `${javaTemplateDir}/internal/resource/decorator/FileUploadResourceDecorator.java`,
@@ -344,6 +374,11 @@ function getTemplateFiles(gen) {
         }
     ];
 
+    /**
+     * Returns an array with custom internal java services
+     *
+     * @type {{from: string, to: string}[]}
+     */
     const serviceFiles = [
         {
             from: `${javaTemplateDir}/internal/service/BatchService.java`,
@@ -351,6 +386,11 @@ function getTemplateFiles(gen) {
         }
     ];
 
+    /**
+     * Returns an array with the test files for the entire project
+     *
+     * @type {({from: string, to: string})[]}
+     */
     const testFiles = [
         {
             from: `${javaTemplateTestDir}/internal/excel/ExcelFileUtilsIT.java`,
@@ -410,6 +450,11 @@ function getTemplateFiles(gen) {
         }
     ];
 
+    /**
+     * Returns an array with the resource configuration files
+     *
+     * @type {({from: string, to: string})[]}
+     */
     const resourceConfigFiles = [
         {
             from: `${resourceTestDir}files/currencies.xlsx`,
@@ -427,6 +472,11 @@ function getTemplateFiles(gen) {
         }
     ];
 
+    /**
+     * General file templates and configurations
+     *
+     * @type {({from: string, to: string})[]}
+     */
     const files = [
         {
             from: `${javaTemplateDir}/internal/util/TokenGenerator.java`,
