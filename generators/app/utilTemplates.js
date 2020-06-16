@@ -33,10 +33,17 @@ function getTemplateFiles(gen) {
     const resourceTestDir = gen.resourceTestDir;
 
     const files = [
+        // Configuration files
         {
             from: `${javaTemplateDir}/config/_CloudMessagingConfiguration.java`,
             to: `${javaDir}/config/CloudMessagingConfiguration.java`
         },
+        {
+            from: `${javaTemplateDir}/config/DatabaseConfiguration.java`,
+            to: `${javaDir}/config/DatabaseConfiguration.java`
+        },
+
+        // Batch files
         {
             from: `${javaTemplateDir}/internal/batch/currencyTable/CurrencyTableBatchConfig.java`,
             to: `${javaDir}/internal/batch/currencyTable/CurrencyTableBatchConfig.java`
@@ -65,6 +72,8 @@ function getTemplateFiles(gen) {
             from: `${javaTemplateDir}/internal/batch/PersistenceJobListener.java`,
             to: `${javaDir}/internal/batch/PersistenceJobListener.java`
         },
+
+        // Excel workflow files
         {
             from: `${javaTemplateDir}/internal/excel/deserializer/DefaultExcelFileDeserializer.java`,
             to: `${javaDir}/internal/excel/deserializer/DefaultExcelFileDeserializer.java`
@@ -397,6 +406,8 @@ function getTemplateFiles(gen) {
             from: `${resourceDir}config/liquibase/fake-data/currency_table.csv`,
             to: `${resourceDir}config/liquibase/fake-data/currency_table.csv`
         },
+
+        // Custom application properties
         {
             from: `${resourceDir}config/application-uploads.yml`,
             to: `${resourceDir}config/application-uploads.yml`
