@@ -48,11 +48,36 @@ To update this module:
 yarn global upgrade generator-jhipster-file-handling
 ```
 
+## Configuration
+
+Once installed, there will be problems with jpa/entity scanning. This is because the database configuration is usually configured like so :
+
+    @Configuration
+    @EnableJpaRepositories("packageName.repository")
+    @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
+    @EnableTransactionManagement
+    @EnableElasticsearchRepositories("packageName.repository.search")
+    public class DatabaseConfiguration {
+
+        private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
+    }
+
+But this rules out the currency-table entity which is created as example in the internal package. If you remove the repositories declaration, things will be fine.
+This will then look like :
+
+    @Configuration
+    @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
+    @EnableTransactionManagement
+    public class DatabaseConfiguration {
+
+        private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
+    }
+
 # Usage
 
 # License
 
-Apache-2.0 © [Edwin Njeru](https://github.com/ghacupha)
+[Apache-2.0](https://github.com/ghacupha/generator-jhipster-file-handling) © [Edwin Njeru](https://github.com/ghacupha)
 
 [npm-image]: https://img.shields.io/npm/v/generator-jhipster-file-handling.svg
 [npm-url]: https://npmjs.org/package/generator-jhipster-file-handling
