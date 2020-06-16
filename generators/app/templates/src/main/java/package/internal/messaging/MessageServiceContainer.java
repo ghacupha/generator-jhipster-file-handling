@@ -1,6 +1,7 @@
 package <%= packageName %>.internal.messaging;
 
 import <%= packageName %>.internal.messaging.fileNotification.FileNotificationStreams;
+import <%= packageName %>.internal.messaging.jsonStrings.JsonStringStreams;
 import <%= packageName %>.internal.messaging.platform.MessageService;
 import <%= packageName %>.internal.messaging.platform.StringTokenMessageService;
 import <%= packageName %>.internal.messaging.platform.TokenizableMessage;
@@ -34,12 +35,31 @@ public class MessageServiceContainer {
     private <%= classNamesPrefix %>MessageTokenMapper messageTokenMapper;
     @Autowired
     private FileNotificationStreams fileNotificationStreams;
+    @Autowired
+    private JsonStringStreams jsonStringStreams;
 
+    /**
+     * Configuration for the file-notifications-message-service
+     *
+     * @return MessageService<TokenizableMessage<String>, <%= classNamesPrefix %>MessageTokenDTO>
+     */
     @Transactional
     @Bean("fileNotificationMessageService")
     public MessageService<TokenizableMessage<String>, <%= classNamesPrefix %>MessageTokenDTO> fileNotificationMessageService() {
 
         return configureService(tokenGenerator, messageTokenService, fileNotificationStreams.outbound(), messageTokenMapper);
+    }
+
+    /**
+     * Configuration for the string message service
+     *
+     * @return MessageService<TokenizableMessage<String>, <%= classNamesPrefix %>MessageTokenDTO>
+     */
+    @Transactional
+    @Bean("jsonStringMessageService")
+    public MessageService<TokenizableMessage<String>, <%= classNamesPrefix %>MessageTokenDTO> jsonStringMessageService() {
+
+        return configureService(tokenGenerator, messageTokenService, jsonStringStreams.depositsCreateOutbound(), messageTokenMapper);
     }
 
     /**
