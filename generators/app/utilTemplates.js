@@ -32,8 +32,12 @@ function getTemplateFiles(gen) {
     const resourceDir = gen.resourceDir;
     const resourceTestDir = gen.resourceTestDir;
 
-    const files = [
-        // Configuration files
+    /**
+     * Returns an array with the spring-boot configuration files
+     *
+     * @type {({from: string, to: string})[]}
+     */
+    const configurationFiles = [
         {
             from: `${javaTemplateDir}/config/_CloudMessagingConfiguration.java`,
             to: `${javaDir}/config/CloudMessagingConfiguration.java`
@@ -41,8 +45,10 @@ function getTemplateFiles(gen) {
         {
             from: `${javaTemplateDir}/config/DatabaseConfiguration.java`,
             to: `${javaDir}/config/DatabaseConfiguration.java`
-        },
+        }
+    ];
 
+    const batchFiles = [
         // Batch files
         {
             from: `${javaTemplateDir}/internal/batch/currencyTable/CurrencyTableBatchConfig.java`,
@@ -71,8 +77,10 @@ function getTemplateFiles(gen) {
         {
             from: `${javaTemplateDir}/internal/batch/PersistenceJobListener.java`,
             to: `${javaDir}/internal/batch/PersistenceJobListener.java`
-        },
+        }
+    ];
 
+    const excelWorkflowFiles = [
         // Excel workflow files
         {
             from: `${javaTemplateDir}/internal/excel/deserializer/DefaultExcelFileDeserializer.java`,
@@ -93,7 +101,10 @@ function getTemplateFiles(gen) {
         {
             from: `${javaTemplateDir}/internal/excel/PoijiOptionsConfig.java`,
             to: `${javaDir}/internal/excel/PoijiOptionsConfig.java`
-        },
+        }
+    ];
+
+    const messagingWorkflowFiles = [
         {
             from: `${javaTemplateDir}/internal/messaging/DeleteMessageDTO.java`,
             to: `${javaDir}/internal/messaging/DeleteMessageDTO.java`
@@ -233,7 +244,10 @@ function getTemplateFiles(gen) {
         {
             from: `${javaTemplateDir}/internal/messaging/TokenValueSearch.java`,
             to: `${javaDir}/internal/messaging/TokenValueSearch.java`
-        },
+        }
+    ];
+
+    const sampleDataModelFiles = [
         {
             from: `${javaTemplateDir}/internal/model/package-info.java`,
             to: `${javaDir}/internal/model/package-info.java`
@@ -297,7 +311,10 @@ function getTemplateFiles(gen) {
         {
             from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableServiceImpl.java`,
             to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableServiceImpl.java`
-        },
+        }
+    ];
+
+    const reportFiles = [
         {
             from: `${javaTemplateDir}/internal/report/QueryTools.java`,
             to: `${javaDir}/internal/report/QueryTools.java`
@@ -305,7 +322,10 @@ function getTemplateFiles(gen) {
         {
             from: `${javaTemplateDir}/internal/report/Report.java`,
             to: `${javaDir}/internal/report/Report.java`
-        },
+        }
+    ];
+
+    const internalResourceFiles = [
         {
             from: `${javaTemplateDir}/internal/resource/decorator/FileUploadResourceDecorator.java`,
             to: `${javaDir}/internal/resource/decorator/FileUploadResourceDecorator.java`
@@ -321,27 +341,17 @@ function getTemplateFiles(gen) {
         {
             from: `${javaTemplateDir}/internal/resource/ReportList.java`,
             to: `${javaDir}/internal/resource/ReportList.java`
-        },
+        }
+    ];
+
+    const serviceFiles = [
         {
             from: `${javaTemplateDir}/internal/service/BatchService.java`,
             to: `${javaDir}/internal/service/BatchService.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/util/TokenGenerator.java`,
-            to: `${javaDir}/internal/util/TokenGenerator.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/AppConstants.java`,
-            to: `${javaDir}/internal/AppConstants.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/Mapping.java`,
-            to: `${javaDir}/internal/Mapping.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/package-info.java`,
-            to: `${javaDir}/internal/package-info.java`
-        },
+        }
+    ];
+
+    const testFiles = [
         {
             from: `${javaTemplateTestDir}/internal/excel/ExcelFileUtilsIT.java`,
             to: `${javaTestDir}/internal/excel/ExcelFileUtilsIT.java`
@@ -397,7 +407,10 @@ function getTemplateFiles(gen) {
         {
             from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableEVMMappingTest.java`,
             to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableEVMMappingTest.java`
-        },
+        }
+    ];
+
+    const resourceConfigFiles = [
         {
             from: `${resourceTestDir}files/currencies.xlsx`,
             to: `${resourceTestDir}files/currencies.xlsx`
@@ -413,7 +426,38 @@ function getTemplateFiles(gen) {
             to: `${resourceDir}config/application-uploads.yml`
         }
     ];
-    return files;
+
+    const files = [
+        {
+            from: `${javaTemplateDir}/internal/util/TokenGenerator.java`,
+            to: `${javaDir}/internal/util/TokenGenerator.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/AppConstants.java`,
+            to: `${javaDir}/internal/AppConstants.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/Mapping.java`,
+            to: `${javaDir}/internal/Mapping.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/package-info.java`,
+            to: `${javaDir}/internal/package-info.java`
+        }
+    ];
+
+    // return files.concat(configurationFiles).concat(batchFiles);
+    return files
+        .concat(...configurationFiles)
+        .concat(...batchFiles)
+        .concat(...excelWorkflowFiles)
+        .concat(...messagingWorkflowFiles)
+        .concat(...sampleDataModelFiles)
+        .concat(...reportFiles)
+        .concat(...internalResourceFiles)
+        .concat(...serviceFiles)
+        .concat(...testFiles)
+        .concat(...resourceConfigFiles);
 }
 
 module.exports = {
