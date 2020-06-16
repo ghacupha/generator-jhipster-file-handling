@@ -29,8 +29,12 @@ public class ExcelFileUtilsTest {
         List<CurrencyTableEVM> currencies = deserializer.deserialize(toBytes(readFile("currencies.xlsx")));
 
         assertThat(currencies.size()).isEqualTo(13);
-        assertThat(currencies.get(0)).isEqualTo(CurrencyTableEVM.builder().rowIndex(1).currencyCode("USD").locality("FOREIGN").currencyName("US DOLLAR").country("USA").build());
-        assertThat(currencies.get(1)).isEqualTo(CurrencyTableEVM.builder().rowIndex(2).currencyCode("GBP").locality("FOREIGN").currencyName("STERLING POUND").country("UNITED KINGDOM").build());
-        assertThat(currencies.get(2)).isEqualTo(CurrencyTableEVM.builder().rowIndex(3).currencyCode("EUR").locality("FOREIGN").currencyName("EURO").country("EURO-ZONE").build());
+        assertThat(currencies.get(0)).isEqualTo(CurrencyTableEVM.builder().rowIndex(1).country("USA").currencyCode("USD").currencyName("US DOLLAR").locality("FOREIGN").build());
+        assertThat(currencies.get(1)).isEqualTo(CurrencyTableEVM.builder().rowIndex(2).country("UNITED KINGDOM").currencyCode("GBP").currencyName("STERLING POUND").locality("FOREIGN").build());
+        assertThat(currencies.get(2)).isEqualTo(CurrencyTableEVM.builder().rowIndex(3).country("EURO-ZONE").currencyCode("EUR").currencyName("EURO").locality("FOREIGN").build());
+        assertThat(currencies.get(3)).isEqualTo(CurrencyTableEVM.builder().rowIndex(4).country("KENYA").currencyCode("KES").currencyName("KENYA SHILLING").locality("LOCAL").build());
+        assertThat(currencies.get(4)).isEqualTo(CurrencyTableEVM.builder().rowIndex(5).country("SWITZERLAND").currencyCode("CHF").currencyName("SWISS FRANC").locality("FOREIGN").build());
+        assertThat(currencies.get(5)).isEqualTo(CurrencyTableEVM.builder().rowIndex(6).country("SOUTH AFRICA").currencyCode("ZAR").currencyName("SOUTH AFRICAN RAND").locality("FOREIGN").build());
+        assertThat(currencies.get(12)).isEqualTo(CurrencyTableEVM.builder().rowIndex(13).country("CHINA").currencyCode("CNY").currencyName("CHINESE YUAN").locality("FOREIGN").build());
     }
 }
