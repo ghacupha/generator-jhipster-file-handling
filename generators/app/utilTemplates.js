@@ -25,27 +25,24 @@
  */
 function getTemplateFiles(gen) {
     // Initialize important variables
-    const javaTemplateDir = gen.javaTemplateDir;
-    const javaDir = gen.javaDir;
-    const javaTemplateTestDir = gen.javaTemplateTestDir;
-    const javaTestDir = gen.javaTestDir;
-    const resourceDir = gen.resourceDir;
-    const resourceTestDir = gen.resourceTestDir;
+    const /** {String} */ javaTemplateDir = gen.javaTemplateDir;
+    const /** {String} */ javaDir = gen.javaDir;
+    const /** {String} */ javaTemplateTestDir = gen.javaTemplateTestDir;
+    const /** {String} */ javaTestDir = gen.javaTestDir;
+    const /** {String} */ resourceDir = gen.resourceDir;
+    const /** {String} */ resourceTestDir = gen.resourceTestDir;
+    const /** {Boolean} */ usingRabbitMq = gen.messageBrokerType === 'RabbitMQ';
 
     /**
      * Returns an array with the spring-boot configuration files
      *
      * @type {({from: string, to: string})[]}
      */
-    const configurationFiles = [
+    const rabbitMQConfigFiles = [
         {
             from: `${javaTemplateDir}/config/_CloudMessagingConfiguration.java`,
             to: `${javaDir}/config/CloudMessagingConfiguration.java`
         }
-        // {
-        //     from: `${javaTemplateDir}/config/DatabaseConfiguration.java`,
-        //     to: `${javaDir}/config/DatabaseConfiguration.java`
-        // }
     ];
 
     /**
@@ -276,23 +273,10 @@ function getTemplateFiles(gen) {
             from: `${javaTemplateDir}/internal/model/sampleDataModel/package-info.java`,
             to: `${javaDir}/internal/model/sampleDataModel/package-info.java`
         },
-        // {
-        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyLocality.java`,
-        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyLocality.java`
-        // },
-        // {
-        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTable.java`,
-        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTable.java`
-        // },
         {
             from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableBatchService.java`,
             to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableBatchService.java`
         },
-        // {
-        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableCriteria.java`,
-        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableCriteria.java`
-        // },
-        // {
         //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableDTO.java`,
         //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableDTO.java`
         // },
@@ -304,54 +288,6 @@ function getTemplateFiles(gen) {
             from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableEVMMapping.java`,
             to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableEVMMapping.java`
         },
-        // {
-        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableMapper.java`,
-        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableMapper.java`
-        // },
-        // {
-        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableQueryService.java`,
-        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableQueryService.java`
-        // },
-        // {
-        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableRepository.java`,
-        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableRepository.java`
-        // },
-        // {
-        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableResource.java`,
-        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableResource.java`
-        // },
-        // {
-        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableSearchRepository.java`,
-        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableSearchRepository.java`
-        // },
-        // {
-        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableService.java`,
-        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableService.java`
-        // },
-        // {
-        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableServiceImpl.java`,
-        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableServiceImpl.java`
-        // },
-        // {
-        //     from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableDTOTest.java`,
-        //     to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableDTOTest.java`
-        // },
-        // {
-        //     from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableMapperTest.java`,
-        //     to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableMapperTest.java`
-        // },
-        // {
-        //     from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableResourceIT.java.ejs`,
-        //     to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableResourceIT.java`
-        // },
-        // {
-        //     from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableSearchRepositoryMockConfiguration.java`,
-        //     to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableSearchRepositoryMockConfiguration.java`
-        // },
-        // {
-        //     from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableTest.java`,
-        //     to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableTest.java`
-        // },
         {
             from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableEVMMappingTest.java`,
             to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableEVMMappingTest.java`
@@ -455,22 +391,52 @@ function getTemplateFiles(gen) {
      *
      * @type {({from: string, to: string})[]}
      */
-    const resourceConfigFiles = [
+    const testExcelFiles = [
         {
             from: `${resourceTestDir}files/currencies.xlsx`,
             to: `${resourceTestDir}files/currencies.xlsx`
-        },
-        {
-            from: `${resourceDir}config/liquibase/fake-data/currency_table.csv`,
-            to: `${resourceDir}config/liquibase/fake-data/currency_table.csv`
-        },
+        }
+        // {
+        //     from: `${resourceDir}config/liquibase/fake-data/currency_table.csv`,
+        //     to: `${resourceDir}config/liquibase/fake-data/currency_table.csv`
+        // },
+    ];
 
-        // Custom application properties
+    /**
+     * Return application properties for the entire uploads system configuration
+     *
+     * @type {*[]}
+     */
+    const applicationPropertiesFiles = [];
+
+    /**
+     * This properties apply when we are using kafka
+     *
+     * @type {{from: string, to: string}[]}
+     * @private
+     */
+    const _kafkaSpecApplicationProperties = [
         {
             from: `${resourceDir}config/application-uploads.yml`,
             to: `${resourceDir}config/application-uploads.yml`
         }
     ];
+
+    /**
+     * These properties apply when we are using RabbitMq
+     *
+     * @type {{from: string, to: string}[]}
+     * @private
+     */
+    const _rabbitMqSpecApplicationProperties = [
+        {
+            from: `${resourceDir}config/application-uploads-rabbitMq.yml`,
+            to: `${resourceDir}config/application-uploads.yml`
+        }
+    ];
+
+    // select appropriate application-properties
+    applicationPropertiesFiles.concat(...(usingRabbitMq ? _rabbitMqSpecApplicationProperties : _kafkaSpecApplicationProperties));
 
     /**
      * General file templates and configurations
@@ -498,7 +464,7 @@ function getTemplateFiles(gen) {
 
     // return files.concat(configurationFiles).concat(batchFiles);
     return files
-        .concat(...configurationFiles)
+        .concat(...(usingRabbitMq ? rabbitMQConfigFiles : []))
         .concat(...batchFiles)
         .concat(...excelWorkflowFiles)
         .concat(...messagingWorkflowFiles)
@@ -506,7 +472,8 @@ function getTemplateFiles(gen) {
         .concat(...internalResourceFiles)
         .concat(...serviceFiles)
         .concat(...testFiles)
-        .concat(...resourceConfigFiles)
+        .concat(...testExcelFiles)
+        .concat(...(usingRabbitMq ? _rabbitMqSpecApplicationProperties : _kafkaSpecApplicationProperties))
         .concat(...sampleDataModelFiles);
 }
 

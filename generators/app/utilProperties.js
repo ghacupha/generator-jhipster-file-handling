@@ -19,6 +19,12 @@
 
 const utilYaml = require('./utilYaml.js');
 
+/**
+ * This is temporary, we are thinking of comming up with a properties entirely for the
+ * whole file uploads thing, leaving the origin dev and prod profiles untouched
+ *
+ * @type {{updateAppProperties: updateAppProperties}}
+ */
 module.exports = {
     updateAppProperties
 };

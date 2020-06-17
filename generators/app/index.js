@@ -38,13 +38,13 @@ const EXAMPLE_FILE_MODEL_TYPES = 'SERVICE_OUTLETS,CURRENCY_LIST,FX_RATES,SCHEME_
 const RABBITMQ = 'RabbitMQ';
 const KAFKA = 'Kafka';
 const DEFAULT_BROKER_TYPE = RABBITMQ;
-const DEFAULT_RABBITMQ_MESSAGE_NAME = 'message';
+// const DEFAULT_RABBITMQ_MESSAGE_NAME = 'message';
 
 // MQ dependencies
-const STREAM_RABBIT_VERSION = '1.3.0.RELEASE';
-// const STREAM_KAFKA_VERSION = '1.3.0.RELEASE';
-const STREAM_CLOUD_DEPENDENCY_VERSION = 'Chelsea.SR2';
-const STREAM_CLOUD_STREAM_VERSION = '1.3.0.RELEASE';
+const STREAM_RABBIT_VERSION = '3.0.5.RELEASE';
+const STREAM_KAFKA_VERSION = '3.0.5.RELEASE';
+const STREAM_CLOUD_DEPENDENCY_VERSION = 'Horsham.SR5';
+const STREAM_CLOUD_STREAM_VERSION = '3.0.5.RELEASE';
 
 module.exports = class extends BaseGenerator {
     get initializing() {
@@ -139,26 +139,26 @@ module.exports = class extends BaseGenerator {
                     },
                     {
                         value: KAFKA,
-                        name: 'Kafka message broker (recommended for advanced projects) not implemented yet'
+                        name: 'Kafka message broker (recommended for advanced projects)'
                     }
                 ],
                 store: true,
                 default: DEFAULT_BROKER_TYPE
-            },
-            {
-                when: response => response.messageBrokerType === RABBITMQ,
-                type: 'input',
-                name: 'rabbitMqNameOfMessage',
-                message: 'Please choose the name of the message class use by rabbit',
-                default: DEFAULT_RABBITMQ_MESSAGE_NAME,
-                store: true
             }
+            // {
+            //     when: response => response.messageBrokerType === RABBITMQ,
+            //     type: 'input',
+            //     name: 'rabbitMqNameOfMessage',
+            //     message: 'Please choose the name of the message class use by rabbit',
+            //     default: DEFAULT_RABBITMQ_MESSAGE_NAME,
+            //     store: true
+            // }
         ];
 
         const done = this.async();
         if (this.defaultOptions) {
             this.messageBrokerType = DEFAULT_BROKER_TYPE;
-            this.rabbitMqNameOfMessage = DEFAULT_RABBITMQ_MESSAGE_NAME;
+            // this.rabbitMqNameOfMessage = DEFAULT_RABBITMQ_MESSAGE_NAME;
             done();
         } else {
             this.prompt(prompts).then(answers => {
@@ -215,9 +215,9 @@ module.exports = class extends BaseGenerator {
             this.messageBrokerType = this.promptAnswers.messageBrokerType;
         }
 
-        if (typeof this.rabbitMqNameOfMessage === 'undefined') {
-            this.rabbitMqNameOfMessage = this.promptAnswers.rabbitMqNameOfMessage;
-        }
+        // if (typeof this.rabbitMqNameOfMessage === 'undefined') {
+        //     this.rabbitMqNameOfMessage = this.promptAnswers.rabbitMqNameOfMessage;
+        // }
 
         // show all variables
         this.log('\n--- some config read from config ---');
@@ -265,14 +265,13 @@ module.exports = class extends BaseGenerator {
         wroteFiles();
 
         // Write the other files
-        this._installServerCode(this, this.javaTemplateDir, this.javaTemplateTestDir, this.javaDir, this.javaTestDir, this.resourceDir);
+        this._installServerCode(this);
 
         // update maven dependencies
-        this._installServerDependencies();
+        this._updateServerPackageManagement(this);
 
         // optional installs for either kafka or rabbitMQ
         if (this.messageBrokerType === RABBITMQ) {
-            // this._installRabbitMq(this.resourceDir, this.javaDir, this, this.buildTool, this.messageBrokerType, this.rabbitMqNameOfMessage);
             this._installRabbitMq(this);
         } else if (this.messageBrokerType === KAFKA) {
             this._installKafka(this);
@@ -289,10 +288,8 @@ module.exports = class extends BaseGenerator {
      * @param {Object} gen generator
      */
     _installRabbitMq(gen) {
-        const resourceDir = gen.resourceDir;
         const buildTool = gen.buildTool;
         const messageBrokerType = gen.messageBrokerType;
-        const rabbitMqNameOfMessage = gen.rabbitMqNameOfMessage;
         this.log(`\n message broker type = ${messageBrokerType}`);
         // add dependencies
         if (buildTool === 'maven') {
@@ -316,25 +313,35 @@ module.exports = class extends BaseGenerator {
 
         // add docker-compose file
         this.template('src/main/docker/_rabbitmq.yml', 'src/main/docker/rabbitmq.yml');
-        const messageName = genUtils.capitalizeFLetter(rabbitMqNameOfMessage);
-        this.rabbitMessageName = messageName;
-        this.rabbitMessageNameNonUcFirst = genUtils.unCapitalizeFLetter(messageName);
-
-        utilProps.updateAppProperties(gen, resourceDir);
     }
 
     /**
      * Install kafka-specific dependencies and templates
      *
      * @private
-     * @param generator
+     * @param gen The generator object
      */
-    _installKafka(generator) {
-        // eslint-disable-next-line no-unused-vars
-        const resourceDir = generator.resourceDir;
-        // eslint-disable-next-line no-unused-vars
-        const javaDir = generator.resourceDir;
-        this.log('Work in progress');
+    _installKafka(gen) {
+        const buildTool = gen.buildTool;
+        const messageBrokerType = gen.messageBrokerType;
+        this.log(`\n message broker type = ${messageBrokerType}`);
+        // add dependencies
+        if (buildTool === 'maven') {
+            if (typeof this.addMavenDependencyManagement === 'function') {
+                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-starter-stream-kafka');
+            } else {
+                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-starter-stream-kafka', STREAM_KAFKA_VERSION);
+            }
+        } else if (buildTool === 'gradle') {
+            if (typeof this.addGradleDependencyManagement === 'function') {
+                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-starter-stream-kafka');
+            } else {
+                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-starter-stream-kafka', STREAM_KAFKA_VERSION);
+            }
+        }
+
+        // add docker-compose file
+        this.template('src/main/docker/_kafka.yml', 'src/main/docker/kafka.yml');
     }
 
     _useJdlExecution(_callback) {
@@ -349,22 +356,25 @@ module.exports = class extends BaseGenerator {
      * This install back-end java code and liquibase migration configuration
      *
      * @param {Object} gen generator
-     * @param {String} javaTemplateDir path of the template in this module
-     * @param {String} javaTemplateTestDir
-     * @param {String} javaDir path of the project's java directory
-     * @param {String} javaTestDir path of the project's java test directory
-     * @param {String} resourceDir  path of the main resource directory
      * @private
      */
-    _installServerCode(gen, javaTemplateDir, javaTemplateTestDir, javaDir, javaTestDir, resourceDir) {
+    _installServerCode(gen) {
         // eslint-disable-next-line no-unused-vars
         const packageName = gen.packageName;
         // eslint-disable-next-line no-unused-vars
         const classNamesPrefix = gen.classNamesPrefix;
         // eslint-disable-next-line no-unused-vars
         const fieldNamesPrefix = gen.fieldNamesPrefix;
+
+        // fields from generator
+        // const javaTemplateDir = gen.javaTemplateDir;
+        // const javaTemplateTestDir = gen.javaTemplateTestDir;
+        // const javaDir = gen.javaDir;
+        // const javaTestDir = gen.javaTestDir;
+        const resourceDir = gen.resourceDir;
+
         // collect files to copy
-        const files = templateUtils.getTemplateFiles(this);
+        const files = templateUtils.getTemplateFiles(gen);
 
         genUtils.copyFiles(gen, files);
 
@@ -375,21 +385,19 @@ module.exports = class extends BaseGenerator {
             `${resourceDir}config/liquibase/changelog/${gen.changelogDate}_added_springbatch_schema.xml`
         );
         this.addChangelogToLiquibase(`${gen.changelogDate}_added_springbatch_schema`);
-        this.template(
-            'src/main/resources/config/liquibase/changelog/_added_entity_CurrencyTable.xml',
-            `${resourceDir}config/liquibase/changelog/${gen.changelogDate}_added_entity_CurrencyTable.xml`
-        );
-        this.addChangelogToLiquibase(`${gen.changelogDate}_added_entity_CurrencyTable`);
+        // this.template(
+        //     'src/main/resources/config/liquibase/changelog/_added_entity_CurrencyTable.xml',
+        //     `${resourceDir}config/liquibase/changelog/${gen.changelogDate}_added_entity_CurrencyTable.xml`
+        // );
+        // this.addChangelogToLiquibase(`${gen.changelogDate}_added_entity_CurrencyTable`);
     }
 
     /**
      * Install server libraries for handling excel and their DTOs
      */
-    _installServerDependencies() {
+    _updateServerPackageManagement() {
         const OZLERHAKAN_POIJI_VERSION = '1.20.0';
         const LOMBOK_VERSION = '1.18.6';
-
-        // const STREAM_CLOUD_DEPENDENCY_VERSION
 
         if (this.buildTool === 'maven') {
             if (typeof this.addMavenDependencyManagement === 'function') {

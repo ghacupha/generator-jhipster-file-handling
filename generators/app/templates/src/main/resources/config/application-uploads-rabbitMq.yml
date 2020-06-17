@@ -20,7 +20,7 @@ reader:
 spring:
     cloud:
         stream:
-            kafka:
+            rabbitMq:
                 binder:
                     brokers: localhost:9092
                     configuration:
