@@ -215,10 +215,6 @@ module.exports = class extends BaseGenerator {
             this.messageBrokerType = this.promptAnswers.messageBrokerType;
         }
 
-        // if (typeof this.rabbitMqNameOfMessage === 'undefined') {
-        //     this.rabbitMqNameOfMessage = this.promptAnswers.rabbitMqNameOfMessage;
-        // }
-
         // show all variables
         this.log('\n--- some config read from config ---');
         this.log(`baseName=${this.baseName}`);
@@ -385,11 +381,6 @@ module.exports = class extends BaseGenerator {
             `${resourceDir}config/liquibase/changelog/${gen.changelogDate}_added_springbatch_schema.xml`
         );
         this.addChangelogToLiquibase(`${gen.changelogDate}_added_springbatch_schema`);
-        // this.template(
-        //     'src/main/resources/config/liquibase/changelog/_added_entity_CurrencyTable.xml',
-        //     `${resourceDir}config/liquibase/changelog/${gen.changelogDate}_added_entity_CurrencyTable.xml`
-        // );
-        // this.addChangelogToLiquibase(`${gen.changelogDate}_added_entity_CurrencyTable`);
     }
 
     /**
