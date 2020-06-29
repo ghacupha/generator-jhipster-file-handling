@@ -45,6 +45,9 @@ const STREAM_RABBIT_VERSION = '3.0.5.RELEASE';
 const STREAM_KAFKA_VERSION = '3.0.5.RELEASE';
 const STREAM_CLOUD_DEPENDENCY_VERSION = 'Horsham.SR5';
 const STREAM_CLOUD_STREAM_VERSION = '3.0.5.RELEASE';
+const KAFKA_CLIENTS_VERSION = '1.0.2';
+const OZLERHAKAN_POIJI_VERSION = '1.20.0';
+const LOMBOK_VERSION = '1.18.6';
 
 module.exports = class extends BaseGenerator {
     get initializing() {
@@ -63,10 +66,6 @@ module.exports = class extends BaseGenerator {
                 }
             },
             displayLogo() {
-                // it's here to show that you can use functions from generator-jhipster
-                // this function is in: generator-jhipster/generators/generator-base.js
-                // this.printJHipsterLogo();
-
                 // Have Yeoman greet the user.
                 this.log(
                     `\nWelcome to the ${chalk.bold.yellow('JHipster file-handling')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`
@@ -145,14 +144,6 @@ module.exports = class extends BaseGenerator {
                 store: true,
                 default: DEFAULT_BROKER_TYPE
             }
-            // {
-            //     when: response => response.messageBrokerType === RABBITMQ,
-            //     type: 'input',
-            //     name: 'rabbitMqNameOfMessage',
-            //     message: 'Please choose the name of the message class use by rabbit',
-            //     default: DEFAULT_RABBITMQ_MESSAGE_NAME,
-            //     store: true
-            // }
         ];
 
         const done = this.async();
@@ -387,17 +378,21 @@ module.exports = class extends BaseGenerator {
      * Install server libraries for handling excel and their DTOs
      */
     _updateServerPackageManagement() {
-        const OZLERHAKAN_POIJI_VERSION = '1.20.0';
-        const LOMBOK_VERSION = '1.18.6';
-
         if (this.buildTool === 'maven') {
             if (typeof this.addMavenDependencyManagement === 'function') {
+                this.addMavenDependencyManagement('org.apache.kafka', 'kafka-clients', KAFKA_CLIENTS_VERSION);
                 this.addMavenDependencyManagement(
                     'org.springframework.cloud',
                     'spring-cloud-stream-dependencies',
                     STREAM_CLOUD_DEPENDENCY_VERSION,
                     'pom',
-                    'import'
+                    'import',
+                    '<exclusions>\n' +
+                        '   <exclusion>\n' +
+                        '       <groupId>org.apache.kafka</groupId>\n' +
+                        '       <artifactId>kafka-clients</artifactId>\n' +
+                        '       </exclusion>\n' +
+                        '</exclusions>'
                 );
                 this.addMavenDependency('com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION);
                 this.addMavenDependency('org.projectlombok', 'lombok', LOMBOK_VERSION);
@@ -417,6 +412,7 @@ module.exports = class extends BaseGenerator {
                 this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream', STREAM_CLOUD_STREAM_VERSION);
                 this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-binder-test', STREAM_CLOUD_STREAM_VERSION);
                 this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-test-support', STREAM_CLOUD_STREAM_VERSION);
+                this.addGradleDependency('compile', 'org.apache.kafka', 'kafka-clients', KAFKA_CLIENTS_VERSION);
                 this.addMavenDependency(
                     'org.springframework.cloud',
                     'spring-cloud-stream-test-support-internal',
@@ -428,6 +424,7 @@ module.exports = class extends BaseGenerator {
             this.addMavenProperty('poiji.version', OZLERHAKAN_POIJI_VERSION);
         } else if (this.buildTool === 'gradle') {
             if (typeof this.addGradleDependencyManagement === 'function') {
+                this.addGradleDependencyManagement('org.apache.kafka', 'kafka-clients', KAFKA_CLIENTS_VERSION);
                 this.addGradleDependencyManagement(
                     'mavenBom',
                     'org.springframework.cloud',
@@ -441,6 +438,7 @@ module.exports = class extends BaseGenerator {
                 this.addGradleDependency('compile', 'com.github.ozlerhakan', 'poiji');
                 this.addGradleDependency('compile', 'org.projectlombok', 'lombok');
                 this.addGradleDependency('compile', 'org.springframework.boot', 'spring-boot-starter-batch');
+                this.addGradleDependency('compile', 'org.apache.kafka', 'kafka-clients');
             } else {
                 this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream', STREAM_CLOUD_STREAM_VERSION);
                 this.addGradleDependency(
@@ -464,6 +462,7 @@ module.exports = class extends BaseGenerator {
                 this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream', STREAM_CLOUD_STREAM_VERSION);
                 this.addGradleDependency('compile', 'com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION);
                 this.addGradleDependency('compile', 'org.springframework.boot', 'spring-boot-starter-batch', LOMBOK_VERSION);
+                this.addGradleDependency('compile', 'org.apache.kafka', 'kafka-clients', KAFKA_CLIENTS_VERSION);
             }
             this.addAnnotationProcessor('org.projectlombok', 'lombok', LOMBOK_VERSION);
             this.addGradleProperty('poiji.version', OZLERHAKAN_POIJI_VERSION);
