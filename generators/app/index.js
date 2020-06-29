@@ -315,14 +315,18 @@ module.exports = class extends BaseGenerator {
         // add dependencies
         if (buildTool === 'maven') {
             if (typeof this.addMavenDependencyManagement === 'function') {
+                this.addMavenDependencyManagement('org.apache.kafka', 'kafka-clients', KAFKA_CLIENTS_VERSION);
                 this.addMavenDependency('org.springframework.cloud', 'spring-cloud-starter-stream-kafka');
             } else {
+                this.addMavenDependency('org.apache.kafka', 'kafka-clients', KAFKA_CLIENTS_VERSION);
                 this.addMavenDependency('org.springframework.cloud', 'spring-cloud-starter-stream-kafka', STREAM_KAFKA_VERSION);
             }
         } else if (buildTool === 'gradle') {
             if (typeof this.addGradleDependencyManagement === 'function') {
+                this.addGradleDependency('org.apache.kafka', 'kafka-clients', KAFKA_CLIENTS_VERSION);
                 this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-starter-stream-kafka');
             } else {
+                this.addGradleDependency('org.apache.kafka', 'kafka-clients', KAFKA_CLIENTS_VERSION);
                 this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-starter-stream-kafka', STREAM_KAFKA_VERSION);
             }
         }
@@ -380,7 +384,6 @@ module.exports = class extends BaseGenerator {
     _updateServerPackageManagement() {
         if (this.buildTool === 'maven') {
             if (typeof this.addMavenDependencyManagement === 'function') {
-                this.addMavenDependencyManagement('org.apache.kafka', 'kafka-clients', KAFKA_CLIENTS_VERSION);
                 this.addMavenDependencyManagement(
                     'org.springframework.cloud',
                     'spring-cloud-stream-dependencies',
@@ -424,7 +427,6 @@ module.exports = class extends BaseGenerator {
             this.addMavenProperty('poiji.version', OZLERHAKAN_POIJI_VERSION);
         } else if (this.buildTool === 'gradle') {
             if (typeof this.addGradleDependencyManagement === 'function') {
-                this.addGradleDependencyManagement('org.apache.kafka', 'kafka-clients', KAFKA_CLIENTS_VERSION);
                 this.addGradleDependencyManagement(
                     'mavenBom',
                     'org.springframework.cloud',
@@ -462,7 +464,6 @@ module.exports = class extends BaseGenerator {
                 this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream', STREAM_CLOUD_STREAM_VERSION);
                 this.addGradleDependency('compile', 'com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION);
                 this.addGradleDependency('compile', 'org.springframework.boot', 'spring-boot-starter-batch', LOMBOK_VERSION);
-                this.addGradleDependency('compile', 'org.apache.kafka', 'kafka-clients', KAFKA_CLIENTS_VERSION);
             }
             this.addAnnotationProcessor('org.projectlombok', 'lombok', LOMBOK_VERSION);
             this.addGradleProperty('poiji.version', OZLERHAKAN_POIJI_VERSION);
