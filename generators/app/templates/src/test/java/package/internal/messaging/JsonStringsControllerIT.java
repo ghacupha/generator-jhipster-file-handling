@@ -8,13 +8,16 @@ import <%= packageName %>.internal.messaging.jsonStrings.StringMessageDTO;
 import <%= packageName %>.internal.messaging.platform.MessageService;
 import <%= packageName %>.internal.messaging.platform.TokenizableMessage;
 import <%= packageName %>.internal.util.TokenGenerator;
+import <%= packageName %>.service.<%= classNamesPrefix %>MessageTokenService;
 import <%= packageName %>.service.dto.<%= classNamesPrefix %>MessageTokenDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.SerializationUtils;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.stream.test.binder.MessageCollector;
+import org.springframework.data.domain.Pageable;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,6 +35,18 @@ public class JsonStringsControllerIT {
     private TokenGenerator tokenGenerator;
     @Autowired
     private MessageService<TokenizableMessage<String>, <%= classNamesPrefix %>MessageTokenDTO> jsonStringMessageService;
+
+    @Autowired
+    private <%= classNamesPrefix %>MainMessageTokenService messageTokenService;
+
+    @AfterEach
+    void tearDown() {
+        log.debug("Right, time for some manual message-token-table cleanup");
+        messageTokenService.findAll(Pageable.unpaged())
+                           .stream()
+                           .map(MainMessageTokenDTO::getId)
+                           .forEach(messageTokenService::delete);
+    }
 
     @Test
     public void callJsonStringService() throws Exception {

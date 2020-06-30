@@ -27,7 +27,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(classes = {<%= appName %>App.class})
 public class FileNotificationControllerIT {
 
-
     @Autowired
     private MessageService<TokenizableMessage<String>, <%= classNamesPrefix %>MessageTokenDTO> fileNotificationMessageService;
 
@@ -39,6 +38,9 @@ public class FileNotificationControllerIT {
 
     @Autowired
     private TokenGenerator tokenGenerator;
+
+    @Autowired
+    private <%= classNamesPrefix %>MainMessageTokenService messageTokenService;
 
     @AfterEach
     void tearDown() {

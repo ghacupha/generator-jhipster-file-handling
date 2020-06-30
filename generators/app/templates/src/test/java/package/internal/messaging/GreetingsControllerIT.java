@@ -6,9 +6,11 @@ import <%= packageName %>.internal.messaging.platform.TokenizableMessage;
 import <%= packageName %>.internal.messaging.sample.Greetings;
 import <%= packageName %>.internal.messaging.sample.GreetingsStreams;
 import <%= packageName %>.internal.util.TokenGenerator;
+import <%= packageName %>.service.<%= classNamesPrefix %>MessageTokenService;
 import <%= packageName %>.service.dto.<%= classNamesPrefix %>MessageTokenDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.SerializationUtils;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
@@ -18,6 +20,7 @@ import org.springframework.cloud.stream.test.binder.MessageCollector;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.util.MimeTypeUtils;
+import org.springframework.data.domain.Pageable;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -36,6 +39,17 @@ public class GreetingsControllerIT {
     @Autowired
     private TokenGenerator tokenGenerator;
 
+    @Autowired
+    private <%= classNamesPrefix %>MainMessageTokenService messageTokenService;
+
+    @AfterEach
+    void tearDown() {
+        log.debug("Right, time for some manual message-token-table cleanup");
+        messageTokenService.findAll(Pageable.unpaged())
+                           .stream()
+                           .map(MainMessageTokenDTO::getId)
+                           .forEach(messageTokenService::delete);
+    }
 
     @BeforeEach
     public void setup() {
