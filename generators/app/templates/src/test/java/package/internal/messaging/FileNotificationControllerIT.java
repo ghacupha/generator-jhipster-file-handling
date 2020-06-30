@@ -40,7 +40,7 @@ public class FileNotificationControllerIT {
     private TokenGenerator tokenGenerator;
 
     @Autowired
-    private <%= classNamesPrefix %>MainMessageTokenService messageTokenService;
+    private <%= classNamesPrefix %>MessageTokenService messageTokenService;
 
     @AfterEach
     void tearDown() {

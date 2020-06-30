@@ -37,7 +37,7 @@ public class JsonStringsControllerIT {
     private MessageService<TokenizableMessage<String>, <%= classNamesPrefix %>MessageTokenDTO> jsonStringMessageService;
 
     @Autowired
-    private <%= classNamesPrefix %>MainMessageTokenService messageTokenService;
+    private <%= classNamesPrefix %>MessageTokenService messageTokenService;
 
     @AfterEach
     void tearDown() {
