@@ -317,17 +317,21 @@ module.exports = class extends BaseGenerator {
             if (typeof this.addMavenDependencyManagement === 'function') {
                 this.addMavenDependencyManagement('org.apache.kafka', 'kafka-clients', KAFKA_CLIENTS_VERSION);
                 this.addMavenDependency('org.springframework.cloud', 'spring-cloud-starter-stream-kafka');
+                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-binder-kafka');
             } else {
                 this.addMavenDependency('org.apache.kafka', 'kafka-clients', KAFKA_CLIENTS_VERSION);
                 this.addMavenDependency('org.springframework.cloud', 'spring-cloud-starter-stream-kafka', STREAM_KAFKA_VERSION);
+                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-binder-kafka');
             }
         } else if (buildTool === 'gradle') {
             if (typeof this.addGradleDependencyManagement === 'function') {
                 this.addGradleDependency('org.apache.kafka', 'kafka-clients', KAFKA_CLIENTS_VERSION);
                 this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-starter-stream-kafka');
+                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream-binder-kafka');
             } else {
                 this.addGradleDependency('org.apache.kafka', 'kafka-clients', KAFKA_CLIENTS_VERSION);
                 this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-starter-stream-kafka', STREAM_KAFKA_VERSION);
+                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream-binder-kafka', STREAM_KAFKA_VERSION);
             }
         }
 
