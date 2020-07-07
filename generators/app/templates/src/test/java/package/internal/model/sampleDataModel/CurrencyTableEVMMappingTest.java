@@ -43,9 +43,6 @@ class CurrencyTableEVMMappingTest {
         dto2.setCurrencyName("UGANDA SHILLING");
         dto2.setLocality(FOREIGN);
 
-        CurrencyTableDTO dto1 = CurrencyTableDTO.builder().country("KENYA").currencyCode("KES").currencyName("KENYA SHILLING").locality(LOCAL).build();
-        CurrencyTableDTO dto2 = CurrencyTableDTO.builder().country("UGANDA").currencyCode("UGX").currencyName("UGANDA SHILLING").locality(FOREIGN).build();
-
         assertThat(currencyTableEVMMapping.toValue1(dto1).getLocality()).isEqualTo("LOCAL");
         assertThat(currencyTableEVMMapping.toValue1(dto2).getLocality()).isEqualTo("FOREIGN");
     }
