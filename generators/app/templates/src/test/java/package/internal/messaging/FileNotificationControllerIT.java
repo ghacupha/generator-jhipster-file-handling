@@ -47,7 +47,7 @@ public class FileNotificationControllerIT {
         log.debug("Right, time for some manual message-token-table cleanup");
         messageTokenService.findAll(Pageable.unpaged())
                            .stream()
-                           .map(MainMessageTokenDTO::getId)
+                           .map(<%= classNamesPrefix %>MessageTokenDTO::getId)
                            .forEach(messageTokenService::delete);
     }
 
