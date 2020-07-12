@@ -1,15 +1,14 @@
 package <%= packageName %>.internal.resource;
 
 import <%= packageName %>.internal.messaging.fileNotification.FileNotification;
-import <%= packageName %>.internal.messaging.platform.MessageService;
-import <%= packageName %>.internal.messaging.platform.TokenizableMessage;
 import <%= packageName %>.internal.resource.decorator.IFileUploadResource;
+import <%= packageName %>.internal.service.HandlingService;
 import <%= packageName %>.domain.<%= classNamesPrefix %>FileType;
 import <%= packageName %>.service.<%= classNamesPrefix %>FileTypeService;
 import <%= packageName %>.service.dto.<%= classNamesPrefix %>FileUploadCriteria;
 import <%= packageName %>.service.dto.<%= classNamesPrefix %>FileUploadDTO;
-import <%= packageName %>.service.dto.<%= classNamesPrefix %>MessageTokenDTO;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,33 +23,28 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
 /**
- * This resource contains custome file-uploads code. For instance when we receive a POST request
- * <p/>
- * containing the file, we both persist the file and send a file-notification into the queue
- * <p/>
- * thereby triggering secondary file processing protocols and batch processor instances.
- * <p/>
- * Future development might involve a delete process that triggers all tokens associated with a particular
- * <p/>
- * file-upload.
- * <p/>
- * Watch out for the logs for they are created with lombok. So make sure you get that dependency
+ * This resource contains custom file-uploads code. In particular when we receive a POST request from the
+ * client, we save the file as usual but then shortly after trigger file processing services that need to run in
+ * a batch, and are therefore called from an asynchronous service
  */
-@Slf4j
 @RestController
 @RequestMapping("/api/app")
 public class AppFileUploadResource implements IFileUploadResource {
 
+    private final Logger log = LoggerFactory.getLogger(AppFileUploadResource.class);
+
     private final IFileUploadResource fileUploadResource;
-    private final MessageService<TokenizableMessage<String>, <%= classNamesPrefix %>MessageTokenDTO> fileNotificationMessageService;
+    private final HandlingService<FileNotification> fileNotificationHandlingService;
     private final <%= classNamesPrefix %>FileTypeService fileTypeService;
 
-    public AppFileUploadResource(final IFileUploadResource fileUploadResourceDecorator, final MessageService<TokenizableMessage<String>, <%= classNamesPrefix %>MessageTokenDTO> fileNotificationMessageService,
+    public AppFileUploadResource(final IFileUploadResource fileUploadResourceDecorator, final HandlingService<FileNotification> fileNotificationHandlingService,
                                  final <%= classNamesPrefix %>FileTypeService fileTypeService) {
         this.fileUploadResource = fileUploadResourceDecorator;
-        this.fileNotificationMessageService = fileNotificationMessageService;
+        this.fileNotificationHandlingService = fileNotificationHandlingService;
         this.fileTypeService = fileTypeService;
     }
 
@@ -64,19 +58,22 @@ public class AppFileUploadResource implements IFileUploadResource {
     @PostMapping("/file-uploads")
     public ResponseEntity<<%= classNamesPrefix %>FileUploadDTO> createFileUpload(@Valid @RequestBody <%= classNamesPrefix %>FileUploadDTO fileUploadDTO) throws URISyntaxException {
 
+        log.debug("Request received for file-upload processing with internal API : {}", fileUploadDTO);
+
         ResponseEntity<<%= classNamesPrefix %>FileUploadDTO> responseEntity = fileUploadResource.createFileUpload(fileUploadDTO);
 
-        <%= classNamesPrefix %>FileType fileType = fileTypeService.findOne(fileUploadDTO.get<%= classNamesPrefix %>FileTypeId()).get();
+        <%= classNamesPrefix %>FileType fileType = fileTypeService.findOne(fileUploadDTO.get<%= classNamesPrefix %>FileTypeId())
+            .orElseThrow(() -> new NoSuchElementException("FileType of ID : " + fileUploadDTO.get<%= classNamesPrefix %>FileTypeId()+ " not found"));
 
-        <%= classNamesPrefix %>MessageTokenDTO token = fileNotificationMessageService.sendMessage(FileNotification.builder()
-                                                                                           .filename(fileUploadDTO.getFileName())
-                                                                                           .description(fileUploadDTO.getDescription())
-                                                                                           .<%= fieldNamesPrefix %>fileModelType(fileType.get<%= classNamesPrefix %>fileType())
-                                                                                           .fileId(String.valueOf(responseEntity.getBody().getId()))
-                                                                                           .build());
+        log.debug("Invoking token-processing for file-type of id : {}", fileType.getId());
 
-        log.info("File {} has been uploaded and sent to queue with token {} @ time {}", token.getDescription(), token.getTokenValue(), token.getTimeSent());
-
+        fileNotificationHandlingService.handle(FileNotification.builder()
+                                                               .filename(fileUploadDTO.getFileName())
+                                                               .description(fileUploadDTO.getDescription())
+                                                               .<%= fieldNamesPrefix %>fileModelType(fileType.get<%= classNamesPrefix %>fileType())
+                                                               .fileId(String.valueOf(Objects.requireNonNull(responseEntity.getBody()).getId()))
+                                                               .build()
+        );
         return responseEntity;
     }
 
