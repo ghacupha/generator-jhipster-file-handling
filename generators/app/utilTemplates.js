@@ -140,10 +140,6 @@ function getTemplateFiles(gen) {
             to: `${javaDir}/internal/messaging/DeleteMessageDTO.java`
         },
         {
-            from: `${javaTemplateDir}/internal/messaging/MessageServiceContainer.java`,
-            to: `${javaDir}/internal/messaging/MessageServiceContainer.java`
-        },
-        {
             from: `${javaTemplateDir}/internal/messaging/StringTokenValueSearch.java`,
             to: `${javaDir}/internal/messaging/StringTokenValueSearch.java`
         },
@@ -154,18 +150,6 @@ function getTemplateFiles(gen) {
         {
             from: `${javaTemplateDir}/internal/messaging/fileNotification/FileNotification.java`,
             to: `${javaDir}/internal/messaging/fileNotification/FileNotification.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/messaging/fileNotification/FileNotificationListener.java`,
-            to: `${javaDir}/internal/messaging/fileNotification/FileNotificationListener.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/messaging/fileNotification/FileNotificationStreams.java`,
-            to: `${javaDir}/internal/messaging/fileNotification/FileNotificationStreams.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/messaging/fileNotification/FileNotificationStreamsConfig.java`,
-            to: `${javaDir}/internal/messaging/fileNotification/FileNotificationStreamsConfig.java`
         },
         {
             from: `${javaTemplateDir}/internal/messaging/fileNotification/processors/BatchSupportedFileUploadProcessor.java`,
@@ -184,52 +168,8 @@ function getTemplateFiles(gen) {
             to: `${javaDir}/internal/messaging/fileNotification/processors/FileUploadProcessorContainer.java`
         },
         {
-            from: `${javaTemplateDir}/internal/messaging/fileNotification/processors/StreamSupportedFileUploadProcessor.java`,
-            to: `${javaDir}/internal/messaging/fileNotification/processors/StreamSupportedFileUploadProcessor.java`
-        },
-        {
             from: `${javaTemplateDir}/internal/messaging/fileNotification/processors/package-info.java`,
             to: `${javaDir}/internal/messaging/fileNotification/processors/package-info.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/messaging/jsonStrings/CurrencyTableJsonStringStreamsListener.java`,
-            to: `${javaDir}/internal/messaging/jsonStrings/CurrencyTableJsonStringStreamsListener.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/messaging/jsonStrings/GsonUtils.java`,
-            to: `${javaDir}/internal/messaging/jsonStrings/GsonUtils.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/messaging/jsonStrings/JsonStringStreams.java`,
-            to: `${javaDir}/internal/messaging/jsonStrings/JsonStringStreams.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/messaging/jsonStrings/JsonStringStreamsConfig.java`,
-            to: `${javaDir}/internal/messaging/jsonStrings/JsonStringStreamsConfig.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/messaging/jsonStrings/StringMessageDTO.java`,
-            to: `${javaDir}/internal/messaging/jsonStrings/StringMessageDTO.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/messaging/platform/MessageService.java`,
-            to: `${javaDir}/internal/messaging/platform/MessageService.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/messaging/platform/MessageStreams.java`,
-            to: `${javaDir}/internal/messaging/platform/MessageStreams.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/messaging/platform/MuteListener.java`,
-            to: `${javaDir}/internal/messaging/platform/MuteListener.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/messaging/platform/ResponsiveListener.java`,
-            to: `${javaDir}/internal/messaging/platform/ResponsiveListener.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/messaging/platform/StringTokenMessageService.java`,
-            to: `${javaDir}/internal/messaging/platform/StringTokenMessageService.java`
         },
         {
             from: `${javaTemplateDir}/internal/messaging/platform/Tokenizable.java`,
@@ -240,32 +180,8 @@ function getTemplateFiles(gen) {
             to: `${javaDir}/internal/messaging/platform/TokenizableMessage.java`
         },
         {
-            from: `${javaTemplateDir}/internal/messaging/sample/Greetings.java`,
-            to: `${javaDir}/internal/messaging/sample/Greetings.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/messaging/sample/GreetingsContainer.java`,
-            to: `${javaDir}/internal/messaging/sample/GreetingsContainer.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/messaging/sample/GreetingsListener.java`,
-            to: `${javaDir}/internal/messaging/sample/GreetingsListener.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/messaging/sample/GreetingsStreams.java`,
-            to: `${javaDir}/internal/messaging/sample/GreetingsStreams.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/messaging/sample/GreetingsStreamsConfig.java`,
-            to: `${javaDir}/internal/messaging/sample/GreetingsStreamsConfig.java`
-        },
-        {
             from: `${javaTemplateDir}/internal/messaging/DeleteMessageDTO.java`,
             to: `${javaDir}/internal/messaging/DeleteMessageDTO.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/messaging/MessageServiceContainer.java`,
-            to: `${javaDir}/internal/messaging/MessageServiceContainer.java`
         },
         {
             from: `${javaTemplateDir}/internal/messaging/StringTokenValueSearch.java`,
@@ -397,22 +313,6 @@ function getTemplateFiles(gen) {
         {
             from: `${javaTemplateTestDir}/internal/excel/ExcelTestUtil.java`,
             to: `${javaTestDir}/internal/excel/ExcelTestUtil.java`
-        },
-        {
-            from: `${javaTemplateTestDir}/internal/messaging/FileNotificationControllerIT.java`,
-            to: `${javaTestDir}/internal/messaging/FileNotificationControllerIT.java`
-        },
-        {
-            from: `${javaTemplateTestDir}/internal/messaging/GreetingsControllerIT.java`,
-            to: `${javaTestDir}/internal/messaging/GreetingsControllerIT.java`
-        },
-        {
-            from: `${javaTemplateTestDir}/internal/messaging/GsonUtilsTest.java`,
-            to: `${javaTestDir}/internal/messaging/GsonUtilsTest.java`
-        },
-        {
-            from: `${javaTemplateTestDir}/internal/messaging/JsonStringsControllerIT.java`,
-            to: `${javaTestDir}/internal/messaging/JsonStringsControllerIT.java`
         },
         {
             from: `${javaTemplateTestDir}/internal/messaging/TokenGeneratorTest.java`,
