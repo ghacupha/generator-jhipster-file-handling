@@ -384,84 +384,24 @@ module.exports = class extends BaseGenerator {
     _updateServerPackageManagement() {
         if (this.buildTool === 'maven') {
             if (typeof this.addMavenDependencyManagement === 'function') {
-                this.addMavenDependencyManagement(
-                    'org.springframework.cloud',
-                    'spring-cloud-stream-dependencies',
-                    STREAM_CLOUD_DEPENDENCY_VERSION,
-                    'pom',
-                    'import',
-                    '<exclusions>\n' +
-                        '   <exclusion>\n' +
-                        '       <groupId>org.apache.kafka</groupId>\n' +
-                        '       <artifactId>kafka-clients</artifactId>\n' +
-                        '       </exclusion>\n' +
-                        '</exclusions>'
-                );
                 this.addMavenDependency('com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION);
                 this.addMavenDependency('org.projectlombok', 'lombok', LOMBOK_VERSION);
                 this.addMavenDependency('org.springframework.boot', 'spring-boot-starter-batch');
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream');
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-binder-test');
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-test-support');
-                this.addMavenDependency(
-                    'org.springframework.cloud',
-                    'spring-cloud-stream-test-support-internal',
-                    STREAM_CLOUD_STREAM_VERSION
-                );
             } else {
                 this.addMavenDependency('com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION);
                 this.addMavenDependency('org.projectlombok', 'lombok', LOMBOK_VERSION);
                 this.addMavenDependency('org.springframework.boot', 'spring-boot-starter-batch');
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream', STREAM_CLOUD_STREAM_VERSION);
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-binder-test', STREAM_CLOUD_STREAM_VERSION);
-                this.addMavenDependency('org.springframework.cloud', 'spring-cloud-stream-test-support', STREAM_CLOUD_STREAM_VERSION);
-                this.addGradleDependency('compile', 'org.apache.kafka', 'kafka-clients', KAFKA_CLIENTS_VERSION);
-                this.addMavenDependency(
-                    'org.springframework.cloud',
-                    'spring-cloud-stream-test-support-internal',
-                    STREAM_CLOUD_STREAM_VERSION
-                );
             }
             this.addMavenAnnotationProcessor('org.projectlombok', 'lombok', LOMBOK_VERSION);
             this.addMavenProperty('lombok.version', LOMBOK_VERSION);
             this.addMavenProperty('poiji.version', OZLERHAKAN_POIJI_VERSION);
         } else if (this.buildTool === 'gradle') {
             if (typeof this.addGradleDependencyManagement === 'function') {
-                this.addGradleDependencyManagement(
-                    'mavenBom',
-                    'org.springframework.cloud',
-                    'spring-cloud-stream-dependencies',
-                    STREAM_CLOUD_DEPENDENCY_VERSION
-                );
-                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream');
-                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream-binder-test');
-                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream-test-support');
-                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream-test-support-internal');
                 this.addGradleDependency('compile', 'com.github.ozlerhakan', 'poiji');
                 this.addGradleDependency('compile', 'org.projectlombok', 'lombok');
                 this.addGradleDependency('compile', 'org.springframework.boot', 'spring-boot-starter-batch');
                 this.addGradleDependency('compile', 'org.apache.kafka', 'kafka-clients');
             } else {
-                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream', STREAM_CLOUD_STREAM_VERSION);
-                this.addGradleDependency(
-                    'compile',
-                    'org.springframework.cloud',
-                    'spring-cloud-stream-binder-test',
-                    STREAM_CLOUD_STREAM_VERSION
-                );
-                this.addGradleDependency(
-                    'compile',
-                    'org.springframework.cloud',
-                    'spring-cloud-stream-test-support',
-                    STREAM_CLOUD_STREAM_VERSION
-                );
-                this.addGradleDependency(
-                    'compile',
-                    'org.springframework.cloud',
-                    'spring-cloud-stream-test-support-internal',
-                    STREAM_CLOUD_STREAM_VERSION
-                );
-                this.addGradleDependency('compile', 'org.springframework.cloud', 'spring-cloud-stream', STREAM_CLOUD_STREAM_VERSION);
                 this.addGradleDependency('compile', 'com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION);
                 this.addGradleDependency('compile', 'org.springframework.boot', 'spring-boot-starter-batch', LOMBOK_VERSION);
             }
