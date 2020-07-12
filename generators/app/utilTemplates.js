@@ -343,6 +343,18 @@ function getTemplateFiles(gen) {
         {
             from: `${javaTemplateDir}/internal/service/BatchService.java`,
             to: `${javaDir}/internal/service/BatchService.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/service/FileNotificationHandlingService.java`,
+            to: `${javaDir}/internal/service/FileNotificationHandlingService.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/service/HandlingService.java`,
+            to: `${javaDir}/internal/service/HandlingService.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/service/package-info.java`,
+            to: `${javaDir}/internal/service/package-info.java`
         }
     ];
 
