@@ -383,6 +383,10 @@ function getTemplateFiles(gen) {
      */
     const testFiles = [
         {
+            from: `${javaTemplateTestDir}/config/FileUploadPropertiesIT.java`,
+            to: `${javaTestDir}/config/FileUploadPropertiesIT.java`
+        },
+        {
             from: `${javaTemplateTestDir}/internal/excel/ExcelFileUtilsIT.java`,
             to: `${javaTestDir}/internal/excel/ExcelFileUtilsIT.java`
         },
