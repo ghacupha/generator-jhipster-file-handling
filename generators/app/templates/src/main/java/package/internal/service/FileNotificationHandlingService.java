@@ -1,15 +1,15 @@
-package io.github.currencies.internal.service;
+package <%= packageName %>.internal.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import io.github.currencies.domain.CurrencyMainMessageToken;
-import io.github.currencies.internal.batch.processors.FileUploadProcessorChain;
-import io.github.currencies.internal.model.FileNotification;
-import io.github.currencies.internal.util.TokenGenerator;
-import io.github.currencies.service.CurrencyMainFileUploadService;
-import io.github.currencies.service.CurrencyMainMessageTokenService;
-import io.github.currencies.service.dto.CurrencyMainFileUploadDTO;
-import io.github.currencies.service.dto.CurrencyMainMessageTokenDTO;
-import io.github.currencies.service.mapper.CurrencyMainMessageTokenMapper;
+import <%= packageName %>.domain.<%= classNamesPrefix %>MessageToken;
+import <%= packageName %>.internal.messaging.fileNotification.FileNotification;
+import <%= packageName %>.internal.messaging.fileNotification.processors.FileUploadProcessorChain;
+import <%= packageName %>.internal.util.TokenGenerator;
+import <%= packageName %>.service.<%= classNamesPrefix %>FileUploadService;
+import <%= packageName %>.service.<%= classNamesPrefix %>MessageTokenService;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>FileUploadDTO;
+import <%= packageName %>.service.dto.<%= classNamesPrefix %>MessageTokenDTO;
+import <%= packageName %>.service.mapper.<%= classNamesPrefix %>MessageTokenMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static io.github.currencies.internal.AppConstants.PROCESSED_TOKENS;
+import static <%= packageName %>.internal.AppConstants.PROCESSED_TOKENS;
 
 /**
  * This is a service that handles file-notification asynchronously.
@@ -29,12 +29,12 @@ public class FileNotificationHandlingService implements HandlingService<FileNoti
     public static Logger log = LoggerFactory.getLogger(FileNotificationHandlingService.class);
 
     private final TokenGenerator tokenGenerator;
-    private final CurrencyMainMessageTokenService messageTokenService;
-    private final CurrencyMainMessageTokenMapper messageTokenMapper;
-    private final CurrencyMainFileUploadService fileUploadService;
+    private final <%= classNamesPrefix %>MessageTokenService messageTokenService;
+    private final <%= classNamesPrefix %>MessageTokenMapper messageTokenMapper;
+    private final <%= classNamesPrefix %>FileUploadService fileUploadService;
     private final FileUploadProcessorChain fileUploadProcessorChain;
 
-    public FileNotificationHandlingService(TokenGenerator tokenGenerator, CurrencyMainMessageTokenService messageTokenService, CurrencyMainMessageTokenMapper messageTokenMapper, CurrencyMainFileUploadService fileUploadService, FileUploadProcessorChain fileUploadProcessorChain) {
+    public FileNotificationHandlingService(TokenGenerator tokenGenerator, <%= classNamesPrefix %>MessageTokenService messageTokenService, <%= classNamesPrefix %>MessageTokenMapper messageTokenMapper, <%= classNamesPrefix %>FileUploadService fileUploadService, FileUploadProcessorChain fileUploadProcessorChain) {
         this.tokenGenerator = tokenGenerator;
         this.messageTokenService = messageTokenService;
         this.messageTokenMapper = messageTokenMapper;
@@ -55,7 +55,7 @@ public class FileNotificationHandlingService implements HandlingService<FileNoti
         payload.setTimestamp(timestamp);
 
         // @formatter:off
-        CurrencyMainMessageToken messageToken = new CurrencyMainMessageToken()
+        <%= classNamesPrefix %>MessageToken messageToken = new <%= classNamesPrefix %>MessageToken()
             .tokenValue(token)
             .description(payload.getDescription())
             .timeSent(timestamp);
@@ -65,13 +65,13 @@ public class FileNotificationHandlingService implements HandlingService<FileNoti
             payload.setMessageToken(messageToken.getTokenValue());
         }
 
-        CurrencyMainFileUploadDTO fileUpload =
+        <%= classNamesPrefix %>FileUploadDTO fileUpload =
             fileUploadService.findOne(Long.parseLong(payload.getFileId())).orElseThrow(() -> new IllegalArgumentException("Id # : " + payload.getFileId() + " does not exist"));
 
-        log.debug("CurrencyMainFileUploadDTO object fetched from DB with id: {}", fileUpload.getId());
+        log.debug("FileUploadDTO object fetched from DB with id: {}", fileUpload.getId());
         if (!PROCESSED_TOKENS.contains(payload.getMessageToken())) {
             log.debug("Processing message with token {}", payload.getMessageToken());
-            List<CurrencyMainFileUploadDTO> processedFiles = fileUploadProcessorChain.apply(fileUpload, payload);
+            List<<%= classNamesPrefix %>FileUploadDTO> processedFiles = fileUploadProcessorChain.apply(fileUpload, payload);
             fileUpload.setUploadProcessed(true);
             fileUpload.setUploadSuccessful(true);
             fileUpload.setUploadToken(token);
@@ -82,7 +82,7 @@ public class FileNotificationHandlingService implements HandlingService<FileNoti
             log.info("Skipped upload of processed files {}", payload.getFilename());
         }
 
-        CurrencyMainMessageTokenDTO dto = messageTokenService.save(messageTokenMapper.toDto(messageToken));
+        <%= classNamesPrefix %>MessageTokenDTO dto = messageTokenService.save(messageTokenMapper.toDto(messageToken));
         dto.setContentFullyEnqueued(true);
 
     }

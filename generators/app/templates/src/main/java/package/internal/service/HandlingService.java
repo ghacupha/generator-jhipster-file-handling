@@ -1,7 +1,7 @@
-package io.github.currencies.internal.service;
+package <%= packageName %>.internal.service;
 
-import io.github.currencies.internal.model.FileNotification;
-import io.github.currencies.service.dto.CurrencyMainMessageTokenDTO;
+import <%= packageName %>.internal.model.FileNotification;
+import <%= packageName %>.service.dto.CurrencyMainMessageTokenDTO;
 
 import java.util.concurrent.CompletableFuture;
 
