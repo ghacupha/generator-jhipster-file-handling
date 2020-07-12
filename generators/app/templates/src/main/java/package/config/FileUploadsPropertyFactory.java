@@ -1,4 +1,4 @@
-package io.github.currencies.config;
+package <%= packageName %>.config;
 
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.env.PropertiesPropertySource;
