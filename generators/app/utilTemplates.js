@@ -313,10 +313,6 @@ function getTemplateFiles(gen) {
         {
             from: `${javaTemplateTestDir}/internal/excel/ExcelTestUtil.java`,
             to: `${javaTestDir}/internal/excel/ExcelTestUtil.java`
-        },
-        {
-            from: `${javaTemplateTestDir}/internal/messaging/TokenGeneratorTest.java`,
-            to: `${javaTestDir}/internal/messaging/TokenGeneratorTest.java`
         }
     ];
 
