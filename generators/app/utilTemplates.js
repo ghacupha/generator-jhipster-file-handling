@@ -47,6 +47,23 @@ function getTemplateFiles(gen) {
     ];
 
     /**
+     * Configuration file for file-uploads as coded in the package/config folder. These configure spring-boot
+     * to read file-uppload properties from the fileUploads.yml files
+     *
+     * @type {{from: string, to: string}[]}
+     */
+    const fileUploadConfigFiles = [
+        {
+            from: `${javaTemplateDir}/config/FileUploadsProperties.java`,
+            to: `${javaDir}/config/FileUploadsProperties.java`
+        },
+        {
+            from: `${javaTemplateDir}/config/FileUploadsPropertyFactory.java`,
+            to: `${javaDir}/config/FileUploadsPropertyFactory.java`
+        }
+    ];
+
+    /**
      * Returns an array with the java batch workflow files
      *
      * @type {({from: string, to: string})[]}
@@ -486,7 +503,8 @@ function getTemplateFiles(gen) {
         .concat(...testExcelFiles)
         .concat(...(usingRabbitMq ? _rabbitMqSpecApplicationProperties : _kafkaSpecApplicationProperties))
         .concat(...sampleDataModelFiles)
-        .concat(...applicationPropertiesFiles);
+        .concat(...applicationPropertiesFiles)
+        .concat(...fileUploadConfigFiles);
 }
 
 module.exports = {
