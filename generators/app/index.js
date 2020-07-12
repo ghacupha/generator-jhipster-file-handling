@@ -183,6 +183,7 @@ module.exports = class extends BaseGenerator {
         this.resourceTestDir = jhipsterConstants.SERVER_TEST_RES_DIR;
         this.webappDir = jhipsterConstants.CLIENT_MAIN_SRC_DIR;
         this.javaTemplateDir = 'src/main/java/package';
+        this.javaTemplateResourceDir = 'src/main/resources';
         this.javaTemplateTestDir = 'src/test/java/package';
 
         // variable from questions

@@ -26,6 +26,7 @@
 function getTemplateFiles(gen) {
     // Initialize important variables
     const /** {String} */ javaTemplateDir = gen.javaTemplateDir;
+    const /** {String} */ javaTemplateResourceDir = gen.javaTemplateResourceDir;
     const /** {String} */ javaDir = gen.javaDir;
     const /** {String} */ javaTemplateTestDir = gen.javaTemplateTestDir;
     const /** {String} */ javaTestDir = gen.javaTestDir;
@@ -417,7 +418,7 @@ function getTemplateFiles(gen) {
      */
     const applicationPropertiesFiles = [
         {
-            from: 'src/main/resources/config/fileUploads.yml',
+            from: `${javaTemplateResourceDir}/config/fileUploads.yml`,
             to: `${resourceDir}config/fileUploads.yml`
         }
     ];
