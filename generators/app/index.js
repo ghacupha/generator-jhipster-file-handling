@@ -249,6 +249,8 @@ module.exports = class extends BaseGenerator {
         if (this.jhipsterAppConfig.applicationType !== 'microservice') {
             this.template(`${GENERAL_FILE_UPLOADS_JDL}.jdl.ejs`, `.jhipster/${GENERAL_FILE_UPLOADS_JDL}.jdl`);
         }
+        // // add application properties settings
+        // this.template('src/main/resources/config/fileUploads.yml', `${this.resourceDir}/config/fileUploads.yml`);
         wroteFiles();
 
         // Write the other files

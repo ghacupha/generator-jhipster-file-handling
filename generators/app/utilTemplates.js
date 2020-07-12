@@ -408,10 +408,6 @@ function getTemplateFiles(gen) {
             from: `${resourceTestDir}files/currencies.xlsx`,
             to: `${resourceTestDir}files/currencies.xlsx`
         }
-        // {
-        //     from: `${resourceDir}config/liquibase/fake-data/currency_table.csv`,
-        //     to: `${resourceDir}config/liquibase/fake-data/currency_table.csv`
-        // },
     ];
 
     /**
@@ -419,7 +415,12 @@ function getTemplateFiles(gen) {
      *
      * @type {*[]}
      */
-    const applicationPropertiesFiles = [];
+    const applicationPropertiesFiles = [
+        {
+            from: 'src/main/resources/config/fileUploads.yml',
+            to: `${resourceDir}config/fileUploads.yml`
+        }
+    ];
 
     /**
      * This properties apply when we are using kafka
@@ -446,9 +447,6 @@ function getTemplateFiles(gen) {
             to: `${resourceDir}config/application-uploads.yml`
         }
     ];
-
-    // select appropriate application-properties
-    applicationPropertiesFiles.concat(...(usingRabbitMq ? _rabbitMqSpecApplicationProperties : _kafkaSpecApplicationProperties));
 
     /**
      * General file templates and configurations
@@ -486,7 +484,8 @@ function getTemplateFiles(gen) {
         .concat(...testFiles)
         .concat(...testExcelFiles)
         .concat(...(usingRabbitMq ? _rabbitMqSpecApplicationProperties : _kafkaSpecApplicationProperties))
-        .concat(...sampleDataModelFiles);
+        .concat(...sampleDataModelFiles)
+        .concat(...applicationPropertiesFiles);
 }
 
 module.exports = {
