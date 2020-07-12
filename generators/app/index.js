@@ -250,8 +250,6 @@ module.exports = class extends BaseGenerator {
         if (this.jhipsterAppConfig.applicationType !== 'microservice') {
             this.template(`${GENERAL_FILE_UPLOADS_JDL}.jdl.ejs`, `.jhipster/${GENERAL_FILE_UPLOADS_JDL}.jdl`);
         }
-        // // add application properties settings
-        // this.template('src/main/resources/config/fileUploads.yml', `${this.resourceDir}/config/fileUploads.yml`);
         wroteFiles();
 
         // Write the other files
@@ -364,11 +362,6 @@ module.exports = class extends BaseGenerator {
         // eslint-disable-next-line no-unused-vars
         const fieldNamesPrefix = gen.fieldNamesPrefix;
 
-        // fields from generator
-        // const javaTemplateDir = gen.javaTemplateDir;
-        // const javaTemplateTestDir = gen.javaTemplateTestDir;
-        // const javaDir = gen.javaDir;
-        // const javaTestDir = gen.javaTestDir;
         const resourceDir = gen.resourceDir;
 
         // collect files to copy
