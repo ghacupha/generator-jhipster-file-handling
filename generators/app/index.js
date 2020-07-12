@@ -258,13 +258,6 @@ module.exports = class extends BaseGenerator {
         // update maven dependencies
         this._updateServerPackageManagement(this);
 
-        // optional installs for either kafka or rabbitMQ
-        // if (this.messageBrokerType === RABBITMQ) {
-        //     this._installRabbitMq(this);
-        // } else if (this.messageBrokerType === KAFKA) {
-        //     this._installKafka(this);
-        // }
-
         // install jdl entities
         this._useJdlExecution();
     }
@@ -393,8 +386,6 @@ module.exports = class extends BaseGenerator {
                 this.addMavenDependency('org.springframework.boot', 'spring-boot-starter-batch');
             }
             this.addMavenAnnotationProcessor('org.projectlombok', 'lombok', LOMBOK_VERSION);
-            this.addMavenProperty('lombok.version', LOMBOK_VERSION);
-            this.addMavenProperty('poiji.version', OZLERHAKAN_POIJI_VERSION);
         } else if (this.buildTool === 'gradle') {
             if (typeof this.addGradleDependencyManagement === 'function') {
                 this.addGradleDependency('compile', 'com.github.ozlerhakan', 'poiji');
