@@ -259,11 +259,11 @@ module.exports = class extends BaseGenerator {
         this._updateServerPackageManagement(this);
 
         // optional installs for either kafka or rabbitMQ
-        if (this.messageBrokerType === RABBITMQ) {
-            this._installRabbitMq(this);
-        } else if (this.messageBrokerType === KAFKA) {
-            this._installKafka(this);
-        }
+        // if (this.messageBrokerType === RABBITMQ) {
+        //     this._installRabbitMq(this);
+        // } else if (this.messageBrokerType === KAFKA) {
+        //     this._installKafka(this);
+        // }
 
         // install jdl entities
         this._useJdlExecution();
