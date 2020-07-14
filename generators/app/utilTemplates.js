@@ -130,66 +130,66 @@ function getTemplateFiles(gen) {
     ];
 
     /**
-     * Returns an array with the messaging workflow template files
+     * Returns an array with the fileProcessing workflow template files
      *
      * @type {({from: string, to: string})[]}
      */
-    const messagingWorkflowFiles = [
+    const fileProcessingWorkflowFiles = [
         {
-            from: `${javaTemplateDir}/internal/messaging/DeleteMessageDTO.java`,
-            to: `${javaDir}/internal/messaging/DeleteMessageDTO.java`
+            from: `${javaTemplateDir}/internal/fileProcessing/DeleteMessageDTO.java`,
+            to: `${javaDir}/internal/fileProcessing/DeleteMessageDTO.java`
         },
         {
-            from: `${javaTemplateDir}/internal/messaging/StringTokenValueSearch.java`,
-            to: `${javaDir}/internal/messaging/StringTokenValueSearch.java`
+            from: `${javaTemplateDir}/internal/fileProcessing/StringTokenValueSearch.java`,
+            to: `${javaDir}/internal/fileProcessing/StringTokenValueSearch.java`
         },
         {
-            from: `${javaTemplateDir}/internal/messaging/TokenValueSearch.java`,
-            to: `${javaDir}/internal/messaging/TokenValueSearch.java`
+            from: `${javaTemplateDir}/internal/fileProcessing/TokenValueSearch.java`,
+            to: `${javaDir}/internal/fileProcessing/TokenValueSearch.java`
         },
         {
-            from: `${javaTemplateDir}/internal/messaging/fileNotification/FileNotification.java`,
-            to: `${javaDir}/internal/messaging/fileNotification/FileNotification.java`
+            from: `${javaTemplateDir}/internal/fileProcessing/fileNotification/FileNotification.java`,
+            to: `${javaDir}/internal/fileProcessing/fileNotification/FileNotification.java`
         },
         {
-            from: `${javaTemplateDir}/internal/messaging/fileNotification/processors/BatchSupportedFileUploadProcessor.java`,
-            to: `${javaDir}/internal/messaging/fileNotification/processors/BatchSupportedFileUploadProcessor.java`
+            from: `${javaTemplateDir}/internal/fileProcessing/fileNotification/processors/BatchSupportedFileUploadProcessor.java`,
+            to: `${javaDir}/internal/fileProcessing/fileNotification/processors/BatchSupportedFileUploadProcessor.java`
         },
         {
-            from: `${javaTemplateDir}/internal/messaging/fileNotification/processors/FileUploadProcessor.java`,
-            to: `${javaDir}/internal/messaging/fileNotification/processors/FileUploadProcessor.java`
+            from: `${javaTemplateDir}/internal/fileProcessing/fileNotification/processors/FileUploadProcessor.java`,
+            to: `${javaDir}/internal/fileProcessing/fileNotification/processors/FileUploadProcessor.java`
         },
         {
-            from: `${javaTemplateDir}/internal/messaging/fileNotification/processors/FileUploadProcessorChain.java`,
-            to: `${javaDir}/internal/messaging/fileNotification/processors/FileUploadProcessorChain.java`
+            from: `${javaTemplateDir}/internal/fileProcessing/fileNotification/processors/FileUploadProcessorChain.java`,
+            to: `${javaDir}/internal/fileProcessing/fileNotification/processors/FileUploadProcessorChain.java`
         },
         {
-            from: `${javaTemplateDir}/internal/messaging/fileNotification/processors/FileUploadProcessorContainer.java`,
-            to: `${javaDir}/internal/messaging/fileNotification/processors/FileUploadProcessorContainer.java`
+            from: `${javaTemplateDir}/internal/fileProcessing/fileNotification/processors/FileUploadProcessorContainer.java`,
+            to: `${javaDir}/internal/fileProcessing/fileNotification/processors/FileUploadProcessorContainer.java`
         },
         {
-            from: `${javaTemplateDir}/internal/messaging/fileNotification/processors/package-info.java`,
-            to: `${javaDir}/internal/messaging/fileNotification/processors/package-info.java`
+            from: `${javaTemplateDir}/internal/fileProcessing/fileNotification/processors/package-info.java`,
+            to: `${javaDir}/internal/fileProcessing/fileNotification/processors/package-info.java`
         },
         {
-            from: `${javaTemplateDir}/internal/messaging/platform/Tokenizable.java`,
-            to: `${javaDir}/internal/messaging/platform/Tokenizable.java`
+            from: `${javaTemplateDir}/internal/fileProcessing/platform/Tokenizable.java`,
+            to: `${javaDir}/internal/fileProcessing/platform/Tokenizable.java`
         },
         {
-            from: `${javaTemplateDir}/internal/messaging/platform/TokenizableMessage.java`,
-            to: `${javaDir}/internal/messaging/platform/TokenizableMessage.java`
+            from: `${javaTemplateDir}/internal/fileProcessing/platform/TokenizableMessage.java`,
+            to: `${javaDir}/internal/fileProcessing/platform/TokenizableMessage.java`
         },
         {
-            from: `${javaTemplateDir}/internal/messaging/DeleteMessageDTO.java`,
-            to: `${javaDir}/internal/messaging/DeleteMessageDTO.java`
+            from: `${javaTemplateDir}/internal/fileProcessing/DeleteMessageDTO.java`,
+            to: `${javaDir}/internal/fileProcessing/DeleteMessageDTO.java`
         },
         {
-            from: `${javaTemplateDir}/internal/messaging/StringTokenValueSearch.java`,
-            to: `${javaDir}/internal/messaging/StringTokenValueSearch.java`
+            from: `${javaTemplateDir}/internal/fileProcessing/StringTokenValueSearch.java`,
+            to: `${javaDir}/internal/fileProcessing/StringTokenValueSearch.java`
         },
         {
-            from: `${javaTemplateDir}/internal/messaging/TokenValueSearch.java`,
-            to: `${javaDir}/internal/messaging/TokenValueSearch.java`
+            from: `${javaTemplateDir}/internal/fileProcessing/TokenValueSearch.java`,
+            to: `${javaDir}/internal/fileProcessing/TokenValueSearch.java`
         }
     ];
 
@@ -395,7 +395,7 @@ function getTemplateFiles(gen) {
         .concat(...(usingRabbitMq ? rabbitMQConfigFiles : []))
         .concat(...batchFiles)
         .concat(...excelWorkflowFiles)
-        .concat(...messagingWorkflowFiles)
+        .concat(...fileProcessingWorkflowFiles)
         .concat(...reportFiles)
         .concat(...internalResourceFiles)
         .concat(...serviceFiles)

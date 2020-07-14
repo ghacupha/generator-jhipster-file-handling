@@ -1,6 +1,6 @@
 package <%= packageName %>.internal.resource;
 
-import <%= packageName %>.internal.messaging.fileNotification.FileNotification;
+import <%= packageName %>.internal.fileProcessing.fileNotification.FileNotification;
 import <%= packageName %>.internal.resource.decorator.IFileUploadResource;
 import <%= packageName %>.internal.service.HandlingService;
 import <%= packageName %>.domain.<%= classNamesPrefix %>FileType;
