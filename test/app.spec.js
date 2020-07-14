@@ -25,24 +25,24 @@ describe('JHipster generator file-handling', () => {
         });
     });
 
-    describe('Test with Gradle and React', () => {
-        beforeEach(done => {
-            helpers
-                .run(path.join(__dirname, '../generators/app'))
-                .inTmpDir(dir => {
-                    fse.copySync(path.join(__dirname, '../test/templates/gradle-react'), dir);
-                })
-                .withOptions({
-                    testmode: true
-                })
-                .withPrompts({
-                    message: 'simple message to say hello'
-                })
-                .on('end', done);
-        });
-
-        it('generate dummy.txt file', () => {
-            assert.file(['dummy-gradle.txt', 'dummy-react.txt']);
-        });
-    });
+    // describe('Test with Gradle and React', () => {
+    //     beforeEach(done => {
+    //         helpers
+    //             .run(path.join(__dirname, '../generators/app'))
+    //             .inTmpDir(dir => {
+    //                 fse.copySync(path.join(__dirname, '../test/templates/gradle-react'), dir);
+    //             })
+    //             .withOptions({
+    //                 testmode: true
+    //             })
+    //             .withPrompts({
+    //                 message: 'simple message to say hello'
+    //             })
+    //             .on('end', done);
+    //     });
+    //
+    //     it('generate dummy.txt file', () => {
+    //         assert.file(['dummy-gradle.txt', 'dummy-react.txt']);
+    //     });
+    // });
 });

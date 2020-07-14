@@ -1,5 +1,6 @@
 package <%= packageName %>.internal.batch.currencyTable;
 
+import <%= packageName %>.config.FileUploadsProperties;
 import <%= packageName %>.internal.batch.ListPartition;
 import <%= packageName %>.internal.excel.ExcelFileDeserializer;
 import <%= packageName %>.internal.model.sampleDataModel.CurrencyTableEVM;
@@ -17,30 +18,27 @@ import java.util.List;
 
 /**
  * This is sample configuration of the currency-table list-item-reader.
- * <p>
  * Take special note of how the listPartition is configured once the object is created at the
- * <p>
  * beginning of a job. This only works because the bean is configured with job-scope.
  */
 @Slf4j
 @Scope("job")
 public class CurrencyTableListItemReader implements ItemReader<List<CurrencyTableEVM>> {
 
-    private int listPageSize;
+    private final FileUploadsProperties fileUploadsProperties;
 
-    private ExcelFileDeserializer<CurrencyTableEVM> deserializer;
-    private <%= classNamesPrefix %>FileUploadService fileUploadService;
+    private final ExcelFileDeserializer<CurrencyTableEVM> deserializer;
+    private final <%= classNamesPrefix %>FileUploadService fileUploadService;
     private long fileId;
 
     private ListPartition<CurrencyTableEVM> currencyTableEVMPartition;
 
-    CurrencyTableListItemReader(final ExcelFileDeserializer<CurrencyTableEVM> deserializer, <%= classNamesPrefix %>FileUploadService fileUploadService, @Value("#{jobParameters['fileId']}") long fileId,
-                                @Value("${reader.data_table.list.size}") int maximumPageSize) {
+    CurrencyTableListItemReader(final ExcelFileDeserializer<CurrencyTableEVM> deserializer, final <%= classNamesPrefix %>FileUploadService fileUploadService, @Value("#{jobParameters['fileId']}") long fileId,
+                                final FileUploadsProperties fileUploadsProperties) {
         this.deserializer = deserializer;
         this.fileUploadService = fileUploadService;
         this.fileId = fileId;
-
-        this.listPageSize = maximumPageSize;
+        this.fileUploadsProperties = fileUploadsProperties;
     }
 
     @PostConstruct
@@ -49,7 +47,7 @@ public class CurrencyTableListItemReader implements ItemReader<List<CurrencyTabl
         final List<CurrencyTableEVM> unProcessedItems =
             deserializer.deserialize(fileUploadService.findOne(fileId).orElseThrow(() -> new IllegalArgumentException(fileId + " was not found in the system")).getDataFile());
 
-        currencyTableEVMPartition = new ListPartition<>(listPageSize, unProcessedItems);
+        currencyTableEVMPartition = new ListPartition<>(fileUploadsProperties.getListSize(), unProcessedItems);
 
         log.info("Currency table items deserialized : {}", unProcessedItems.size());
     }

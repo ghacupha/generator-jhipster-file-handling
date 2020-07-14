@@ -1,6 +1,7 @@
 package <%= packageName %>.internal.batch.currencyTable;
 
 import com.google.common.collect.ImmutableList;
+import <%= packageName %>.config.FileUploadsProperties;
 import <%= packageName %>.internal.Mapping;
 import <%= packageName %>.internal.excel.ExcelFileDeserializer;
 import <%= packageName %>.internal.service.BatchService;
@@ -43,8 +44,8 @@ public class CurrencyTableBatchConfig {
     @Autowired
     private <%= classNamesPrefix %>FileUploadService fileUploadService;
 
-    @Value("${reader.data_table.list.size}")
-    private static int maximumPageSize;
+    @Autowired
+    private FileUploadsProperties fileUploadsProperties;
 
     @Value("#{jobParameters['fileId']}")
     private static long fileId;
@@ -92,7 +93,7 @@ public class CurrencyTableBatchConfig {
         // @formatter:off
         return stepBuilderFactory.get("readCurrencyListFromFile")
             .<List<CurrencyTableEVM>, List<CurrencyTableDTO>>chunk(2)
-            .reader(currencyTableItemReader(fileId, maximumPageSize))
+            .reader(currencyTableItemReader(fileId))
             .processor(currencyTableItemProcessor())
             .writer(currencyTableItemWriter())
             .build();
@@ -101,8 +102,8 @@ public class CurrencyTableBatchConfig {
 
     @Bean("currencyTableItemReader")
     @JobScope
-    public CurrencyTableListItemReader currencyTableItemReader(@Value("#{jobParameters['fileId']}") long fileId, @Value("${reader.data_table.list.size}") int maximumPageSize) {
+    public CurrencyTableListItemReader currencyTableItemReader(@Value("#{jobParameters['fileId']}") long fileId) {
 
-        return new CurrencyTableListItemReader(deserializer, fileUploadService, fileId, maximumPageSize);
+        return new CurrencyTableListItemReader(deserializer, fileUploadService, fileId, fileUploadsProperties);
     }
 }
