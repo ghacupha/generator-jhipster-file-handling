@@ -10,6 +10,6 @@ public interface HandlingService<H> {
      * Returns an instance of this after handling the payload issued
      *
      * @param payload The item being handled
-     */kage
+     */
     void handle(H payload);
 }
