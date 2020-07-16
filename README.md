@@ -50,28 +50,15 @@ yarn global upgrade generator-jhipster-file-handling
 
 ## Configuration
 
-Once installed, there will be problems with jpa/entity scanning. This is because the database configuration is usually configured like so :
+Once installed, there will be issues with configuring the list-size parameters for the list partition algorithm used
+this is because the FileUploadsProperties may need to be added on the EnableConfigurationProperties declaration like so:
 
-    @Configuration
-    @EnableJpaRepositories("packageName.repository")
-    @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
-    @EnableTransactionManagement
-    @EnableElasticsearchRepositories("packageName.repository.search")
-    public class DatabaseConfiguration {
+            @SpringBootApplication
+            @EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class, FileUploadsProperties.class})
+            public class MyJhipsterApp {
 
-        private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
-    }
-
-But this rules out the currency-table entity which is created as example in the internal package. If you remove the repositories declaration, things will be fine.
-This will then look like :
-
-    @Configuration
-    @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
-    @EnableTransactionManagement
-    public class DatabaseConfiguration {
-
-        private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
-    }
+                // Application startup logic ...
+            }
 
 # Usage
 
