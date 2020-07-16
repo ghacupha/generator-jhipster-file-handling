@@ -1,4 +1,4 @@
-package <%= packageName %>.internal.fileProcessing.platform;
+package <%= packageName %>.internal.model;
 
 /**
  * This is a message that is tokenizable that contains description and timestamp as well

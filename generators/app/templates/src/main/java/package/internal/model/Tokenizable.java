@@ -1,4 +1,4 @@
-package <%= packageName %>.internal.fileProcessing.platform;
+package <%= packageName %>.internal.model;
 
 import java.io.Serializable;
 

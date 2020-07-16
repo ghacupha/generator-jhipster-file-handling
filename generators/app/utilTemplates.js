@@ -136,20 +136,12 @@ function getTemplateFiles(gen) {
      */
     const fileProcessingWorkflowFiles = [
         {
-            from: `${javaTemplateDir}/internal/fileProcessing/DeleteMessageDTO.java`,
-            to: `${javaDir}/internal/fileProcessing/DeleteMessageDTO.java`
-        },
-        {
             from: `${javaTemplateDir}/internal/fileProcessing/StringTokenValueSearch.java`,
             to: `${javaDir}/internal/fileProcessing/StringTokenValueSearch.java`
         },
         {
             from: `${javaTemplateDir}/internal/fileProcessing/TokenValueSearch.java`,
             to: `${javaDir}/internal/fileProcessing/TokenValueSearch.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/fileProcessing/fileNotification/FileNotification.java`,
-            to: `${javaDir}/internal/fileProcessing/fileNotification/FileNotification.java`
         },
         {
             from: `${javaTemplateDir}/internal/fileProcessing/fileNotification/processors/BatchSupportedFileUploadProcessor.java`,
@@ -172,18 +164,6 @@ function getTemplateFiles(gen) {
             to: `${javaDir}/internal/fileProcessing/fileNotification/processors/package-info.java`
         },
         {
-            from: `${javaTemplateDir}/internal/fileProcessing/platform/Tokenizable.java`,
-            to: `${javaDir}/internal/fileProcessing/platform/Tokenizable.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/fileProcessing/platform/TokenizableMessage.java`,
-            to: `${javaDir}/internal/fileProcessing/platform/TokenizableMessage.java`
-        },
-        {
-            from: `${javaTemplateDir}/internal/fileProcessing/DeleteMessageDTO.java`,
-            to: `${javaDir}/internal/fileProcessing/DeleteMessageDTO.java`
-        },
-        {
             from: `${javaTemplateDir}/internal/fileProcessing/StringTokenValueSearch.java`,
             to: `${javaDir}/internal/fileProcessing/StringTokenValueSearch.java`
         },
@@ -200,10 +180,6 @@ function getTemplateFiles(gen) {
      */
     const sampleDataModelFiles = [
         {
-            from: `${javaTemplateDir}/internal/model/package-info.java`,
-            to: `${javaDir}/internal/model/package-info.java`
-        },
-        {
             from: `${javaTemplateDir}/internal/model/sampleDataModel/package-info.java`,
             to: `${javaDir}/internal/model/sampleDataModel/package-info.java`
         },
@@ -211,9 +187,6 @@ function getTemplateFiles(gen) {
             from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableBatchService.java`,
             to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableBatchService.java`
         },
-        //     from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableDTO.java`,
-        //     to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableDTO.java`
-        // },
         {
             from: `${javaTemplateDir}/internal/model/sampleDataModel/CurrencyTableEVM.java`,
             to: `${javaDir}/internal/model/sampleDataModel/CurrencyTableEVM.java`
@@ -225,6 +198,34 @@ function getTemplateFiles(gen) {
         {
             from: `${javaTemplateTestDir}/internal/model/sampleDataModel/CurrencyTableEVMMappingTest.java`,
             to: `${javaTestDir}/internal/model/sampleDataModel/CurrencyTableEVMMappingTest.java`
+        }
+    ];
+
+    /**
+     * General purpose model and data representation types
+     *
+     * @type {{from: string, to: string}[]}
+     */
+    const modelFiles = [
+        {
+            from: `${javaTemplateDir}/internal/model/package-info.java`,
+            to: `${javaDir}/internal/model/package-info.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/model/FileNotification.java`,
+            to: `${javaDir}/internal/model/FileNotification.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/model/DeleteMessageDTO.java`,
+            to: `${javaDir}/internal/model/DeleteMessageDTO.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/model/Tokenizable.java`,
+            to: `${javaDir}/internal/model/Tokenizable.java`
+        },
+        {
+            from: `${javaTemplateDir}/internal/model/TokenizableMessage.java`,
+            to: `${javaDir}/internal/model/TokenizableMessage.java`
         }
     ];
 
@@ -404,7 +405,8 @@ function getTemplateFiles(gen) {
         .concat(...(usingRabbitMq ? _rabbitMqSpecApplicationProperties : _kafkaSpecApplicationProperties))
         .concat(...sampleDataModelFiles)
         .concat(...applicationPropertiesFiles)
-        .concat(...fileUploadConfigFiles);
+        .concat(...fileUploadConfigFiles)
+        .concat(...modelFiles);
 }
 
 module.exports = {

@@ -1,6 +1,5 @@
-package <%= packageName %>.internal.fileProcessing;
+package <%= packageName %>.internal.model;
 
-import <%= packageName %>.internal.fileProcessing.platform.TokenizableMessage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
