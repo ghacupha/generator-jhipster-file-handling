@@ -1,6 +1,6 @@
 package <%= packageName %>.internal.fileProcessing.fileNotification.processors;
 
-import <%= packageName %>.internal.fileProcessing.fileNotification.FileNotification;
+import <%= packageName %>.internal.model.FileNotification;
 
 public interface FileUploadProcessor<T> {
 

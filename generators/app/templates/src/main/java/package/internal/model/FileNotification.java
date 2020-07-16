@@ -1,4 +1,4 @@
-package <%= packageName %>.internal.fileProcessing.fileNotification;
+package <%= packageName %>.internal.model;
 
 import <%= packageName %>.internal.fileProcessing.platform.TokenizableMessage;
 import <%= packageName %>.domain.enumeration.<%= classNamesPrefix %>FileModelType;

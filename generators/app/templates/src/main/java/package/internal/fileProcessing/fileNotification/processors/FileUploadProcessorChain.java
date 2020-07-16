@@ -1,7 +1,7 @@
 package <%= packageName %>.internal.fileProcessing.fileNotification.processors;
 
 import com.google.common.collect.ImmutableList;
-import <%= packageName %>.internal.fileProcessing.fileNotification.FileNotification;
+import <%= packageName %>.internal.model.FileNotification;
 import <%= packageName %>.service.dto.<%= classNamesPrefix %>FileUploadDTO;
 import lombok.extern.slf4j.Slf4j;
 
