@@ -34,14 +34,8 @@ const MICROSERVICE_FILE_UPLOADS_JDL = 'fileUploads-microservice';
 // other constants
 const GENERAL_CLIENT_ROOT_FOLDER = 'fileUploads';
 const EXAMPLE_FILE_MODEL_TYPES = 'SERVICE_OUTLETS,CURRENCY_LIST,FX_RATES,SCHEME_LIST,SECTORS,LEDGERS';
-const RABBITMQ = 'RabbitMQ';
-const KAFKA = 'Kafka';
-const DEFAULT_BROKER_TYPE = RABBITMQ;
 
-// MQ dependencies
-const STREAM_RABBIT_VERSION = '3.0.5.RELEASE';
-const STREAM_KAFKA_VERSION = '3.0.5.RELEASE';
-const KAFKA_CLIENTS_VERSION = '1.0.2';
+// Dependencies
 const OZLERHAKAN_POIJI_VERSION = '1.20.0';
 const LOMBOK_VERSION = '1.18.6';
 
@@ -139,38 +133,15 @@ module.exports = class extends BaseGenerator {
                 message: `What ${chalk.yellow('*file model types')} would you like to represent?`,
                 store: true,
                 default: EXAMPLE_FILE_MODEL_TYPES
-            },
-            {
-                type: 'list',
-                name: 'messageBrokerType',
-                message: `Which ${chalk.yellow('*type*')} of message broker would you like to add?`,
-                choices: [
-                    {
-                        value: RABBITMQ,
-                        name: 'RabbitMQ message broker (recommended for simple projects)'
-                    },
-                    {
-                        value: KAFKA,
-                        name: 'Kafka message broker (recommended for advanced projects)'
-                    }
-                ],
-                store: true,
-                default: DEFAULT_BROKER_TYPE
             }
         ];
 
         const done = this.async();
-        if (this.defaultOptions) {
-            this.messageBrokerType = DEFAULT_BROKER_TYPE;
-            // this.rabbitMqNameOfMessage = DEFAULT_RABBITMQ_MESSAGE_NAME;
+        this.prompt(prompts).then(answers => {
+            this.promptAnswers = answers;
+            // To access props answers use this.promptAnswers.someOption;
             done();
-        } else {
-            this.prompt(prompts).then(answers => {
-                this.promptAnswers = answers;
-                // To access props answers use this.promptAnswers.someOption;
-                done();
-            });
-        }
+        });
     }
 
     writing() {
@@ -214,10 +185,6 @@ module.exports = class extends BaseGenerator {
 
         if (typeof this.addFieldAndClassPrefix === 'undefined') {
             this.addFieldAndClassPrefix = this.promptAnswers.addFieldAndClassPrefix;
-        }
-
-        if (typeof this.messageBrokerType === 'undefined') {
-            this.messageBrokerType = this.promptAnswers.messageBrokerType;
         }
 
         // show all variables
