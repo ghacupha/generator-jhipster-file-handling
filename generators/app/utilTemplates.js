@@ -35,7 +35,7 @@ function getTemplateFiles(gen) {
 
     /**
      * Configuration file for file-uploads as coded in the package/config folder. These configure spring-boot
-     * to read file-uppload properties from the fileUploads.yml files
+     * to read file-upload properties from the fileUploads.yml files
      *
      * @type {{from: string, to: string}[]}
      */
