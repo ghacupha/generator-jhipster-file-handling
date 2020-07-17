@@ -1,4 +1,4 @@
-package <%= packageName %>.internal.fileProcessing.fileNotification.processors;
+package <%= packageName %>.internal.fileProcessing;
 
 import <%= packageName %>.internal.model.FileNotification;
 

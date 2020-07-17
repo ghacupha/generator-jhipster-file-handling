@@ -131,24 +131,24 @@ function getTemplateFiles(gen) {
             to: `${javaDir}/internal/fileProcessing/TokenValueSearch.java`
         },
         {
-            from: `${javaTemplateDir}/internal/fileProcessing/fileNotification/processors/BatchSupportedFileUploadProcessor.java`,
-            to: `${javaDir}/internal/fileProcessing/fileNotification/processors/BatchSupportedFileUploadProcessor.java`
+            from: `${javaTemplateDir}/internal/fileProcessing/BatchSupportedFileUploadProcessor.java`,
+            to: `${javaDir}/internal/fileProcessing/BatchSupportedFileUploadProcessor.java`
         },
         {
-            from: `${javaTemplateDir}/internal/fileProcessing/fileNotification/processors/FileUploadProcessor.java`,
-            to: `${javaDir}/internal/fileProcessing/fileNotification/processors/FileUploadProcessor.java`
+            from: `${javaTemplateDir}/internal/fileProcessing/FileUploadProcessor.java`,
+            to: `${javaDir}/internal/fileProcessing/FileUploadProcessor.java`
         },
         {
-            from: `${javaTemplateDir}/internal/fileProcessing/fileNotification/processors/FileUploadProcessorChain.java`,
-            to: `${javaDir}/internal/fileProcessing/fileNotification/processors/FileUploadProcessorChain.java`
+            from: `${javaTemplateDir}/internal/fileProcessing/FileUploadProcessorChain.java`,
+            to: `${javaDir}/internal/fileProcessing/FileUploadProcessorChain.java`
         },
         {
-            from: `${javaTemplateDir}/internal/fileProcessing/fileNotification/processors/FileUploadProcessorContainer.java`,
-            to: `${javaDir}/internal/fileProcessing/fileNotification/processors/FileUploadProcessorContainer.java`
+            from: `${javaTemplateDir}/internal/fileProcessing/FileUploadProcessorContainer.java`,
+            to: `${javaDir}/internal/fileProcessing/FileUploadProcessorContainer.java`
         },
         {
-            from: `${javaTemplateDir}/internal/fileProcessing/fileNotification/processors/package-info.java`,
-            to: `${javaDir}/internal/fileProcessing/fileNotification/processors/package-info.java`
+            from: `${javaTemplateDir}/internal/fileProcessing//package-info.java`,
+            to: `${javaDir}/internal/fileProcessing/package-info.java`
         },
         {
             from: `${javaTemplateDir}/internal/fileProcessing/StringTokenValueSearch.java`,

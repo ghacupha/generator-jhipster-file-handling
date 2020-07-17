@@ -1,4 +1,4 @@
-package <%= packageName %>.internal.fileProcessing.fileNotification.processors;
+package <%= packageName %>.internal.fileProcessing;
 
 import com.google.common.collect.ImmutableList;
 import <%= packageName %>.internal.model.FileNotification;

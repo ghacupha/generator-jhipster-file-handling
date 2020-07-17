@@ -3,7 +3,7 @@ package <%= packageName %>.internal.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import <%= packageName %>.domain.<%= classNamesPrefix %>MessageToken;
 import <%= packageName %>.internal.model.FileNotification;
-import <%= packageName %>.internal.fileProcessing.fileNotification.processors.FileUploadProcessorChain;
+import <%= packageName %>.internal.fileProcessing.FileUploadProcessorChain;
 import <%= packageName %>.internal.util.TokenGenerator;
 import <%= packageName %>.service.<%= classNamesPrefix %>FileUploadService;
 import <%= packageName %>.service.<%= classNamesPrefix %>MessageTokenService;

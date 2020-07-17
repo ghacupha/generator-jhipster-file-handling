@@ -1,4 +1,4 @@
-package <%= packageName %>.internal.fileProcessing.fileNotification.processors;
+package <%= packageName %>.internal.fileProcessing;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.launch.JobLauncher;
