@@ -32,19 +32,6 @@ function getTemplateFiles(gen) {
     const /** {String} */ javaTestDir = gen.javaTestDir;
     const /** {String} */ resourceDir = gen.resourceDir;
     const /** {String} */ resourceTestDir = gen.resourceTestDir;
-    const /** {Boolean} */ usingRabbitMq = gen.messageBrokerType === 'RabbitMQ';
-
-    /**
-     * Returns an array with the spring-boot configuration files
-     *
-     * @type {({from: string, to: string})[]}
-     */
-    const rabbitMQConfigFiles = [
-        {
-            from: `${javaTemplateDir}/config/_CloudMessagingConfiguration.java`,
-            to: `${javaDir}/config/CloudMessagingConfiguration.java`
-        }
-    ];
 
     /**
      * Configuration file for file-uploads as coded in the package/config folder. These configure spring-boot
@@ -342,32 +329,6 @@ function getTemplateFiles(gen) {
     ];
 
     /**
-     * This properties apply when we are using kafka
-     *
-     * @type {{from: string, to: string}[]}
-     * @private
-     */
-    const _kafkaSpecApplicationProperties = [
-        {
-            from: `${resourceDir}config/application-uploads.yml`,
-            to: `${resourceDir}config/application-uploads.yml`
-        }
-    ];
-
-    /**
-     * These properties apply when we are using RabbitMq
-     *
-     * @type {{from: string, to: string}[]}
-     * @private
-     */
-    const _rabbitMqSpecApplicationProperties = [
-        {
-            from: `${resourceDir}config/application-uploads-rabbitMq.yml`,
-            to: `${resourceDir}config/application-uploads.yml`
-        }
-    ];
-
-    /**
      * General file templates and configurations
      *
      * @type {({from: string, to: string})[]}
@@ -393,7 +354,6 @@ function getTemplateFiles(gen) {
 
     // return files.concat(configurationFiles).concat(batchFiles);
     return files
-        .concat(...(usingRabbitMq ? rabbitMQConfigFiles : []))
         .concat(...batchFiles)
         .concat(...excelWorkflowFiles)
         .concat(...fileProcessingWorkflowFiles)
@@ -402,7 +362,6 @@ function getTemplateFiles(gen) {
         .concat(...serviceFiles)
         .concat(...testFiles)
         .concat(...testExcelFiles)
-        .concat(...(usingRabbitMq ? _rabbitMqSpecApplicationProperties : _kafkaSpecApplicationProperties))
         .concat(...sampleDataModelFiles)
         .concat(...applicationPropertiesFiles)
         .concat(...fileUploadConfigFiles)
