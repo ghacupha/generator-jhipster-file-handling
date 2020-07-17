@@ -23,7 +23,6 @@ const BaseGenerator = require('generator-jhipster/generators/generator-base');
 const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
 const packagejs = require('../../package.json');
 const UtilJdl = require('./utilJdl.js');
-const utilProps = require('./utilProperties.js');
 const genUtils = require('./generalUtils.js');
 const templateUtils = require('./utilTemplates.js');
 
@@ -38,13 +37,10 @@ const EXAMPLE_FILE_MODEL_TYPES = 'SERVICE_OUTLETS,CURRENCY_LIST,FX_RATES,SCHEME_
 const RABBITMQ = 'RabbitMQ';
 const KAFKA = 'Kafka';
 const DEFAULT_BROKER_TYPE = RABBITMQ;
-// const DEFAULT_RABBITMQ_MESSAGE_NAME = 'message';
 
 // MQ dependencies
 const STREAM_RABBIT_VERSION = '3.0.5.RELEASE';
 const STREAM_KAFKA_VERSION = '3.0.5.RELEASE';
-const STREAM_CLOUD_DEPENDENCY_VERSION = 'Horsham.SR5';
-const STREAM_CLOUD_STREAM_VERSION = '3.0.5.RELEASE';
 const KAFKA_CLIENTS_VERSION = '1.0.2';
 const OZLERHAKAN_POIJI_VERSION = '1.20.0';
 const LOMBOK_VERSION = '1.18.6';
@@ -68,7 +64,7 @@ module.exports = class extends BaseGenerator {
             displayLogo() {
                 // Have Yeoman greet the user.
                 this.log(
-                    `\nWelcome to the ${chalk.bold.yellow('JHipster file-handling')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`
+                    `\nWelcome to the ${chalk.bold.green('JHipster file-handling')} generator! ${chalk.green(`v${packagejs.version}\n`)}`
                 );
             },
             checkJhipster() {
@@ -80,6 +76,9 @@ module.exports = class extends BaseGenerator {
                     );
                 }
             },
+            /**
+             * We use this function to disable the app if we find aspects we are not good at navigating
+             */
             checkServerFramework() {
                 if (this.jhipsterAppConfig.skipServer) {
                     this.env.error(`${chalk.red.bold('ERROR!')} This module works only for server...`);
@@ -99,17 +98,29 @@ module.exports = class extends BaseGenerator {
                     this.jhipsterAppConfig.applicationType === 'gateway',
                 type: 'input',
                 name: 'gatewayMicroserviceName',
-                message: 'What is the microservice name for the file handling workflow?',
-                default: `${this.jhipsterAppConfig.baseName}`
+                message: `What is the ${chalk.blue('*microservice name')} for the file handling workflow?`,
+                default: `${this.jhipsterAppConfig.baseName}`,
+                store: true
             },
             {
-                when: () =>
-                    (typeof this.addFieldAndClassPrefix === 'undefined' && this.jhipsterAppConfig.applicationType === 'microservice') ||
-                    this.jhipsterAppConfig.applicationType === 'gateway',
-                type: 'input',
+                when: () => typeof this.addFieldAndClassPrefix === 'undefined' && this.jhipsterAppConfig.applicationType === 'microservice',
+                type: 'list',
                 name: 'addFieldAndClassPrefix',
-                message: 'Do you want to prefix fields and classes for the microservice file handling workflows? (true/false)',
-                default: false
+                message: `Do you want to ${chalk.blue(
+                    '*prefix'
+                )} fields and classes for the microservice file handling workflows? (true/false)`,
+                choices: [
+                    {
+                        value: true,
+                        name: `${chalk.green('TRUE')}: Add prefix to distinguish from other microservices on the client`
+                    },
+                    {
+                        value: false,
+                        name: `${chalk.red('FALSE')}: Best option if you only have one microservice for uploading data from excel`
+                    }
+                ],
+                store: true,
+                default: true
             },
             {
                 when: () =>
@@ -117,14 +128,16 @@ module.exports = class extends BaseGenerator {
                 type: 'input',
                 name: 'generalClientRootFolder',
                 // eslint-disable-next-line quotes
-                message: "What is the general client folder's name for the file handling workflow?",
+                message: `What is the ${chalk.yellow("*general client folder's")} name for the file handling workflow?`,
+                store: true,
                 default: GENERAL_CLIENT_ROOT_FOLDER
             },
             {
                 when: () => typeof this.fileModelTypes === 'undefined',
                 type: 'input',
                 name: 'fileModelTypes',
-                message: 'What file model types would you like to represent?',
+                message: `What ${chalk.yellow('*file model types')} would you like to represent?`,
+                store: true,
                 default: EXAMPLE_FILE_MODEL_TYPES
             },
             {
