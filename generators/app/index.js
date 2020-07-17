@@ -33,7 +33,6 @@ const MICROSERVICE_FILE_UPLOADS_JDL = 'fileUploads-microservice';
 
 // other constants
 const GENERAL_CLIENT_ROOT_FOLDER = 'fileUploads';
-const EXAMPLE_FILE_MODEL_TYPES = 'SERVICE_OUTLETS,CURRENCY_LIST,FX_RATES,SCHEME_LIST,SECTORS,LEDGERS';
 
 // Dependencies
 const OZLERHAKAN_POIJI_VERSION = '1.20.0';
@@ -131,8 +130,7 @@ module.exports = class extends BaseGenerator {
                 type: 'input',
                 name: 'fileModelTypes',
                 message: `What ${chalk.yellow('*file model types')} would you like to represent?`,
-                store: true,
-                default: EXAMPLE_FILE_MODEL_TYPES
+                store: true
             }
         ];
 
@@ -180,7 +178,11 @@ module.exports = class extends BaseGenerator {
         }
 
         if (typeof this.fileModelTypes === 'undefined') {
-            this.fileModelTypes = this.promptAnswers.fileModelTypes;
+            if (this.promptAnswers.fileModelTypes === '') {
+                this.fileModelTypes = 'CURRENCY_LIST';
+            } else {
+                this.fileModelTypes = `CURRENCY_LIST,${this.promptAnswers.fileModelTypes}`;
+            }
         }
 
         if (typeof this.addFieldAndClassPrefix === 'undefined') {
