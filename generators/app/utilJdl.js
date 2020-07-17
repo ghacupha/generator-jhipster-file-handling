@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 the Edwin Njeru or authors from the JHipster project.
+ * Copyright 2020 Edwin Njeru or authors from the JHipster project.
  *
  * This file is part of the JHipster project, see http://www.jhipster.tech/
  * for more information.

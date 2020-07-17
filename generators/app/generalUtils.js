@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 /**
- * Copyright 2013-2020 the Edwin Njeru and the respective JHipster contributors.
+ * Copyright 2013-2020 Edwin Njeru and the respective JHipster contributors.
  *
  * This file is part of the JHipster project, see http://www.jhipster.tech/
  * for more information.
