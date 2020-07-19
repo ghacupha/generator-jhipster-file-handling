@@ -3,7 +3,7 @@ package <%= packageName %>.internal.fileProcessing;
 import com.google.common.collect.ImmutableList;
 import <%= packageName %>.internal.model.FileNotification;
 import <%= packageName %>.service.dto.<%= classNamesPrefix %>FileUploadDTO;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -11,9 +11,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * The idea is to have all processor in a class and apply them to a file upload
  */
-@Slf4j
 public class FileUploadProcessorChain {
-
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(FileUploadProcessorChain.class);
     private final List<FileUploadProcessor<<%= classNamesPrefix %>FileUploadDTO>> fileUploadProcessors;
 
     public FileUploadProcessorChain(final List<FileUploadProcessor<<%= classNamesPrefix %>FileUploadDTO>> fileUploadProcessors) {

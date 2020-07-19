@@ -10,7 +10,8 @@ import <%= packageName %>.internal.messaging.platform.TokenizableMessage;
 import <%= packageName %>.internal.util.TokenGenerator;
 import <%= packageName %>.service.<%= classNamesPrefix %>MessageTokenService;
 import <%= packageName %>.service.dto.<%= classNamesPrefix %>MessageTokenDTO;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -21,9 +22,10 @@ import org.springframework.data.domain.Pageable;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Slf4j
 @SpringBootTest(classes = {<%= appName %>App.class})
 public class JsonStringsControllerIT {
+
+    private final static Logger log = LoggerFactory.getLogger(JsonStringsControllerIT.class);
 
     @Autowired
     private JsonStringStreams jsonStringStreams;

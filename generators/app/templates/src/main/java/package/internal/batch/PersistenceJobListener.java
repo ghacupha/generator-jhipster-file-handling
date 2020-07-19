@@ -1,6 +1,6 @@
 package <%= packageName %>.internal.batch;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.context.annotation.Scope;
@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Scope;
 /**
  * This class can be used to configure batch related actions before, and after but only within this job
  */
-@Slf4j
 @Scope("job")
 public class PersistenceJobListener implements JobExecutionListener {
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(PersistenceJobListener.class);
 
     private final long fileId;
     private final long startUpTime;

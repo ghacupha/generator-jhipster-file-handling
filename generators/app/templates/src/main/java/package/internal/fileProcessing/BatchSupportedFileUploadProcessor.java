@@ -3,7 +3,7 @@ package <%= packageName %>.internal.fileProcessing;
 import <%= packageName %>.internal.model.FileNotification;
 import <%= packageName %>.domain.enumeration.<%= classNamesPrefix %>FileModelType;
 import <%= packageName %>.service.dto.<%= classNamesPrefix %>FileUploadDTO;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.JobParametersInvalidException;
@@ -15,9 +15,8 @@ import org.springframework.batch.core.repository.JobRestartException;
 /**
  * This class is create to enable code reuse where the only parameter that changes the file-model-type
  */
-@Slf4j
 public class BatchSupportedFileUploadProcessor implements FileUploadProcessor<<%= classNamesPrefix %>FileUploadDTO>  {
-
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(BatchSupportedFileUploadProcessor.class);
 
     private final JobLauncher jobLauncher;
     public final Job batchJob;

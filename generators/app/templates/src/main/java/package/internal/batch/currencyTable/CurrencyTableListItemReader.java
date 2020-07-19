@@ -5,7 +5,7 @@ import <%= packageName %>.internal.batch.ListPartition;
 import <%= packageName %>.internal.excel.ExcelFileDeserializer;
 import <%= packageName %>.internal.model.sampleDataModel.CurrencyTableEVM;
 import <%= packageName %>.service.<%= classNamesPrefix %>FileUploadService;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;
 import org.springframework.batch.item.ParseException;
@@ -21,10 +21,10 @@ import java.util.List;
  * Take special note of how the listPartition is configured once the object is created at the
  * beginning of a job. This only works because the bean is configured with job-scope.
  */
-@Slf4j
 @Scope("job")
 public class CurrencyTableListItemReader implements ItemReader<List<CurrencyTableEVM>> {
 
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(CurrencyTableListItemReader.class);
     private final FileUploadsProperties fileUploadsProperties;
 
     private final ExcelFileDeserializer<CurrencyTableEVM> deserializer;

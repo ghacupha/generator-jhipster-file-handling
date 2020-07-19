@@ -2,7 +2,8 @@ package <%= packageName %>.internal.excel;
 
 import com.poiji.option.PoijiOptions;
 import com.poiji.option.PoijiOptions.PoijiOptionsBuilder;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,8 +11,9 @@ import java.nio.file.Files;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-@Slf4j
 public class ExcelTestUtil {
+
+    private final static Logger log = LoggerFactory.getLogger(ExcelTestUtil.class);
 
     public static byte[] toBytes(File file) throws IOException {
 

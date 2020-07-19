@@ -3,7 +3,7 @@ package <%= packageName %>.internal.excel.deserializer;
 import com.poiji.bind.Poiji;
 import com.poiji.exception.PoijiExcelType;
 import com.poiji.option.PoijiOptions;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 
 import java.io.InputStream;
 import java.util.List;
@@ -14,8 +14,8 @@ import static <%= packageName %>.internal.excel.deserializer.DeserializationUtil
  * This is the default configuration for excel deserialization for an excel view model of type T
  * @param <T> Type of excel view model
  */
-@Slf4j
 public class DefaultExcelFileDeserializer<T> {
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(DefaultExcelFileDeserializer.class);
 
     private final Class<T> deserializationClass;
     private final PoijiOptions poijiOptions;

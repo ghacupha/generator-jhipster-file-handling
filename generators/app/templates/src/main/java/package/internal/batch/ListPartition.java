@@ -2,7 +2,7 @@ package <%= packageName %>.internal.batch;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +13,8 @@ import java.util.List;
  * the entire time the list if still in progress. If a new one is initialized it will cause
  * trouble
  */
-@Slf4j
 public class ListPartition<T> {
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(ListPartition.class);
 
     private final int dataSize;
 

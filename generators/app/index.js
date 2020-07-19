@@ -289,25 +289,20 @@ module.exports = class extends BaseGenerator {
         if (this.buildTool === 'maven') {
             if (typeof this.addMavenDependencyManagement === 'function') {
                 this.addMavenDependency('com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION);
-                this.addMavenDependency('org.projectlombok', 'lombok', LOMBOK_VERSION);
                 this.addMavenDependency('org.springframework.boot', 'spring-boot-starter-batch');
             } else {
                 this.addMavenDependency('com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION);
-                this.addMavenDependency('org.projectlombok', 'lombok', LOMBOK_VERSION);
                 this.addMavenDependency('org.springframework.boot', 'spring-boot-starter-batch');
             }
-            this.addMavenAnnotationProcessor('org.projectlombok', 'lombok', LOMBOK_VERSION);
         } else if (this.buildTool === 'gradle') {
             if (typeof this.addGradleDependencyManagement === 'function') {
                 this.addGradleDependency('compile', 'com.github.ozlerhakan', 'poiji');
-                this.addGradleDependency('compile', 'org.projectlombok', 'lombok');
                 this.addGradleDependency('compile', 'org.springframework.boot', 'spring-boot-starter-batch');
                 this.addGradleDependency('compile', 'org.apache.kafka', 'kafka-clients');
             } else {
                 this.addGradleDependency('compile', 'com.github.ozlerhakan', 'poiji', OZLERHAKAN_POIJI_VERSION);
                 this.addGradleDependency('compile', 'org.springframework.boot', 'spring-boot-starter-batch', LOMBOK_VERSION);
             }
-            this.addAnnotationProcessor('org.projectlombok', 'lombok', LOMBOK_VERSION);
             this.addGradleProperty('poiji.version', OZLERHAKAN_POIJI_VERSION);
         }
     }
