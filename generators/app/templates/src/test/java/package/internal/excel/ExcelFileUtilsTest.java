@@ -12,6 +12,9 @@ import static <%= packageName %>.internal.excel.ExcelTestUtil.toBytes;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
+/**
+ * This test shows how the deserializer works inside the ItemReader interface.
+ */
 public class ExcelFileUtilsTest {
 
     private ExcelDeserializerContainer container;

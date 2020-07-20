@@ -16,10 +16,9 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * If nothing is added in value for this test it confirms that the excel deserializer beans
- * <p>
  * are correctly configured. We are using the sample currency-table model from the internal
- * <p>
- * package but and if the user wishes additional tests can be added for custom data models
+ * package but and if the user wishes additional tests can be added for custom data models.
+ * The deserializer should work after being successfully injected into this test from a spring container.
  */
 @SpringBootTest(classes = <%= appName %>App.class)
 public class ExcelFileUtilsIT {
