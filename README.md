@@ -97,9 +97,11 @@ Initiate this module by the yeoman command:
     yo jhipster-file-handling
 
 Input the following prompts :
-  
- - folder name (also used as prefix) for file-handling entities on the front end - TRUE/FALSE, whether to prefix the entities with the the previous folder name - File model types: Input comma separated names of entities, in capital case, with no spaces between them.
-  
+
+- folder name (also used as prefix) for file-handling entities on the front end
+- TRUE/FALSE, whether to prefix the entities with the the previous folder name
+- File model types: Input comma separated names of entities, in capital case, with no spaces between them.
+
 Then press return to proceed.
 
 Formerly entered file-model-types become the enumerations for different entity types for data uploaded from the Excel file.
