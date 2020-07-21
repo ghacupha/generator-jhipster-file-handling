@@ -50,7 +50,9 @@ module.exports = class extends BaseGenerator {
     executeJdlScript() {
         const done = this.async();
         if (this.applicationType === 'microservice' && this.addFieldAndClassPrefix) {
-            this.runMicroserviceScript(`${MICROSERVICE_FILE_UPLOADS_JDL}`);
+            this.runMicroserviceScript(`${MICROSERVICE_FILE_UPLOADS_JDL}`).on('error', () => {
+                this.error('Error experienced when running MICROSERVICE_FILE_UPLOADS_JDL');
+            });
             done();
         }
 

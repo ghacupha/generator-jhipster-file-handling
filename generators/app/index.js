@@ -244,12 +244,11 @@ module.exports = class extends BaseGenerator {
         this._useJdlExecution();
     }
 
-    _useJdlExecution(_callback) {
-        // run jdl script
+    _useJdlExecution() {
         const jdlProcessor = new UtilJdl(this.jhipsterAppConfig.applicationType, this.skipClient, this.addFieldAndClassPrefix);
-        jdlProcessor.executeJdlScript();
-
-        _callback();
+        jdlProcessor.executeJdlScript().on('error', message => {
+            this.error(`The jdl processor experienced an error with message : ${message}`);
+        });
     }
 
     /**
@@ -307,32 +306,32 @@ module.exports = class extends BaseGenerator {
         }
     }
 
-    install() {
-        // todo make wait for the jdlExecution
-        this._useJdlExecution(function() {
-            // So am new to js... Call backs just don't make sense
-        });
-
-        const logMsg = `To install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install`)}`;
-
-        const injectDependenciesAndConstants = err => {
-            if (err) {
-                this.warning('Install of dependencies failed!');
-                this.log(logMsg);
-            }
-        };
-        const installConfig = {
-            bower: false,
-            npm: this.clientPackageManager !== 'yarn',
-            yarn: this.clientPackageManager === 'yarn',
-            callback: injectDependenciesAndConstants
-        };
-        if (this.options['skip-install']) {
-            this.log(logMsg);
-        } else {
-            this.installDependencies(installConfig);
-        }
-    }
+    // install() {
+    //     // todo make wait for the jdlExecution
+    //     // this._useJdlExecution(function() {
+    //     //     // So am new to js... Call backs just don't make sense
+    //     // });
+    //
+    //     const logMsg = `To install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install`)}`;
+    //
+    //     const injectDependenciesAndConstants = err => {
+    //         if (err) {
+    //             this.warning('Install of dependencies failed!');
+    //             this.log(logMsg);
+    //         }
+    //     };
+    //     const installConfig = {
+    //         bower: false,
+    //         npm: this.clientPackageManager !== 'yarn',
+    //         yarn: this.clientPackageManager === 'yarn',
+    //         callback: injectDependenciesAndConstants
+    //     };
+    //     if (this.options['skip-install']) {
+    //         this.log(logMsg);
+    //     } else {
+    //         this.installDependencies(installConfig);
+    //     }
+    // }
 
     end() {
         this.log('End of file-handling generator');
