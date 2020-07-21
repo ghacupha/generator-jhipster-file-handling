@@ -4,7 +4,7 @@ const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 
 describe('JHipster generator file-handling', () => {
-    describe('Test with Maven and AngularX', () => {
+    describe('Test with Maven microservice and no file model types', () => {
         beforeEach(done => {
             helpers
                 .run(path.join(__dirname, '../generators/app'))
@@ -15,9 +15,11 @@ describe('JHipster generator file-handling', () => {
                     testmode: true
                 })
                 .withPrompts({
-                    message: 'simple message to say hello'
-                })
-                .on('end', done);
+                    gatewayMicroserviceName: 'TestMain',
+                    addFieldAndClassPrefix: true,
+                    fileModelTypes: ''
+                });
+            // .on('end', done);
         });
 
         it('generate dummy.txt file', () => {

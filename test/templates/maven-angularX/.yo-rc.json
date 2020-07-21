@@ -1,33 +1,46 @@
 {
   "generator-jhipster": {
     "promptValues": {
-      "packageName": "com.mycompany.myapp",
-      "nativeLanguage": "en"
+      "packageName": "io.github.currencies"
     },
-    "baseName": "sampleMysql",
-    "packageName": "com.mycompany.myapp",
-    "packageFolder": "com/mycompany/myapp",
-    "serverPort": "8080",
+    "jhipsterVersion": "6.10.1",
+    "applicationType": "microservice",
+    "baseName": "currencyMain",
+    "packageName": "io.github.currencies",
+    "packageFolder": "io/github/currencies",
+    "serverPort": "8970",
     "authenticationType": "jwt",
-    "cacheProvider": "ehcache",
+    "cacheProvider": "hazelcast",
     "enableHibernateCache": true,
     "websocket": false,
     "databaseType": "sql",
-    "devDatabaseType": "h2Disk",
-    "prodDatabaseType": "mysql",
-    "searchEngine": false,
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": "elasticsearch",
     "messageBroker": false,
-    "serviceDiscoveryType": false,
+    "serviceDiscoveryType": "consul",
     "buildTool": "maven",
-    "jwtSecretKey": "fd54a45s65fds737b9aafcb3412e07ed99b267f33413274720ddbb7f6c5e64e9f14075f2d7ed041592f0b7657baf8",
-    "clientFramework": "angularX",
-    "useSass": true,
-    "clientPackageManager": "npm",
-    "applicationType": "monolith",
-    "testFrameworks": [],
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "YzU1MDY3MTY4ZDlkMDAxNWFhMmEwYjk5NTFjM2I0YzZhMGQ1MmY2YzdiMTAyMDFlN2E1YjRjMTUxZTkzOWRhNjA3ZGQyNGM4ZGUxODZjZjMxNTczMGQzMTVmNDkwYTc0ZjE4NTRiNWE0YWY2OWU1NDVhODhmZWYxOGE1Yjk3N2E=",
+    "embeddableLaunchScript": false,
+    "creationTimestamp": 1594110007537,
+    "testFrameworks": ["gatling", "cucumber"],
     "jhiPrefix": "jhi",
-    "enableTranslation": true,
-    "nativeLanguage": "en",
-    "languages": ["en"]
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false,
+    "clientPackageManager": "npm",
+    "blueprints": [],
+    "skipClient": true,
+    "skipUserManagement": true
+  },
+  "generator-jhipster-file-handling": {
+    "promptValues": {
+      "gatewayMicroserviceName": "TestMain",
+      "addFieldAndClassPrefix": true,
+      "fileModelTypes": ""
+    },
+    "lastLiquibaseTimestamp": 1595229581000
   }
 }
