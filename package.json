@@ -1,6 +1,6 @@
 {
   "name": "generator-jhipster-file-handling",
-  "version": "0.1.1-SNAPSHOT",
+  "version": "1.0.0",
   "description": "Installs entities and dependencies to enable reading from excel file data",
   "keywords": [
     "yeoman-generator",
