@@ -2,6 +2,7 @@ const path = require('path');
 const fse = require('fs-extra');
 const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
+const expectedFiles = require('./expected-files');
 
 describe('JHipster generator file-handling', () => {
     describe('Test with Maven microservice and no file model types', () => {
@@ -9,7 +10,7 @@ describe('JHipster generator file-handling', () => {
             helpers
                 .run(path.join(__dirname, '../generators/app'))
                 .inTmpDir(dir => {
-                    fse.copySync(path.join(__dirname, '../test/templates/maven-angularX'), dir);
+                    fse.copySync(path.join(__dirname, '../test/templates/maven'), dir);
                 })
                 .withOptions({
                     testmode: true
@@ -18,33 +19,40 @@ describe('JHipster generator file-handling', () => {
                     gatewayMicroserviceName: 'TestMain',
                     addFieldAndClassPrefix: true,
                     fileModelTypes: ''
-                });
-            // .on('end', done);
+                })
+                .on('end', done);
         });
 
-        it('generate dummy.txt file', () => {
-            assert.file(['dummy-maven.txt', 'dummy-angularX.txt']);
+        it('Creates expected default files for file-uploads', () => {
+            assert.file(expectedFiles.resources);
+            assert.file(expectedFiles.server);
+            // assert.file(expectedFiles.liquibase);
         });
     });
 
-    // describe('Test with Gradle and React', () => {
-    //     beforeEach(done => {
-    //         helpers
-    //             .run(path.join(__dirname, '../generators/app'))
-    //             .inTmpDir(dir => {
-    //                 fse.copySync(path.join(__dirname, '../test/templates/gradle-react'), dir);
-    //             })
-    //             .withOptions({
-    //                 testmode: true
-    //             })
-    //             .withPrompts({
-    //                 message: 'simple message to say hello'
-    //             })
-    //             .on('end', done);
-    //     });
-    //
-    //     it('generate dummy.txt file', () => {
-    //         assert.file(['dummy-gradle.txt', 'dummy-react.txt']);
-    //     });
-    // });
+    describe('Test with Gradle microservice and no file model types', () => {
+        beforeEach(done => {
+            helpers
+                .run(path.join(__dirname, '../generators/app'))
+                .inTmpDir(dir => {
+                    fse.copySync(path.join(__dirname, '../test/templates/gradle'), dir);
+                })
+                .withOptions({
+                    testmode: true
+                })
+                .withPrompts({
+                    gatewayMicroserviceName: 'TestMain',
+                    addFieldAndClassPrefix: true,
+                    fileModelTypes: ''
+                })
+                .on('end', done);
+        });
+
+        it('Creates expected default files for file-uploads', () => {
+            // TODO review gradle directory structure
+            assert.file(expectedFiles.resources);
+            assert.file(expectedFiles.server);
+            // assert.file(expectedFiles.liquibase);
+        });
+    });
 });
