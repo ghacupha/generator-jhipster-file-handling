@@ -1,6 +1,6 @@
-package io.github.currencies.config;
+package <%= packageName %>.config;
 
-import io.github.currencies.CurrencyMainApp;
+import <%= packageName %>.<%= appName %>App;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * This is to test whether the file-upload configurations will be setup at startup
  */
-@SpringBootTest(classes = CurrencyMainApp.class)
+@SpringBootTest(classes = <%= appName %>App.class)
 public class FileUploadPropertiesIT {
 
     @Autowired
