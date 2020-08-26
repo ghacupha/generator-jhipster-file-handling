@@ -88,7 +88,7 @@ module.exports = class extends BaseGenerator {
             {
                 when: () =>
                     (typeof this.gatewayMicroserviceName === 'undefined' && this.jhipsterAppConfig.applicationType === 'microservice') ||
-                    this.jhipsterAppConfig.applicationType === 'gateway',
+                    this.jhipsterAppConfig.applicationType === 'monolith',
                 type: 'input',
                 name: 'gatewayMicroserviceName',
                 message: `What is the ${chalk.blue('*microservice name')} for the file handling workflow?`,
@@ -116,8 +116,7 @@ module.exports = class extends BaseGenerator {
                 default: true
             },
             {
-                when: () =>
-                    typeof this.generalClientRootFolder === 'undefined' && this.jhipsterAppConfig.applicationType !== 'microservice',
+                when: () => typeof this.generalClientRootFolder === 'undefined' && this.jhipsterAppConfig.applicationType === 'monolith',
                 type: 'input',
                 name: 'generalClientRootFolder',
                 // eslint-disable-next-line quotes
@@ -215,7 +214,7 @@ module.exports = class extends BaseGenerator {
         };
 
         // setup field and class names
-        if (this.jhipsterAppConfig.applicationType === 'microservice') {
+        if (this.jhipsterAppConfig.applicationType === 'microservice' || this.jhipsterAppConfig.applicationType === 'monolith') {
             this.fieldNamesPrefix = this.gatewayMicroserviceName;
             this.classNamesPrefix = genUtils.capitalizeFLetter(this.gatewayMicroserviceName);
         }
