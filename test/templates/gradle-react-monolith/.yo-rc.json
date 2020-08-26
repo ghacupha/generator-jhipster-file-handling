@@ -1,13 +1,13 @@
 {
   "generator-jhipster": {
     "promptValues": {
-      "packageName": "io.github.contacts"
+      "packageName": "io.github.currencies"
     },
     "jhipsterVersion": "6.10.1",
     "applicationType": "monolith",
     "baseName": "contacts",
-    "packageName": "io.github.contacts",
-    "packageFolder": "io/github/contacts",
+    "packageName": "io.github.currencies",
+    "packageFolder": "io/github/currencies",
     "serverPort": "8980",
     "authenticationType": "session",
     "cacheProvider": "caffeine",
@@ -41,7 +41,7 @@
     "promptValues": {
       "gatewayMicroserviceName": "fileUploads",
       "generalClientRootFolder": "fileUploads",
-      "fileModelTypes": "CONTACTS"
+      "fileModelTypes": ""
     },
     "lastLiquibaseTimestamp": 1598450297000
   }

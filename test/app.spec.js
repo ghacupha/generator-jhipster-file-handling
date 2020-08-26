@@ -75,9 +75,14 @@ describe('JHipster generator file-handling', () => {
                 .on('end', done);
         });
 
-        it('Creates expected default files for file-uploads', () => {
+        it('Creates expected default resource files for file-uploads', () => {
             // TODO review gradle directory structure
             assert.file(expectedFiles.resources);
+            // assert.file(expectedFiles.liquibase);
+        });
+
+        it('Creates expected default server files for file-uploads', () => {
+            // TODO review gradle directory structure
             assert.file(expectedFiles.server);
             // assert.file(expectedFiles.liquibase);
         });
