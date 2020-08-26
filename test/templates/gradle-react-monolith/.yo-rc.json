@@ -1,0 +1,48 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "io.github.contacts"
+    },
+    "jhipsterVersion": "6.10.1",
+    "applicationType": "monolith",
+    "baseName": "contacts",
+    "packageName": "io.github.contacts",
+    "packageFolder": "io/github/contacts",
+    "serverPort": "8980",
+    "authenticationType": "session",
+    "cacheProvider": "caffeine",
+    "enableHibernateCache": true,
+    "websocket": "spring-websocket",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": "elasticsearch",
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "gradle",
+    "enableSwaggerCodegen": true,
+    "rememberMeKey": "62f119c4a7dde385c1a89edee90ba93401882ce866972bbdef3137194677426895943928e8224aa184b150390e2fb5aa6ac0",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "react",
+    "clientTheme": "cerulean",
+    "clientThemeVariant": "dark",
+    "creationTimestamp": 1598437624347,
+    "testFrameworks": ["gatling", "cucumber", "protractor"],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false,
+    "blueprints": []
+  },
+  "generator-jhipster-file-handling": {
+    "promptValues": {
+      "gatewayMicroserviceName": "fileUploads",
+      "generalClientRootFolder": "fileUploads",
+      "fileModelTypes": "CONTACTS"
+    },
+    "lastLiquibaseTimestamp": 1598450297000
+  }
+}

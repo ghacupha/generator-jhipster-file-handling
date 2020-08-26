@@ -61,15 +61,16 @@ describe('JHipster generator file-handling', () => {
             helpers
                 .run(path.join(__dirname, '../generators/app'))
                 .inTmpDir(dir => {
-                    fse.copySync(path.join(__dirname, '../test/templates/gradle-monolith'), dir);
+                    fse.copySync(path.join(__dirname, '../test/templates/gradle-react-monolith'), dir);
                 })
                 .withOptions({
                     testmode: true
                 })
                 .withPrompts({
-                    gatewayMicroserviceName: 'TestMain',
+                    gatewayMicroserviceName: 'fileUploads',
+                    generalClientRootFolder: 'fileUploads',
                     addFieldAndClassPrefix: true,
-                    fileModelTypes: ''
+                    fileModelTypes: 'CONTACTS'
                 })
                 .on('end', done);
         });
