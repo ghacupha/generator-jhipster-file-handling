@@ -1,0 +1,46 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "io.github.currencies"
+    },
+    "jhipsterVersion": "6.10.1",
+    "applicationType": "monolith",
+    "baseName": "currencyMain",
+    "packageName": "io.github.currencies",
+    "packageFolder": "io/github/currencies",
+    "serverPort": "8970",
+    "authenticationType": "jwt",
+    "cacheProvider": "hazelcast",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": "elasticsearch",
+    "messageBroker": false,
+    "serviceDiscoveryType": "consul",
+    "buildTool": "gradle",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "YzU1MDY3MTY4ZDlkMDAxNWFhMmEwYjk5NTFjM2I0YzZhMGQ1MmY2YzdiMTAyMDFlN2E1YjRjMTUxZTkzOWRhNjA3ZGQyNGM4ZGUxODZjZjMxNTczMGQzMTVmNDkwYTc0ZjE4NTRiNWE0YWY2OWU1NDVhODhmZWYxOGE1Yjk3N2E=",
+    "embeddableLaunchScript": false,
+    "creationTimestamp": 1594110007537,
+    "testFrameworks": ["gatling", "cucumber"],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false,
+    "clientPackageManager": "npm",
+    "blueprints": [],
+    "skipClient": true,
+    "skipUserManagement": true
+  },
+  "generator-jhipster-file-handling": {
+    "promptValues": {
+      "gatewayMicroserviceName": "TestMain",
+      "addFieldAndClassPrefix": true,
+      "fileModelTypes": ""
+    },
+    "lastLiquibaseTimestamp": 1595229581000
+  }
+}

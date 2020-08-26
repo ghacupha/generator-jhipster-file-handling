@@ -63,6 +63,8 @@ const expectedFiles = {
 
     resources: [`${SERVER_MAIN_RES_DIR}config/fileUploads.yml`],
 
+    monolithResources: [`${SERVER_MAIN_RES_DIR}config/fileUploads-general.yml`],
+
     liquibase: [`${SERVER_MAIN_RES_DIR}config/liquibase/changelog/20200720071941_added_springbatch_schema.xml`]
 };
 

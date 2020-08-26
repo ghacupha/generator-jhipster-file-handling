@@ -1,52 +1,52 @@
 entity FileType {
-  fileTypeName String required unique,
-  fileMediumType FileMediumTypes required,
-  description String,
-  fileTemplate AnyBlob,
-  fileType FileModelType
+fileTypeName String required unique,
+fileMediumType FileMediumTypes required,
+description String,
+fileTemplate AnyBlob,
+fileType FileModelType
 }
 entity FileUpload {
-  description String required,
-  fileName String required unique,
-  periodFrom LocalDate,
-  periodTo LocalDate,
-  fileTypeId Long required,
-  dataFile AnyBlob required,
-  uploadSuccessful Boolean,
-  uploadProcessed Boolean,
-  uploadToken String unique
+description String required,
+fileName String required unique,
+periodFrom LocalDate,
+periodTo LocalDate,
+fileTypeId Long required,
+dataFile AnyBlob required,
+uploadSuccessful Boolean,
+uploadProcessed Boolean,
+uploadToken String unique
 }
 entity MessageToken {
-  description String,
-  timeSent Long required,
-  tokenValue String required,
-  received Boolean,
-  actioned Boolean,
-  contentFullyEnqueued Boolean
+description String,
+timeSent Long required,
+tokenValue String required,
+received Boolean,
+actioned Boolean,
+contentFullyEnqueued Boolean
 }
 entity CurrencyTable {
-  currencyCode String unique minlength(3) maxlength(3),
-  locality CurrencyLocality required,
-  currencyName String,
-  country String
+currencyCode String unique minlength(3) maxlength(3),
+locality CurrencyLocality required,
+currencyName String,
+country String
 }
 enum CurrencyLocality {
-  LOCAL,
-  FOREIGN
+LOCAL,
+FOREIGN
 }
 enum FileMediumTypes {
-  EXCEL,
-  EXCEL_XLS,
-  EXCEL_XLSX,
-  EXCEL_XLSB,
-  EXCEL_CSV,
-  EXCEL_XML,
-  PDF,
-  POWERPOINT,
-  DOC,
-  TEXT,
-  JSON,
-  HTML5
+EXCEL,
+EXCEL_XLS,
+EXCEL_XLSX,
+EXCEL_XLSB,
+EXCEL_CSV,
+EXCEL_XML,
+PDF,
+POWERPOINT,
+DOC,
+TEXT,
+JSON,
+HTML5
 }
 enum FileModelType { <%= fileModelTypes %> }
 dto FileUpload, CurrencyTable, MessageToken with mapstruct
@@ -55,4 +55,4 @@ service FileUpload, CurrencyTable, MessageToken with serviceImpl
 service FileType with serviceClass
 search CurrencyTable with elasticsearch
 filter FileType, FileUpload, MessageToken
-clientRootFolder FileType, CurrencyTable, FileUpload, MessageToken with <%= gatewayMicroserviceName %>
+clientRootFolder FileType, CurrencyTable, FileUpload, MessageToken with <%= generalClientRootFolder %>

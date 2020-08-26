@@ -55,4 +55,30 @@ describe('JHipster generator file-handling', () => {
             // assert.file(expectedFiles.liquibase);
         });
     });
+
+    describe('Test with Gradle monolith and no file model types', () => {
+        beforeEach(done => {
+            helpers
+                .run(path.join(__dirname, '../generators/app'))
+                .inTmpDir(dir => {
+                    fse.copySync(path.join(__dirname, '../test/templates/gradle-monolith'), dir);
+                })
+                .withOptions({
+                    testmode: true
+                })
+                .withPrompts({
+                    gatewayMicroserviceName: 'TestMain',
+                    addFieldAndClassPrefix: true,
+                    fileModelTypes: ''
+                })
+                .on('end', done);
+        });
+
+        it('Creates expected default files for file-uploads', () => {
+            // TODO review gradle directory structure
+            assert.file(expectedFiles.resources);
+            assert.file(expectedFiles.server);
+            // assert.file(expectedFiles.liquibase);
+        });
+    });
 });
