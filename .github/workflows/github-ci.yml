@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        sample: [maven, gradle]
+        sample: [maven, gradle, gradle-react-monolith]
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v1
