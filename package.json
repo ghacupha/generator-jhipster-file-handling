@@ -1,73 +1,41 @@
 {
   "name": "generator-jhipster-file-handling",
   "version": "1.1.1",
-  "description": "Installs entities and dependencies to enable reading from excel file data",
+  "description": "Spring batch workflows for reading excel-uploaded data",
   "keywords": [
     "yeoman-generator",
     "jhipster-module",
     "excel files upload",
-    "jhipster-6"
+    "jhipster-7"
   ],
   "homepage": "https://github.com/ghacupha/generator-jhipster-file-handling",
+  "bugs": {
+    "url": "https://github.com/ghacupha/generator-jhipster-file-handling/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghacupha/generator-jhipster-file-handling.git"
+  },
+  "license": "Apache-2.0",
   "author": {
     "name": "Edwin Njeru",
     "email": "mailnjeru@gmail.com",
     "url": "https://github.com/ghacupha"
   },
+  "main": "generators/app/index.js",
   "files": [
     "generators"
   ],
-  "main": "generators/app/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ghacupha/generator-jhipster-file-handling.git"
-  },
-  "dependencies": {
-    "chalk": "3.0.0",
-    "generator-jhipster": ">=6.0.0",
-    "js-yaml": "^3.14.0",
-    "lodash": "^4.17.15",
-    "mkdirp": "0.5.1",
-    "semver": "7.1.1",
-    "shelljs": "0.8.3",
-    "yeoman-generator": "4.4.0"
-  },
-  "devDependencies": {
-    "eslint": "6.8.0",
-    "eslint-config-airbnb-base": "14.0.0",
-    "eslint-config-prettier": "6.9.0",
-    "eslint-plugin-import": "2.19.1",
-    "eslint-plugin-prettier": "3.1.2",
-    "fs-extra": "8.1.0",
-    "husky": "3.1.0",
-    "lint-staged": "9.5.0",
-    "gulp": "3.9.1",
-    "gulp-bump": "2.7.0",
-    "gulp-eslint": "3.0.1",
-    "gulp-exclude-gitignore": "1.1.1",
-    "gulp-git": "2.1.0",
-    "gulp-istanbul": "1.1.1",
-    "gulp-mocha": "3.0.1",
-    "gulp-nsp": "2.4.2",
-    "gulp-plumber": "1.1.0",
-    "gulp-rename": "1.2.2",
-    "gulp-sequence": "0.4.6",
-    "gulp-shell": "0.6.3",
-    "mocha": "6.2.2",
-    "prettier": "1.19.1",
-    "yeoman-assert": "3.1.1",
-    "yeoman-test": "2.0.0"
-  },
   "scripts": {
     "prettier:format": "prettier --write \"{,**/}*.{js,json,md,yml}\"",
     "pretest": "eslint .",
+    "test": "mocha test",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "release": "git push && git push --tags && npm publish",
     "release:patch": "npm version patch -a -m \"Update to %s\" && npm run release",
     "release:minor": "npm version minor -a -m \"Update to %s\" && npm run release",
-    "release:major": "npm version major -a -m \"Update to %s\" && npm run release",
-    "test": "mocha test"
+    "release:major": "npm version major -a -m \"Update to %s\" && npm run release"
   },
   "husky": {
     "hooks": {
@@ -80,8 +48,40 @@
       "git add"
     ]
   },
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/ghacupha/generator-jhipster-file-handling/issues"
+  "dependencies": {
+    "chalk": "3.0.0",
+    "generator-jhipster": "^7.0.0",
+    "js-yaml": "^3.14.0",
+    "lodash": "^4.17.15",
+    "mkdirp": "0.5.1",
+    "semver": "7.1.1",
+    "shelljs": "0.8.3",
+    "yeoman-generator": "^5.2.0"
+  },
+  "devDependencies": {
+    "eslint": "6.8.0",
+    "eslint-config-airbnb-base": "14.0.0",
+    "eslint-config-prettier": "6.9.0",
+    "eslint-plugin-import": "2.19.1",
+    "eslint-plugin-prettier": "3.1.2",
+    "fs-extra": "8.1.0",
+    "gulp": "3.9.1",
+    "gulp-bump": "2.7.0",
+    "gulp-eslint": "3.0.1",
+    "gulp-exclude-gitignore": "1.1.1",
+    "gulp-git": "2.1.0",
+    "gulp-istanbul": "1.1.1",
+    "gulp-mocha": "3.0.1",
+    "gulp-nsp": "2.4.2",
+    "gulp-plumber": "1.1.0",
+    "gulp-rename": "1.2.2",
+    "gulp-sequence": "0.4.6",
+    "gulp-shell": "0.6.3",
+    "husky": "3.1.0",
+    "lint-staged": "9.5.0",
+    "mocha": "6.2.2",
+    "prettier": "1.19.1",
+    "yeoman-assert": "3.1.1",
+    "yeoman-test": "2.0.0"
   }
 }
