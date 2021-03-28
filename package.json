@@ -1,6 +1,6 @@
 {
   "name": "generator-jhipster-file-handling",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Spring batch workflows for reading excel-uploaded data",
   "keywords": [
     "yeoman-generator",
